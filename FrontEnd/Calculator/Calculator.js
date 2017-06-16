@@ -6,6 +6,7 @@ var curOperand;
 var displayScreen;
 var operators;
 var operationsDisplay;
+var operationStack;
 setOnClick();
 setDefault();
 
@@ -13,6 +14,7 @@ setDefault();
 
 function setDefault()
 {
+	operationStack = [];
 	curOperator = "";
 	curOperand  = "0"
 	curResult =0;
@@ -93,31 +95,38 @@ displayScreen.innerHTML = curOperand;
 function operatorPressed(keyPressed)
 {
   curOperand = parseFloat(curOperand);
-
-  if(curResult == 0)
-  curResult = curOperand;
+  operationStack.push(curOperand);
+  if(operationStack.length<3)
+  operationStack[1]=keyPressed;
   else
-  {
-   switch(keyPressed)
-   {
-   case "+":
-   curResult = curResult + curOperand;
-   curOperator = "+";
-   break;
-   case "X":
-   curResult = curResult * curOperand;
-   curOperator = "X";
-   break;
-   case "-":
-   curResult = curResult - curOperand;
-   curOperator = "-";
-   break;
-   case "/":
-   curResult = curResult / curOperand;
-   curOperator = "/";
-   break;
-   }
+  computeCurrentStack();
+}
 
+
+function computeCurrentStack()
+{
+ var operator  = operationStack[1];
+
+ switch(operator)
+ {
+ 	case "+":
+ 	operationStack[0] = operationStack[0] + operationStack[2];
+ 	break;
+ 	case "/":
+ 	operationStack[0] = operationStack[0] / operationStack[2];
+ 	break;
+ 	case "X":
+ 	operationStack[0] = operationStack[0] * operationStack[2];
+ 	break;
+ 	case "-":
+ 	operationStack[0] = operationStack[0] - operationStack[2];
+ 	break;
+ }
+
+//Pop the last two elements of the stack to make space for further eleme
+
+ for(var i =0;i<2;i++)
+ operationStack.pop();
 
 }
  
