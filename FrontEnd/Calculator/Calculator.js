@@ -122,12 +122,13 @@ function computeCurrentStack()
  	operationStack[0] = operationStack[0] - operationStack[2];
  	break;
  }
-
+displayScreen.innerHTML =""+ operationStack[0];
 //Pop the last two elements of the stack to make space for further eleme
 
  for(var i =0;i<2;i++)
  operationStack.pop();
 
 }
+
+
  
-}
