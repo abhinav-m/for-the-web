@@ -94,38 +94,44 @@ displayScreen.innerHTML = curOperand;
 
 function operatorPressed(keyPressed)
 {
+ 
+  if(curOperand!="")
+  {	
   curOperand = parseFloat(curOperand);
+  curResult = curOperand;
   operationStack.push(curOperand);
-  if(operationStack.length<3)
-  operationStack[1]=keyPressed;
-  else
+  displayScreen.innerHTML = curOperand + keyPressed;
+  curOperand="";
+  if(operationStack.length==2)
   computeCurrentStack();
+ }
+ curOperator  = keyPressed;
+ displayScreen.innerHTML = curResult + keyPressed;
 }
 
 
 function computeCurrentStack()
 {
- var operator  = operationStack[1];
+ var operator  = curOperator;
 
  switch(operator)
  {
  	case "+":
- 	operationStack[0] = operationStack[0] + operationStack[2];
+ 	operationStack[0] = operationStack[0] + operationStack[1];
  	break;
  	case "/":
- 	operationStack[0] = operationStack[0] / operationStack[2];
+ 	operationStack[0] = operationStack[0] / operationStack[1];
  	break;
  	case "X":
- 	operationStack[0] = operationStack[0] * operationStack[2];
+ 	operationStack[0] = operationStack[0] * operationStack[1];
  	break;
  	case "-":
- 	operationStack[0] = operationStack[0] - operationStack[2];
+ 	operationStack[0] = operationStack[0] - operationStack[1];
  	break;
  }
 displayScreen.innerHTML =""+ operationStack[0];
-//Pop the last two elements of the stack to make space for further eleme
 
- for(var i =0;i<2;i++)
+//Pop the last element of the stack to make space for further elements.
  operationStack.pop();
 
 }
