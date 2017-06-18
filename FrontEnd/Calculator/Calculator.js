@@ -1,26 +1,20 @@
 $(document).ready(function (){
-var result;
-var curResult;
-var curOperator;
+var curExp;
 var curOperand;
+var isDecimal;
 var displayScreen;
-var operators;
-var operationsDisplay;
-var operationStack;
 setOnClick();
 setDefault();
 
 }	);
 
 function setDefault()
-{
-	operationStack = [];
-	curOperator = "";
-	curOperand  = "0"
-	curResult =0;
-	result = 0;
+{ 
+	curOperand = "";
+	curExp  = "";
+	isDecimal = fakse;
     displayScreen = document.getElementById("display");
-	displayScreen.innerHTML = ""+result;
+	displayScreen.innerHTML = "";
 }
 
 function setOnClick()
@@ -79,34 +73,54 @@ function compute(pressedKey)
 
 function operandPressed(keyPressed)
 {
+  if(keyPressed==".")
+	
 
- if(curOperand=="0")
+ if(curOperand=="")
  {
   if(keyPressed==".")
-   curOperand+=".";
+   curOperand="0.";
   else
    curOperand=keyPressed;
  }
  else
-  curOperand+=keyPressed;
-displayScreen.innerHTML = curOperand;
+ {
+  if(!isDecimal&&keyPressed == ".")
+  {
+  curExp+=keyPressed;
+  isDecimal = true;
+  }
+  else
+  {
+  	
+  }
+
+displayScreen.innerHTML = curExp;
 }
 
 function operatorPressed(keyPressed)
 {
- 
-  if(curOperand!="")
-  {	
-  curOperand = parseFloat(curOperand);
-  curResult = curOperand;
-  operationStack.push(curOperand);
-  displayScreen.innerHTML = curOperand + keyPressed;
-  curOperand="";
-  if(operationStack.length==2)
-  computeCurrentStack();
+
+ if(isOperator(curExp.charAt(curExp.length-1))
+ {
+ 	if(keyPressed=="+/-")
+ 	{
+ 	 if(isNegative==-1)
+ 	 curExp+="("+"-";
+ 	 isNegative=isNegative*-1;
+
+ 	}
+ 	else
+ 	{
+ 	 curExp = curExp.slice(0,-1);
+ 	 curExp+=keyPressed;
+ 	}
+ 	}
+
  }
- curOperator  = keyPressed;
- displayScreen.innerHTML = curResult + keyPressed;
+ else
+ curExp+=keyPressed;
+
 }
 
 
