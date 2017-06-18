@@ -2,9 +2,12 @@ $(document).ready(function (){
 var curExp;
 var curOperand;
 var isDecimal;
-var displayScreen;
+var isNegative;
+var expressionDisplay;
+var operandDisplay;
 setOnClick();
 setDefault();
+clearScreen();
 
 }	);
 
@@ -12,9 +15,23 @@ function setDefault()
 { 
 	curOperand = "";
 	curExp  = "";
-	isDecimal = fakse;
-    displayScreen = document.getElementById("display");
-	displayScreen.innerHTML = "";
+	isDecimal = false;
+	isNegative = false;  
+	expressionDisplay = document.getElementById("expressionDisplay");
+	operandDisplay = document.getElementById("operandDisplay");
+}
+
+function clearScreen(){
+  expressionDisplay.innerHTML = "";
+  operandDisplay.innerHTML = "";
+}
+
+function setExpDisplay(){
+ expressionDisplay.innerHTML = curExp;
+}
+
+function setOperandDisplay(){
+ operandDisplay.innerHTML = curOperand;
 }
 
 function setOnClick()
@@ -63,67 +80,82 @@ function compute(pressedKey)
 		case "+":
 		case "-":
 		case "X":
+		case "+/-":
 		operatorPressed(pressedKey);
 		break;
 		
 	}
 }
 
-
+/* If operand is pressed, wait till operator
+is pressed to get value of complete operand */
 
 function operandPressed(keyPressed)
 {
-  if(keyPressed==".")
-	
-
  if(curOperand=="")
  {
-  if(keyPressed==".")
+  if(keyPressed=="."&&isDecimal==false)
+  {
    curOperand="0.";
+   isDecimal = true;
+  }
   else
-   curOperand=keyPressed;
+  curOperand=keyPressed;
  }
  else
  {
   if(!isDecimal&&keyPressed == ".")
   {
-  curExp+=keyPressed;
+  curOperand+=keyPressed;
   isDecimal = true;
   }
-  else
-  {
-  	
-  }
-
-displayScreen.innerHTML = curExp;
+  else if(keyPressed!=".")
+  curOperand+=keyPressed;
+ }
+ setOperandDisplay();
 }
+
+/* If operator is pressed we get three conditions:
+   >Unary +/- (Make the number negative or positive).
+   >Binary Operator pressed , current operand is complete, wait for next operand's input
+   >If currently there exists an operator at the end of the current expression, don't take any more operator input! */
 
 function operatorPressed(keyPressed)
 {
-
- if(isOperator(curExp.charAt(curExp.length-1))
+var tempExp = "";
+//if(!isOperator(curExp.charAt(curExp.length-1)))
+//{
+ if(keyPressed=="+/-")
  {
- 	if(keyPressed=="+/-")
- 	{
- 	 if(isNegative==-1)
- 	 curExp+="("+"-";
- 	 isNegative=isNegative*-1;
-
- 	}
- 	else
- 	{
- 	 curExp = curExp.slice(0,-1);
- 	 curExp+=keyPressed;
- 	}
- 	}
-
+  if(!isNegative)
+  {
+  tempExp = "-"+curOperand;
+  isNegative = true;
+  }
+  else{
+  tempExp = tempExp.slice(1,curExp.length-1);
+  isNegative = false;
+  }
  }
- else
- curExp+=keyPressed;
+ else{
+ 	if(isNegative)
+ 	curExp += "("+tempExp+")"+ keyPressed;
+    else
+ 	curExp += curOperand + keyPressed;
+    curOperand = "";
+    isNegative = false;
+    isDecimal = false;
+ }
+ setExpDisplay();
+//}
 
 }
 
+function isOperator(val){
+ return(val=="+"||val=="-"||val=="X"||val=="/"||val=="+/-");
+}
 
+/*
 function computeCurrentStack()
 {
  var operator  = curOperator;
@@ -149,6 +181,6 @@ displayScreen.innerHTML =""+ operationStack[0];
  operationStack.pop();
 
 }
-
+*/
 
  
