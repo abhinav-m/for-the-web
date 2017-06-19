@@ -6,6 +6,7 @@ var isNegative;
 var expressionDisplay;
 var operandDisplay;
 var operatorExists;
+var isComputed;
 setOnClick();
 setDefault();
 clearScreen();
@@ -21,6 +22,7 @@ function setDefault()
 	expressionDisplay = document.getElementById("expressionDisplay");
 	operandDisplay = document.getElementById("operandDisplay");
 	operatorExists = false;
+	isComputed = false;
 }
 
 function clearScreen(){
@@ -85,6 +87,9 @@ function compute(pressedKey)
 		case "+/-":
 		operatorPressed(pressedKey);
 		break;
+		case "=":
+		calculate();
+		break;
 		
 	}
 }
@@ -94,7 +99,7 @@ is pressed to get value of complete operand */
 
 function operandPressed(keyPressed)
 {
-
+ 
  if(curOperand=="")
  {
   if(keyPressed=="."&&isDecimal==false)
@@ -126,10 +131,12 @@ function operandPressed(keyPressed)
 
 function operatorPressed(keyPressed)
 {
+
 if(!operatorExists)
 {
  if(keyPressed=="+/-")
  {
+  
   if(!isNegative)
   {
   curOperand = "-"+curOperand;
@@ -159,6 +166,27 @@ setOperandDisplay();
 
 function isOperator(val){
  return(val=="+"||val=="-"||val=="X"||val=="/"||val=="+/-");
+}
+
+function calculate()
+{
+  if(!isComputed)
+  {
+	var evalExpression;
+	if(isNegative)
+	curExp += "("+curOperand+")";
+    else
+	curExp = curExp + curOperand;
+     evalExpression = curExp.replace(/X/g,"*");
+	curOperand = eval(evalExpression);
+	curExp = curExp + "="+curOperand;
+    isNegative = false;
+    isDecimal = false;
+	setExpDisplay();
+	setOperandDisplay();
+	isComputed = true;
+  }
+
 }
 
 /*
