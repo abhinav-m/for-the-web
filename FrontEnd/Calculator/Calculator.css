@@ -103,3 +103,9 @@ button{
 	border:none;
 	font-size:2em;
 }
+
+button:hover{
+  cursor:cell;
+  background-color:white;
+  color:black;
+}
