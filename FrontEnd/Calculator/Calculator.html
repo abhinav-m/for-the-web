@@ -5,46 +5,54 @@
 <meta name="viewport" content="width = device-width, initial-scale =1.0">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="Calculator.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></head>
 <link href="Calculator.css" rel="stylesheet">
 </head>
+<body>
 <div class="content">
 <table>
+<tr>
+<td class="display" id="expressionDisplay" colspan="4"></td>
+</tr>
 <tr>
 <td class="display" id="operandDisplay"colspan="4"></td>
 </tr>
 <tr>
-<td class="display" id="expressionDisplay" colspan="4"></td>
-</tr>
-
-<tr>
- <td ><button id="AC" class="buttonSquare">AC</button></td>
+ <td  class="buttonLeft"><button id="AC" class="buttonSquare">AC</button></td>
+ <td ><button id="CE" class="buttonSquare">CE</button></td>
  <td ><button id="+/-" class="buttonSquare">+/-</button></td>
- <td ><button id="%" class="buttonSquare">%</button></td>
- <td ><button id="/" class="buttonSquare">÷</button></td>
+ <td class="buttonRight"><button id="/" class="operatorSquare">÷</button></td>
 </tr>
 <tr>
- <td ><button id="7" class="buttonSquare">7</button></td>
+ <td class="buttonLeft"><button id="7" class="buttonSquare">7</button></td>
  <td ><button id="8" class="buttonSquare">8</button></td>
  <td ><button id="9" class="buttonSquare">9</button></td>
- <td ><button id="X" class="buttonSquare">x</button></td>
+ <td class="buttonRight"><button id="x" class="operatorSquare">x</button></td>
 </tr>
 <tr>
- <td ><button id="4" class="buttonSquare">4</button></td>
- <td ><button id="5"class="buttonSquare">5</button></td>
+ <td class="buttonLeft"><button id="4" class="buttonSquare">4</button></td>
+ <td ><button id="5"class="buttonSquare ">5</button></td>
  <td ><button id="6"class="buttonSquare">6</button></td>
- <td ><button id="-"class="buttonSquare">-</button></td>
+ <td class="buttonRight" ><button id="-"class="operatorSquare">-</button></td>
 </tr>
 <tr>
- <td ><button id="1" class="buttonSquare">1</button></td>
+ <td class ="buttonLeft"><button id="1" class="buttonSquare">1</button></td>
  <td ><button id="2" class="buttonSquare">2</button></td>
  <td ><button id="3" class="buttonSquare">3</button></td>
- <td ><button id="+" class="buttonSquare">+</button></td>
+ <td class="buttonRight" ><button id="+" class="operatorSquare">+</button></td>
 </tr>
 <tr>
- <td colspan="2" ><button id="0" class="buttonRect" >0</button></td>
- <td ><button id="." class="buttonSquare">.</button></td>
- <td ><button id="=" class="buttonSquare">=</button></td>
+ <td class="buttonBottom" style="border-left-width:0px"><button id="0" class="buttonSquare" >0</button></td>
+ <td class="buttonBottom"><button id="%" class="buttonSquare">%</button></td>
+ <td class="buttonBottom"><button id="." class="buttonSquare">.</button></td>
+ <td class="buttonBottom" style="border-right-width:0px"><button id="=" class="operatorSquare">=</button></td>
 </tr>
+</table>
 </div>
+<p style="text-align:center"><i class="fa fa-heart" aria-hidden="true"></i></p>
+<p style="text-align:center"><a href="https://github.com/abhinav-thinktank">Abhinav Mishra</a></p>
+<p style="text-align:center"><a href="https://github.com/abhinav-thinktank">अभिनव मिश्रा</a></p>
 </body>
 </html>

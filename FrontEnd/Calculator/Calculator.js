@@ -48,8 +48,9 @@ function setOnClick()
 	document.getElementById("-").onclick = function() {compute(this.id)};
     document.getElementById("+").onclick = function() {compute(this.id)};
 	document.getElementById(".").onclick = function() {compute(this.id)};
-	document.getElementById("X").onclick = function() {compute(this.id)};
+	document.getElementById("x").onclick = function() {compute(this.id)};
 	document.getElementById("=").onclick = function() {compute(this.id)};
+	document.getElementById("CE").onclick = function() {compute(this.id)};
     //Operands
 	document.getElementById("1").onclick = function() {compute(this.id)};
     document.getElementById("2").onclick = function() {compute(this.id)};
@@ -57,6 +58,7 @@ function setOnClick()
 	document.getElementById("4").onclick = function() {compute(this.id)};
     document.getElementById("5").onclick = function() {compute(this.id)};
 	document.getElementById("6").onclick = function() {compute(this.id)};
+	document.getElementById("7").onclick = function() {compute(this.id)};
     document.getElementById("8").onclick = function() {compute(this.id)};
     document.getElementById("9").onclick = function() {compute(this.id)};
     document.getElementById("0").onclick = function() {compute(this.id)};
@@ -83,12 +85,22 @@ function compute(pressedKey)
 		case "/":
 		case "+":
 		case "-":
-		case "X":
+		case "x":
 		case "+/-":
 		operatorPressed(pressedKey);
 		break;
 		case "=":
 		calculate();
+		break;
+		case "AC":
+		setDefault();
+		clearScreen();
+		break;
+		case "%":
+		makePercent();
+		break;
+		case "CE":
+		clearOperand();
 		break;
 		
 	}
@@ -99,7 +111,9 @@ is pressed to get value of complete operand */
 
 function operandPressed(keyPressed)
 {
- 
+    if(isComputed)
+  	setDefault();
+  	
  if(curOperand=="")
  {
   if(keyPressed=="."&&isDecimal==false)
@@ -134,6 +148,11 @@ function operatorPressed(keyPressed)
 
 if(!operatorExists)
 {
+ if(isComputed)
+ {
+ 	curExp = "";
+ 	isComputed = false;
+ }
  if(keyPressed=="+/-")
  {
   
@@ -165,7 +184,7 @@ setOperandDisplay();
 }
 
 function isOperator(val){
- return(val=="+"||val=="-"||val=="X"||val=="/"||val=="+/-");
+ return(val=="+"||val=="-"||val=="x"||val=="/"||val=="+/-");
 }
 
 function calculate()
@@ -177,11 +196,22 @@ function calculate()
 	curExp += "("+curOperand+")";
     else
 	curExp = curExp + curOperand;
-     evalExpression = curExp.replace(/X/g,"*");
+     evalExpression = curExp.replace(/x/g,"*");
 	curOperand = eval(evalExpression);
+	curOperand = curOperand+"";
 	curExp = curExp + "="+curOperand;
+
+	//Check if evaluated operand is negative.
+	if(curOperand.charAt(0)=="-")
+    isNegative = true;
+    else
     isNegative = false;
+	//Check if evaluated operand is a decimal.
+	if(curOperand.indexOf(".")>-1)
+	isDecimal = true;
+    else
     isDecimal = false;
+
 	setExpDisplay();
 	setOperandDisplay();
 	isComputed = true;
@@ -189,32 +219,35 @@ function calculate()
 
 }
 
-/*
-function computeCurrentStack()
+
+function makePercent()
 {
- var operator  = curOperator;
-
- switch(operator)
- {
- 	case "+":
- 	operationStack[0] = operationStack[0] + operationStack[1];
- 	break;
- 	case "/":
- 	operationStack[0] = operationStack[0] / operationStack[1];
- 	break;
- 	case "X":
- 	operationStack[0] = operationStack[0] * operationStack[1];
- 	break;
- 	case "-":
- 	operationStack[0] = operationStack[0] - operationStack[1];
- 	break;
- }
-displayScreen.innerHTML =""+ operationStack[0];
-
-//Pop the last element of the stack to make space for further elements.
- operationStack.pop();
-
+	var numberOperand;
+	if(curOperand!="")
+	{
+      numberOperand = parseFloat(curOperand);
+      numberOperand = numberOperand / 100;
+      curOperand = "" + numberOperand;
+      if(curOperand.indexOf(".")>-1)
+      	isDecimal = true;
+	}
+	setOperandDisplay();	
 }
-*/
+
+function clearOperand(){
+	if(isComputed)
+	setDefault();
+    else
+    {
+	curOperand = "";
+	isNegative = false;
+	isDecimal = false;
+	}
+	setOperandDisplay();
+	setExpDisplay();
+}
+
+
+
 
  
