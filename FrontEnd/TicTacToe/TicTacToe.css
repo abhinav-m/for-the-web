@@ -1,0 +1,110 @@
+.xSelect {
+	width:100px;
+	height:100px;
+	border-radius:20%;
+	background-color:black;
+	color:white;
+	font-size:1.5em;
+	margin:2.5%;
+	text-align:center;
+	line-height:100px;
+	transition:border-radius 0.5s;
+}
+
+.header {
+	font-size:2em;
+	margin:5%;
+}
+
+.xSelect:hover{
+	background-color:blue;
+	color:white;
+	border-radius:50%;
+	cursor:pointer;
+}
+
+body {
+	text-align:center;
+}
+
+.oSelect {
+	width:100px;
+	height:100px;
+	border-radius:20%;
+	background-color:black;
+	color:white;
+	font-size:1.5em;
+	margin:2.5%;
+	text-align:center;
+	line-height:100px;
+	transition:border-radius 0.5s;
+	
+}
+
+.oSelect:hover{
+	background-color:blue;
+	color:white;
+	border-radius:50%;
+	cursor:pointer;
+
+}
+
+.content {
+	display:flex;
+	justify-content:center;
+	text-align:center;
+	padding:10px;
+	margin:5%;
+}
+
+#selectScreen {
+	position:relative;
+	display:inline-block;
+}
+
+tr {
+	width:300px;	
+}
+
+
+ 
+
+td {
+	width:100px;
+	height:100px;
+	text-align:center;
+	line-height:50px;
+}
+
+#gameBoard {
+	border-collapse:collapse;
+}
+
+.upperRow {
+	
+	border-bottom:1px solid;
+
+}
+
+.bottomRow {
+	
+	border-top:1px solid;
+	
+	
+}
+
+.midSquare {
+	border-style:solid;
+	border-color:black;
+	border-left-width:1px;
+	border-right-width:1px;
+	border-bottom-width:0;
+	border-top-width:0;
+}
+
+.signature {
+	visibility:hidden;
+	position:relative;
+	display:inline-block;
+	bottom:5%;
+}
