@@ -103,7 +103,6 @@ td {
 }
 
 .signature {
-	visibility:hidden;
 	position:relative;
 	display:inline-block;
 	bottom:5%;
