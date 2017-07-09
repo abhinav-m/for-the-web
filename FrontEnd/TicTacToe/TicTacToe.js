@@ -9,9 +9,14 @@ $(document).ready(function() {
 	var AI;
 	var gameEnd;
 	init();
-	//setClickMethods();
+	setClickMethods();
 });
 
+/*Helper function to initialise 
+variables for selection of 'X' and 'O',
+div for information display and animations,
+and click functions of buttons.
+It also creates an empty board */
 
 function init() {
 	xButton = $("#xButton");
@@ -24,14 +29,24 @@ function init() {
 	currentTurn = 1;
 	gameEnd = false;
 	makeBoard();
-
-	
 }
 
+/*Set click methods for 
+  all cells in the table
+  */
 
-function selectButton(buttonType) { 
-	
-	
+function setClickMethods() {
+	$("td").click(function(){ renderMove(this.id);});
+}
+
+/*This method runs on click of the
+user selection of 'X' or 'O' and 
+sets the player as selected, AI is 
+auto selected as the opposite,
+It also triggers the animation after
+the button click via drawBoard() */
+
+function selectButton(buttonType) { 	
 	switch(buttonType) 
 	{
 		case "xButton": 
@@ -46,14 +61,18 @@ function selectButton(buttonType) {
 	startGame();
 }
 
+/*Helper function to set 
+the player to X or O.
+1 = X
+0 = O */
+
 function setPlayer(p) {
 	player = p;
 	AI = p == 1 ? 0 : 1;
 }
 
-
-
-
+/*Helper function to start 
+game with a simple animation */
 
 function drawBoard() {
 
@@ -64,6 +83,13 @@ function drawBoard() {
   	gameBoard.show(3000);
   	
 }
+
+/*Helper function to initialise empty board
+  -1 = no value inside square, square empty
+   1 = X
+   0 = O
+   Extra columns and rows mark if a row/column is "blocked"
+   to implement minimax */
 
 function makeBoard() {
 
@@ -103,6 +129,7 @@ function startGame() {
 
 	while(!gameEnd)
 	{
+		/*
 		switch(currentTurn)
 		{
 			case 1: if(player == 1)
@@ -117,6 +144,7 @@ function startGame() {
 				break;
 		}
 		playerTurn = playerTurn * -1;
+		*/
 		checkGameEnd();
 		if(gameEnd)
 		resetDisplay();
@@ -125,6 +153,7 @@ function startGame() {
 }
 
 
-function playerTurn() {
-	om 
+function renderMove(id) {
+	if(currentTurn)
+
 }
