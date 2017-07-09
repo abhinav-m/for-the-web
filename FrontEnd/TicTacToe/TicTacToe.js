@@ -8,6 +8,8 @@ $(document).ready(function() {
 	var player;
 	var AI;
 	var gameEnd;
+	var playerMoved;
+	var aiMoved;
 	init();
 	setClickMethods();
 });
@@ -28,6 +30,8 @@ function init() {
 	oButton.click(function(){ selectButton(this.id); });
 	currentTurn = 1;
 	gameEnd = false;
+	playerMoved = false;
+	aiMoved  = false;
 	makeBoard();
 }
 
@@ -108,7 +112,7 @@ function makeBoard() {
 
 	 return arr;
 }
-	ticTacBoard = matrix(5,4,-1);
+	ticTacBoard = Array.matrix(5,4,-1);
 	
 
 }
@@ -127,33 +131,27 @@ Each iteration of the loop alternates player's move by multiplying current turn 
 
 function startGame() {
 
-	while(!gameEnd)
-	{
-		/*
-		switch(currentTurn)
-		{
-			case 1: if(player == 1)
-					playerTurn();
-					else
-					aiTurn();
-				break;
-			case -1: if(player == 0)
-					playerTurn();
-					else
-					aiTurn();
-				break;
-		}
-		playerTurn = playerTurn * -1;
-		*/
-		checkGameEnd();
-		if(gameEnd)
-		resetDisplay();
-	}
-
+	if(currentTurn==1&&AI==1||currentTurn==-1&&AI==0)
+	aiMove();
+	
 }
 
 
+
+
 function renderMove(id) {
-	if(currentTurn)
+	
+	if(currentTurn == 1)
+	{
+	$("#"+id).text("X");
+	playerMoved = true;
+	}
+	else
+	{
+	$("#"+id).text("0");
+	}
+	$("#"+id).animate({'fontSize':'2em'},"fast");
+	currentTurn = currentTurn * -1;
+
 
 }
