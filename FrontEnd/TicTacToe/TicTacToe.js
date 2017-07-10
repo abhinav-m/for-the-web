@@ -80,11 +80,11 @@ game with a simple animation */
 
 function drawBoard() {
 
-	oButton.animate({'line-height':"50px",height:"50px",width:"50px",fontSize:"0.75em",opacity:'0'},"slow");
+	oButton.animate({'line-height':"50px",height:"50px",width:"50px",fontSize:"0.75em",opacity:'0'},"fast");
   	oButton.hide(1000);
-  	xButton.animate({'line-height':"50px",height:"50px",width:"50px",fontSize:'0.75em',opacity:'0'	},"slow");
+  	xButton.animate({'line-height':"50px",height:"50px",width:"50px",fontSize:'0.75em',opacity:'0'	},"fast");
   	xButton.hide(1000);
-  	gameBoard.show(3000);
+  	gameBoard.show(2000);
   	
 }
 
@@ -130,7 +130,7 @@ Each iteration of the loop alternates player's move by multiplying current turn 
 */
 
 function startGame() {
-
+	
 	if(currentTurn==1&&AI==1||currentTurn==-1&&AI==0)
 	aiMove();
 	
@@ -143,7 +143,7 @@ function renderMove(id) {
 	
 	if(currentTurn == 1)
 	{
-	$("#"+id).text("X");
+	$("#"+id).text("X")
 	playerMoved = true;
 	}
 	else
@@ -153,5 +153,17 @@ function renderMove(id) {
 	$("#"+id).animate({'fontSize':'2em'},"fast");
 	currentTurn = currentTurn * -1;
 
+
+}
+
+
+function aiMove() {
+	var emptyCells;
+	emptyCells = getEmptyCells();
+	
+}
+
+function getEmptyCells() {
+	it
 
 }
