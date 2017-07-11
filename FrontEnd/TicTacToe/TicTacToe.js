@@ -114,20 +114,20 @@ function makeBoard() {
 
 	 return arr;
 }
-	ticTacBoard = Array.matrix(5,4,-1);
+	ticTacBoard = Array.matrix(3,3,-1);
 	emptyCells = ["00","01","02","10","11","12","20","21","22"];
 
 
 	allCells = {
-		1:[0,0];
-		2:[0,1];
-		3:[0,2];
-		4:[1,0];
-		5:[1,1];
-		6:[1,2];
+		1:[0,0],
+		2:[0,1],
+		3:[0,2],
+		4:[1,0],
+		5:[1,1],
+		6:[1,2],
 		7:[2,0],
 		8:[2,1],
-		9:[2,2];
+		9:[2,2]
 	};
 
 
@@ -149,6 +149,7 @@ function startGame() {
 	
 	if(currentTurn==1&&AI==1||currentTurn==-1&&AI==0)
 	aiMove();
+	checkGameEnd();
 	
 }
 
@@ -156,27 +157,34 @@ function startGame() {
 
 
 function playMove(id) {
-	
+	var col, row;
+	row = id.slice("")[0];
+	col = id.slice("")[1];
+
 	if(currentTurn == 1)
 	{
 	$("#"+id).text("X")
 	playerMoved = true;
+	ticTacBoard[row][col] = 1;
 	}
 	else
 	{
 	$("#"+id).text("0");
+	ticTacBoard[row][col] = 0;
 	}
 	$("#"+id).animate({'fontSize':'2em'},"fast");
 	emptyCells.splice(emptyCells.indexOf(id),1);
 	currentTurn = currentTurn * -1;
+	startGame();
 
 
 }
 
 
 function aiMove() {
-	var movesPossible;
-	movesPossible = getOptimalMoves();
+	var bestMove;
+	bestMove = findBestMove();
+	playMove(bestMove);
 	
 }
 
@@ -204,7 +212,7 @@ function checkBlocks(currentCell) {
 
 
 function isDiagnol(index) {
-	return(index=="00"||index=="22"||index=="02"||index="11"||index=="20");
+	return(index=="00"||index=="22"||index=="02"||index=="11"||index=="20");
 }
 
 /*Helper function for mini-max evaluation,
@@ -222,12 +230,12 @@ function evaluateBoard(ticTacBoard) {
 
 	//Check for win conditions for row
 	//and see who won in this simulation (AI/Player)
-	for (var i = 1;i< 4;i++)
+	for (var i = 0;i< 3;i++)
 		if(ticTacBoard[i][0]==ticTacBoard[i][1]&&ticTacBoard[i][1]==ticTacBoard[i][2])
 		{
 			if(ticTacBoard[i][0]==AI)
 			score = 10;
-			else
+			else if(ticTacBoard[i][0]==player)
 			score = -10;
 		}
 
@@ -237,16 +245,16 @@ function evaluateBoard(ticTacBoard) {
 		if(ticTacBoard[0][i]==ticTacBoard[1][i]&&ticTacBoard[1][i]==ticTacBoard[2][i])
 			if(ticTacBoard[0][i]==AI)
 			score = 10;
-			else
+			else if(ticTacBoard[0][i]==player)
 			score = -10;
 
 	//Check diagnol win condition and who won (AI/Player)
 	//Left diagnol OR Right diagnol win.
-	if(ticTacBoard[1][0]==ticTacBoard[1][1]&&ticTacBoard[1][1]==ticTacBoard[3][2]
-		||ticTacBoard[1][2]==ticTacBoard[1][1]&&ticTacBoard[3][0]==ticTacBoard[1][1])
+	if(ticTacBoard[0][0]==ticTacBoard[1][1]&&ticTacBoard[1][1]==ticTacBoard[2][2]
+		||ticTacBoard[0][2]==ticTacBoard[1][1]&&ticTacBoard[2][0]==ticTacBoard[1][1])
 		if(ticTacBoard[1][1]==AI)
 			score = 10;
-			else
+			else if(ticTacBoard[1][1]==player)
 			score = -10; 
 
 
@@ -260,11 +268,11 @@ function evaluateBoard(ticTacBoard) {
   inside the recursive STACK.*/
 
 function areMovesLeft() {
-	for(var i =1;i<4;i++)
+	for(var i =0;i<3;i++)
 		for(var j =0;j<3;j++)
 			if(ticTacBoard[i][j]==-1)
-				return false;
-	return true;
+				return true;
+	return false;
 }
 
 /*Core Minimax function which tests against the 
@@ -273,17 +281,17 @@ by both player and AI. Note: AI moves are always
 considered OPTIMAL */
 
 function miniMax(depth,isMax)	{
-	var score = evaluate(ticTacBoard);
+	var score = evaluateBoard(ticTacBoard);
 
 	//Break condition 1 for recursion
 	//Maximiser won
 	if(score==10)
-		return score;
+		return score-depth;
 
 	//Break condition 2 for recursion
 	//Minimiser won
 	if(score==-10)
-		return score;
+		return score-depth;
 
 	//Draw condition for the board;
 	if(!areMovesLeft(ticTacBoard))
@@ -295,13 +303,14 @@ function miniMax(depth,isMax)	{
 		for(var i = 0;i<emptyCells.length;i++)
 		{
 		 
-		 var index = emptyCells.split("");
+		 var index = emptyCells[i].split("");
 		 var removedIndex = emptyCells.splice(i,1);
 		 //Mark as AI move
 		 ticTacBoard[index[0]][index[1]]=AI;
 		 best = Math.max(best,miniMax(depth+1,!isMax));
 		 //Undo the move.
-		 emptyCells.splice(i,0,removedIndex);
+		 emptyCells.splice(i,0,removedIndex[0]);
+		  ticTacBoard[index[0]][index[1]]=-1;
 
 		}
 		return best;
@@ -314,13 +323,14 @@ function miniMax(depth,isMax)	{
 		for(var i = 0;i<emptyCells.length;i++)
 		{
 		 
-		 var index = emptyCells.split("");
+		 var index = emptyCells[i].split("");
 		 var removedIndex = emptyCells.splice(i,1);
 		 //Mark as AI move
-		 ticTacBoard[index[0]][index[1]]=AI;
+		 ticTacBoard[index[0]][index[1]]=player;
 		 best = Math.min(best,miniMax(depth+1,!isMax));
 		 //Undo the move.
-		 emptyCells.splice(i,0,removedIndex);
+		 emptyCells.splice(i,0,removedIndex[0]);
+		 ticTacBoard[index[0]][index[1]]=-1;
 
 		}
 		return best;
@@ -358,8 +368,26 @@ function findBestMove () {
 		//Mark current index as empty again.
 		ticTacBoard[index[0]][index[1]] = -1;
 		//Add back the deleted index to it's original position.
-		emptyCells.splice(i,0,removedIndex);
+		emptyCells.splice(i,0,removedIndex[0]);
 	}
- playOptimalMove(optRow,optCol);
+return ""+optRow+optCol;
+
+}
+
+
+function checkGameEnd() {
+
+	if(emptyCells.length==0)
+	{
+	$(".header").fadeOut("slow");
+  	$(".header").text("Draw").fadeIn();
+	}
+	else if(evaluateBoard(ticTacBoard)==10)
+	{
+	$(".header").fadeOut("slow");
+	$(".header").text("AI Wins. FATALITY.").fadeIn();
+	}
+	else if(evaluateBoard(ticTacBoard)==-10)
+	$(".header").text("This is actually a bug. Please report to game dev ASAP.");
 
 }
