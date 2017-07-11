@@ -10,6 +10,8 @@ $(document).ready(function() {
 	var gameEnd;
 	var playerMoved;
 	var aiMoved;
+	var emptyCells;
+	var allCells;
 	init();
 	setClickMethods();
 });
@@ -40,7 +42,7 @@ function init() {
   */
 
 function setClickMethods() {
-	$("td").click(function(){ renderMove(this.id);});
+	$("td").click(function(){ playMove(this.id);});
 }
 
 /*This method runs on click of the
@@ -113,7 +115,21 @@ function makeBoard() {
 	 return arr;
 }
 	ticTacBoard = Array.matrix(5,4,-1);
-	
+	emptyCells = ["00","01","02","10","11","12","20","21","22"];
+
+
+	allCells = {
+		1:[0,0];
+		2:[0,1];
+		3:[0,2];
+		4:[1,0];
+		5:[1,1];
+		6:[1,2];
+		7:[2,0],
+		8:[2,1],
+		9:[2,2];
+	};
+
 
 }
 
@@ -139,7 +155,7 @@ function startGame() {
 
 
 
-function renderMove(id) {
+function playMove(id) {
 	
 	if(currentTurn == 1)
 	{
@@ -151,6 +167,7 @@ function renderMove(id) {
 	$("#"+id).text("0");
 	}
 	$("#"+id).animate({'fontSize':'2em'},"fast");
+	emptyCells.splice(emptyCells.indexOf(id),1);
 	currentTurn = currentTurn * -1;
 
 
@@ -158,12 +175,191 @@ function renderMove(id) {
 
 
 function aiMove() {
-	var emptyCells;
-	emptyCells = getEmptyCells();
+	var movesPossible;
+	movesPossible = getOptimalMoves();
 	
 }
 
-function getEmptyCells() {
-	it
+function getOptimalMoves() {
+	//Check "blocks" which are done by placing in empty cells available
+	//Max no. of blocks = candidate for optimal move.
+	//Can be more than one.
+	var numOfBlocks;
+
+
+	for(var i =0;i<emptyCells.length;i++)
+	{
+		numOfBlocks = checkBlocks(emptyCells[i]);
+	}
+}
+
+function checkBlocks(currentCell) {
+	var index,row,col;
+	index = currentcell.split("");
+	row = parseInt(index[0]);
+	col = parseInt(index[1]);
+
+
+}
+
+
+function isDiagnol(index) {
+	return(index=="00"||index=="22"||index=="02"||index="11"||index=="20");
+}
+
+/*Helper function for mini-max evaluation,
+this is used in recursion to check the board
+state to evaluate whether current state is a win or loss.
+We want to maximise AI's chance of winning, a perfect 
+minimax should always result in a Win/Draw.
+A win  = +10 score. (Maximising player).
+A win for the other player = -10 score.
+*/
+
+function evaluateBoard(ticTacBoard) {
+
+	var score = 0;
+
+	//Check for win conditions for row
+	//and see who won in this simulation (AI/Player)
+	for (var i = 1;i< 4;i++)
+		if(ticTacBoard[i][0]==ticTacBoard[i][1]&&ticTacBoard[i][1]==ticTacBoard[i][2])
+		{
+			if(ticTacBoard[i][0]==AI)
+			score = 10;
+			else
+			score = -10;
+		}
+
+	//Check for win conditions for column
+	//and see who won in this simulation (AI/Player)
+	for (var i = 0;i< 3;i++)
+		if(ticTacBoard[0][i]==ticTacBoard[1][i]&&ticTacBoard[1][i]==ticTacBoard[2][i])
+			if(ticTacBoard[0][i]==AI)
+			score = 10;
+			else
+			score = -10;
+
+	//Check diagnol win condition and who won (AI/Player)
+	//Left diagnol OR Right diagnol win.
+	if(ticTacBoard[1][0]==ticTacBoard[1][1]&&ticTacBoard[1][1]==ticTacBoard[3][2]
+		||ticTacBoard[1][2]==ticTacBoard[1][1]&&ticTacBoard[3][0]==ticTacBoard[1][1])
+		if(ticTacBoard[1][1]==AI)
+			score = 10;
+			else
+			score = -10; 
+
+
+		return score;
+
+}
+
+/*This helper function will only be called from
+  inside the recursion, NOT to be used from elsewhere
+  As board is only marked on a TEMPORARY basis from 
+  inside the recursive STACK.*/
+
+function areMovesLeft() {
+	for(var i =1;i<4;i++)
+		for(var j =0;j<3;j++)
+			if(ticTacBoard[i][j]==-1)
+				return false;
+	return true;
+}
+
+/*Core Minimax function which tests against the 
+current move simulated, and checks for all moves 
+by both player and AI. Note: AI moves are always 
+considered OPTIMAL */
+
+function miniMax(depth,isMax)	{
+	var score = evaluate(ticTacBoard);
+
+	//Break condition 1 for recursion
+	//Maximiser won
+	if(score==10)
+		return score;
+
+	//Break condition 2 for recursion
+	//Minimiser won
+	if(score==-10)
+		return score;
+
+	//Draw condition for the board;
+	if(!areMovesLeft(ticTacBoard))
+		return 0;
+
+	if(isMax)
+	{
+		var best = -1000; 
+		for(var i = 0;i<emptyCells.length;i++)
+		{
+		 
+		 var index = emptyCells.split("");
+		 var removedIndex = emptyCells.splice(i,1);
+		 //Mark as AI move
+		 ticTacBoard[index[0]][index[1]]=AI;
+		 best = Math.max(best,miniMax(depth+1,!isMax));
+		 //Undo the move.
+		 emptyCells.splice(i,0,removedIndex);
+
+		}
+		return best;
+	}
+
+	else
+	{
+		var best = 1000;
+
+		for(var i = 0;i<emptyCells.length;i++)
+		{
+		 
+		 var index = emptyCells.split("");
+		 var removedIndex = emptyCells.splice(i,1);
+		 //Mark as AI move
+		 ticTacBoard[index[0]][index[1]]=AI;
+		 best = Math.min(best,miniMax(depth+1,!isMax));
+		 //Undo the move.
+		 emptyCells.splice(i,0,removedIndex);
+
+		}
+		return best;
+	}
+
+}
+
+/* Find best move by simulating all 
+possible empty moves, at current depth
+or tree level */
+
+function findBestMove () {
+	var optValue = -1000;
+	var optRow = -1;
+	var optCol = -1;
+	var removedIndex;
+
+	for(var i =0;i<emptyCells.length;i++)
+	{
+		//Get the index of the empty position in the board.
+		var index = emptyCells[i].split("");
+		//Mark the empty position with AI
+		ticTacBoard[index[0]][index[1]] = AI
+		//Remove this from current emptyCells array, this helps in processing miniMax functiond, store it's value so it can be restored later
+		removedIndex = emptyCells.splice(i,1);
+		//Calculate current position's score through minimax.
+		var curVal = miniMax(0,false);
+		//Store it if it's the current optimal score.
+		if(curVal > optValue)
+		{
+			optValue = curVal;
+			optRow = index[0];
+			optCol = index[1];
+		}
+		//Mark current index as empty again.
+		ticTacBoard[index[0]][index[1]] = -1;
+		//Add back the deleted index to it's original position.
+		emptyCells.splice(i,0,removedIndex);
+	}
+ playOptimalMove(optRow,optCol);
 
 }
