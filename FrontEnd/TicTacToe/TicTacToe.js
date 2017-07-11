@@ -117,21 +117,10 @@ function makeBoard() {
 	ticTacBoard = Array.matrix(3,3,-1);
 	emptyCells = ["00","01","02","10","11","12","20","21","22"];
 
-
-	allCells = {
-		1:[0,0],
-		2:[0,1],
-		3:[0,2],
-		4:[1,0],
-		5:[1,1],
-		6:[1,2],
-		7:[2,0],
-		8:[2,1],
-		9:[2,2]
 	};
 
 
-}
+
 
 /*
 This is the main game loop,
@@ -146,10 +135,10 @@ Each iteration of the loop alternates player's move by multiplying current turn 
 */
 
 function startGame() {
-	
+	checkGameEnd();
 	if(currentTurn==1&&AI==1||currentTurn==-1&&AI==0)
 	aiMove();
-	checkGameEnd();
+	
 	
 }
 
@@ -188,32 +177,6 @@ function aiMove() {
 	
 }
 
-function getOptimalMoves() {
-	//Check "blocks" which are done by placing in empty cells available
-	//Max no. of blocks = candidate for optimal move.
-	//Can be more than one.
-	var numOfBlocks;
-
-
-	for(var i =0;i<emptyCells.length;i++)
-	{
-		numOfBlocks = checkBlocks(emptyCells[i]);
-	}
-}
-
-function checkBlocks(currentCell) {
-	var index,row,col;
-	index = currentcell.split("");
-	row = parseInt(index[0]);
-	col = parseInt(index[1]);
-
-
-}
-
-
-function isDiagnol(index) {
-	return(index=="00"||index=="22"||index=="02"||index=="11"||index=="20");
-}
 
 /*Helper function for mini-max evaluation,
 this is used in recursion to check the board
@@ -379,13 +342,19 @@ function checkGameEnd() {
 
 	if(emptyCells.length==0)
 	{
-	$(".header").fadeOut("slow");
-  	$(".header").text("Draw").fadeIn();
+
+  	$(".header").fadeOut("slow",function() {
+  $(".header").text("Draw");
+}).fadeIn("slow");
 	}
 	else if(evaluateBoard(ticTacBoard)==10)
 	{
-	$(".header").fadeOut("slow");
-	$(".header").text("AI Wins. FATALITY.").fadeIn();
+	 	$(".header").fadeOut("slow",function() {
+  $(".header").html("AI Wins. <span id='notif'>FATALITY.</span>");
+}).fadeIn("slow");
+
+
+
 	}
 	else if(evaluateBoard(ticTacBoard)==-10)
 	$(".header").text("This is actually a bug. Please report to game dev ASAP.");

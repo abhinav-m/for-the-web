@@ -107,3 +107,8 @@ td {
 	display:inline-block;
 	bottom:5%;
 }
+
+#notif {
+	font-family: 'Nosifer', cursive;
+	color:red;
+}
