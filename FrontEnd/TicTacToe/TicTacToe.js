@@ -183,13 +183,13 @@ function playMove(id) {
 	if(currentTurn == 1)
 	{
 	$("#"+id).text("X")
-	$("#"+id).animate({'fontSize':'2em'},"slow");
+	$("#"+id).animate({'fontSize':'2.8em'},"slow");
 	ticTacBoard[row][col] = 1;
 	}
 	else
 	{
 	$("#"+id).text("0");	
-	$("#"+id).animate({'fontSize':'2em'},"slow");
+	$("#"+id).animate({'fontSize':'2.8em'},"slow");
 	ticTacBoard[row][col] = 0;
 	}
 	$("#"+id).unbind('click');
