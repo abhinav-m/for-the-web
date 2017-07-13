@@ -61,8 +61,6 @@ body{
 	padding:1%;
 	justify-content: center;
 	display:inline-block;
-	color:white;
-	background-color:blue;
 }
 
 .test {
@@ -104,11 +102,11 @@ body{
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: red;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px red;
 }
 
 input:checked + .slider:before {
@@ -127,8 +125,32 @@ input:checked + .slider:before {
 }
 
 #strictAndNotif {
-	font-size:1em;
+	font-size:1.2em;
 	text-align:center;
 	line-height:100px;
 	margin-top:1%;
+	color:red;
 }
+
+.fa-play-circle {
+	font-size:2em;
+	color:black;
+}
+
+.fa-play-circle:hover {
+	color:blue;
+	cursor:pointer;
+
+}
+
+.fa-play-circle:focus {
+	font-size:1em;
+	color:blue;
+	cursor:pointer;
+
+}
+
+a {
+	text-decoration:none;
+}
+
