@@ -1,0 +1,54 @@
+.circle {
+	position:relative;
+	height:10vw;
+	width:10vw;
+	background-color:green;
+	border-radius:50%;
+}
+
+
+#content {
+	position:relative;
+	display:inline-block;
+	left:40vw;
+	width:20vw;
+	top:20vh;
+}
+
+/* YELLOW*/
+#circle1 {
+	position:absolute;
+	left:0;
+	background-color:#e5e500;
+}
+/*GREEN */
+#circle2 {
+	top:0%;
+	left:10vw;
+	background-color:#00b300;
+}
+
+/*RED Color */
+#circle3 {
+	position:absolute;
+	left:0;
+	background-color:#b20000;
+
+}
+
+/*BLUE Color */
+#circle4 {
+	bottom:0;
+	left:10vw;
+	background-color:#00004c;
+}
+
+.signature {
+	position:relative;
+}
+
+.header {
+	text-align:center;
+	font-size:5em;
+	font-family: 'Rajdhani',sans-serif;
+}
