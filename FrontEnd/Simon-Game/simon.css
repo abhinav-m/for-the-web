@@ -43,7 +43,7 @@ body{
 #circle4 {
 	bottom:0;
 	left:10vw;
-	background-color:#00004c;
+	background-color:#000099;
 }
 
 .signature {
@@ -130,6 +130,7 @@ input:checked + .slider:before {
 	line-height:100px;
 	margin-top:1%;
 	color:red;
+	transition:opacity 1s ease-in-out;
 }
 
 .fa-play-circle {
