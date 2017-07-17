@@ -4,6 +4,11 @@ $(document).ready(function() {
 	//Monochromatic red BRIGHT 	  ->#ff0000
 	//Monochromatic blue BRIGHT   ->#000099
 
+	/* https://s3.amazonaws.com/freecodecamp/simonSound1.mp3,
+	   https://s3.amazonaws.com/freecodecamp/simonSound2.mp3,
+	   https://s3.amazonaws.com/freecodecamp/simonSound3.mp3,
+	   https://s3.amazonaws.com/freecodecamp/simonSound4.mp3.
+*/
 	var currentMoves;
 	var playButton;
 	var isStrict;
@@ -51,10 +56,13 @@ changeDisplay();
 }
 
 function changeDisplay() {
-	$("#strictAndNotif").css("opacity","0");
-	$("#strictAndNotif").one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function() {
-	$(this).css('display', 'none');
-});
-	$("#strictAndNotif").text("Score:");
+	playButton.className = "fa fa-refresh hoverBlue fa-2x";
+	
+	$(".header").animate({left: '-=5200px'});
+	$(".header").css("font-size",'2.5em');
+	$(".header").text("Score:0");
+	$(".header").animate({left: '+=5200px'});
+	$("#strictAndNotif ").hide();
+	
 	
 }

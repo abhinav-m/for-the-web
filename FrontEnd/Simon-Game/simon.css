@@ -11,7 +11,7 @@ body{
 
 
 #content {
-	position:relative;
+	position:absolute;
 	display:inline-block;
 	left:40vw;
 	width:20vw;
@@ -51,8 +51,13 @@ body{
 }
 
 .header {
+	position:absolute;
+	left:0;
 	text-align:center;
 	font-size:5em;
+	height:150px;
+	right:0;
+	margin:0 auto;
 }
 
 .startButton {
@@ -63,7 +68,7 @@ body{
 	display:inline-block;
 }
 
-.test {
+.startButtonContainer {
 	text-align:center;
 }
 
@@ -138,6 +143,16 @@ input:checked + .slider:before {
 	color:black;
 }
 
+.hoverBlue {
+	color:black;
+
+}
+
+.hoverBlue:hover {
+	color:blue;
+	cursor:pointer;
+}
+
 .fa-play-circle:hover {
 	color:blue;
 	cursor:pointer;
@@ -155,3 +170,8 @@ a {
 	text-decoration:none;
 }
 
+
+.header-container {
+	height:150px;
+	width:100%;
+}
