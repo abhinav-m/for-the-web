@@ -2,7 +2,7 @@ $(document).ready(function() {
 	//Monochromatic yellow BRIGHT ->#ffff33
 	//Monochromatic green  BRIGHT ->#00ff00
 	//Monochromatic red BRIGHT 	  ->#ff0000
-	//Monochromatic blue BRIGHT   ->#000099
+	//Monochromatic blue BRIGHT   ->#0000ff
 
 	/* https://s3.amazonaws.com/freecodecamp/simonSound1.mp3,
 	   https://s3.amazonaws.com/freecodecamp/simonSound2.mp3,
@@ -27,10 +27,10 @@ function init() {
 	circles = [];
 	isStrict = false;
 	colorsAndSounds = {
-		"yellow":["#e5e500","#ffff33","audio1"],
-		"green":["#00b300","#00ff00","audio2"],
-		"red":["#b20000","#ff0000","audio3"],
-		"blue":["#000099","#0000ff","audio4"]
+		"yellow":["colorYellow","colorBrightYellow","audio1"],
+		"green":["colorGreen","colorBrightGreen","audio2"],
+		"red":["colorRed","colorBrightRed","audio3"],
+		"blue":["colorBlue","colorBrightBlue","audio4"]
 	};
 
 	playButton.onclick = initialiseGame;
@@ -60,8 +60,11 @@ startGame();
 function changeDisplay() {
 	playButton.className = "fa fa-refresh hoverBlue fa-2x";
 	$(".header").animate({left: '-=5200px'});
+		setTimeout(function() {
+		 		$(".header").text("Score:0");
+		 },500);
 	$(".header").css("font-size",'2.5em');
-	$(".header").text("Score:0");
+;
 	$(".header").animate({left: '+=5200px'});
 	$("#strictAndNotif ").hide();
 		
@@ -97,10 +100,10 @@ function playGame () {
 	colorBright =  currentCircle["colorAndSound"][1];
 	colorDark = currentCircle["colorAndSound"][0];
 	renderCircle = document.getElementById(currentCircle.id);
-	renderCircle.style.backgroundColor = colorBright;
+	renderCircle.classList.add(colorBright);
 	setTimeout(function() {
-		 	renderCircle.style.backgroundColor = colorDark;
-		 },500);
+		 	renderCircle.classList.remove(colorBright);
+		 },250);
 	currentAudio.play();
 	displayIndex++;
 	if(displayIndex==currentMoves.length-1)

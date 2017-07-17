@@ -19,31 +19,86 @@ body{
 }
 
 /* YELLOW*/
+.colorYellow {
+	background-color: #e5e500;
+}
+
+.colorBrightYellow {
+	background-color: #ffff33;
+}
+
 #circle1 {
 	position:absolute;
 	left:0;
-	background-color:#e5e500;
 }
+
+/* BRIGHT YELLOW */
+.colorYellow:hover {
+	cursor:pointer;
+	background-color:#ffff33;
+}
+
+
+
 /*GREEN */
+
+.colorGreen {
+	background-color: #00b300;
+}
+
 #circle2 {
 	top:0%;
 	left:10vw;
-	background-color:#00b300;
+}
+
+ /*green  BRIGHT ->#00ff00*/
+
+.colorGreen:hover {
+	cursor:pointer;
+	background-color:#00ff00;
+}
+
+.colorBrightGreen {
+	background-color:#00ff00 
 }
 
 /*RED Color */
 #circle3 {
 	position:absolute;
 	left:0;
-	background-color:#b20000;
+}
 
+.colorRed {
+	background-color:#b20000;
+}
+
+.colorBrightRed {
+	background-color:#ff0000 
+}
+
+/* red BRIGHT 	  ->#ff0000*/
+.colorRed:hover {
+	cursor:pointer;
+	background-color:#ff0000;
 }
 
 /*BLUE Color */
 #circle4 {
 	bottom:0;
 	left:10vw;
+}
+
+.colorBlue {
 	background-color:#000099;
+}
+.colorBrightBlue {
+	background-color:#0000ff;
+}
+
+/* blue BRIGHT   ->#0000ff */
+.colorBlue:hover {
+	cursor:pointer;
+	background-color:#0000ff;
 }
 
 .signature {
