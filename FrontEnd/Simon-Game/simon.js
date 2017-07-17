@@ -16,6 +16,8 @@ $(document).ready(function() {
 	var colorsAndSounds;
 	var displayMovesInterval;
 	var displayIndex;
+	var allCircles;
+	var currentIndex;
 	init();
 	
 });
@@ -26,14 +28,18 @@ function init() {
 	playButton = document.getElementById("playButton");
 	circles = [];
 	isStrict = false;
+	currentIndex = 0;
 	colorsAndSounds = {
 		"yellow":["colorYellow","colorBrightYellow","audio1"],
 		"green":["colorGreen","colorBrightGreen","audio2"],
 		"red":["colorRed","colorBrightRed","audio3"],
 		"blue":["colorBlue","colorBrightBlue","audio4"]
 	};
-
 	playButton.onclick = initialiseGame;
+    allCircles = document.querySelectorAll(".circle");
+    allCircles.forEach(function(circle) {
+    	circle.onclick = moveClicked;
+    })
 }
  
 
@@ -50,8 +56,6 @@ for(var i =1;i<=4;i++)
 	circles.push(newCircle);
 	
 }
-
-
 changeDisplay();
 startGame();
 
@@ -64,7 +68,6 @@ function changeDisplay() {
 		 		$(".header").text("Score:0");
 		 },500);
 	$(".header").css("font-size",'2.5em');
-;
 	$(".header").animate({left: '+=5200px'});
 	$("#strictAndNotif ").hide();
 		
@@ -87,14 +90,17 @@ currentMoves.push(randomMove);
 }
 
 function playGame () {
-	//Initialise value for changing css and playing sound.
+	//Initialise value of displayIndex for changing css and playing sound.
 	displayIndex = 0;
+	displayMovesInterval = setInterval(displayMoves ,1000);
+}
+
+
+function displayMoves() {
+
+	
 	var currentCircle = {}, currentAudio, renderCircle;
 	var colorBright , colorDark;
-
-	displayMovesInterval = setInterval(function() {
-	
-
 	currentCircle =	circles[currentMoves[displayIndex]];
 	currentAudio = document.getElementById(currentCircle["colorAndSound"][2]);
 	colorBright =  currentCircle["colorAndSound"][1];
@@ -108,12 +114,22 @@ function playGame () {
 	displayIndex++;
 	if(displayIndex==currentMoves.length-1)
 	clearInterval(displayMovesInterval);
-	} ,1000);
+	
+
 }
 
 
-function displayMoves() {
-
-		//break
-
+function moveClicked() {
+	var divClicked = this.id;
+	var circleDiv = circles[currentMoves[currentIndex]];
+	var supposedToClick =  circleDiv.id;
+	var soundToPlay;
+	if(supposedToClick == divClicked)
+	{
+	console.log("Great success!");
+	soundToPlay	= document.getElementById(circleDiv["colorAndSound"][2]);
+	soundToPlay.play();
+	currentIndex++;
+	}
+	
 }
