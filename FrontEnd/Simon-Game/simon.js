@@ -81,11 +81,10 @@ playGame();
 
 
 function addMove() {
-for(var i =0;i<5;i++)
-{
+
 var randomMove = Math.floor(Math.random()*4);
 currentMoves.push(randomMove);
-}
+
 
 }
 
@@ -97,8 +96,6 @@ function playGame () {
 
 
 function displayMoves() {
-
-	
 	var currentCircle = {}, currentAudio, renderCircle;
 	var colorBright , colorDark;
 	currentCircle =	circles[currentMoves[displayIndex]];
@@ -108,11 +105,11 @@ function displayMoves() {
 	renderCircle = document.getElementById(currentCircle.id);
 	renderCircle.classList.add(colorBright);
 	setTimeout(function() {
-		 	renderCircle.classList.remove(colorBright);
-		 },250);
+	 	renderCircle.classList.remove(colorBright);
+	},250);
 	currentAudio.play();
 	displayIndex++;
-	if(displayIndex==currentMoves.length-1)
+	if(displayIndex==currentMoves.length)
 	clearInterval(displayMovesInterval);
 	
 
@@ -130,6 +127,17 @@ function moveClicked() {
 	soundToPlay	= document.getElementById(circleDiv["colorAndSound"][2]);
 	soundToPlay.play();
 	currentIndex++;
+	if(currentIndex==currentMoves.length)
+	{
+		addMove();
+		currentIndex = 0;
+		playGame();
+
+	}
+	}
+	else
+	{
+		soundToPlay = "error";
 	}
 	
 }
