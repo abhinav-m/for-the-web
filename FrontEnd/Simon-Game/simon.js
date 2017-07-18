@@ -35,11 +35,10 @@ $(document).ready(function() {
 
 
 function init() {
-	currentMoves = [];
+	
 	playButton = document.getElementById("playButton");
-	circles = [];
 	isStrict = false;
-	currentIndex = 0;
+
 	colorsAndSounds = {
 		"yellow":["colorYellow","colorBrightYellow","audio1"],
 		"green":["colorGreen","colorBrightGreen","audio2"],
@@ -75,6 +74,9 @@ function stopError() {
  
 
 function initialiseGame() {
+currentMoves = [];
+currentIndex = 0;
+circles = [];
 isStrict = document.getElementById("strict").checked;
 //Set initial colors and sounds for various circles, 
 //Bind their ids in the DOM.
@@ -123,7 +125,7 @@ currentMoves.push(randomMove);
 function playGame () {
 	//Initialise value of displayIndex for changing css and playing sound.
 	lockGame();
-	displayIndex = 0;
+	displayIndex = 0; ""
 	displayMovesInterval = setInterval(displayMoves ,1000);
 }
 
@@ -158,7 +160,6 @@ function lockGame() {
 }
 
 function unlockGame() {
-
     allCircles = document.querySelectorAll(".circle");
     allCircles.forEach(function(circle) {
     	circle.onclick = moveClicked;
@@ -187,10 +188,14 @@ function moveClicked() {
 	}
 	else
 	{
+		
 		shake();
 		currentIndex = 0;
 		playError();
 		setTimeout(stopError,250);
+		if(isStrict)
+		setTimeout(initialiseGame,1100);
+		else
 		playGame();
 	}
 	
@@ -202,3 +207,4 @@ function shake () {
 	$(".header").animate({left: '-=50px'},250);
 	$(".header").animate({left: '+=50px'},250);
 }
+
