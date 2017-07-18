@@ -1,5 +1,7 @@
 body{
 	font-family: 'Rajdhani',sans-serif;
+	background-color:black;
+	color:white;
 } 
 
 .circle {
@@ -21,6 +23,10 @@ body{
 /* YELLOW*/
 .colorYellow {
 	background-color: #e5e500;
+}
+
+.colorYellowNoHov {
+	background-color:#e5e500;
 }
 
 .colorBrightYellow {
@@ -51,6 +57,10 @@ body{
 	left:10vw;
 }
 
+.colorGreenNoHov {
+	background-color:#00b300;
+}
+
  /*green  BRIGHT ->#00ff00*/
 
 .colorGreen:hover {
@@ -73,13 +83,17 @@ body{
 }
 
 .colorBrightRed {
-	background-color:#ff0000 
+	background-color:#ff0000;
 }
 
 /* red BRIGHT 	  ->#ff0000*/
 .colorRed:hover {
 	cursor:pointer;
 	background-color:#ff0000;
+}
+
+.colorRedNoHov {
+	background-color:#b20000;
 }
 
 /*BLUE Color */
@@ -91,6 +105,11 @@ body{
 .colorBlue {
 	background-color:#000099;
 }
+
+.colorBlueNoHov {
+	background-color:#000099;
+}
+
 .colorBrightBlue {
 	background-color:#0000ff;
 }
@@ -195,7 +214,7 @@ input:checked + .slider:before {
 
 .fa-play-circle {
 	font-size:2em;
-	color:black;
+	color:white;
 }
 
 .hoverBlue {
@@ -229,4 +248,13 @@ a {
 .header-container {
 	height:150px;
 	width:100%;
+}
+
+.fa-heart {
+	color:red;
+	font-size:1.2em;
+}
+
+.fa-refresh {
+	color:white;
 }

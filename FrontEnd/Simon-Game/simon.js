@@ -18,6 +18,7 @@ $(document).ready(function() {
 	var displayIndex;
 	var allCircles;
 	var currentIndex;
+	var noHoverClasses;
 
 	/*Used for error audio
 	The AudioContext interface represents an audio-processing graph built from audio modules linked together,
@@ -38,6 +39,7 @@ function init() {
 	
 	playButton = document.getElementById("playButton");
 	isStrict = false;
+	noHoverClasses = ["colorYellowNoHov","colorGreenNoHov","colorRedNoHov","colorBlueNoHov"];
 
 	colorsAndSounds = {
 		"yellow":["colorYellow","colorBrightYellow","audio1"],
@@ -153,16 +155,26 @@ function displayMoves() {
 }
 
 function lockGame() {
+	var i= 0;
 	allCircles = document.querySelectorAll(".circle");
     allCircles.forEach(function(circle) {
     	circle.onclick = "";
+    	circle.classList.remove(circles[i]["colorAndSound"][0]);
+    	circle.classList.add(noHoverClasses[i]);
+    	i++;
     })
+    
 }
 
 function unlockGame() {
+	var i =0;
     allCircles = document.querySelectorAll(".circle");
     allCircles.forEach(function(circle) {
     	circle.onclick = moveClicked;
+    	circle.classList.remove(noHoverClasses[i]);
+    	circle.classList.add(circles[i]["colorAndSound"][0]);
+    	circle.classList.remove(noHoverClasses[i]);
+    	i++;
     })
 }
 
