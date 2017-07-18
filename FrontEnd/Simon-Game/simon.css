@@ -82,6 +82,11 @@ body{
 	background-color:#b20000;
 }
 
+
+.colorRedNoHov {
+	background-color:#b20000;
+}
+
 .colorBrightRed {
 	background-color:#ff0000;
 }
@@ -92,9 +97,7 @@ body{
 	background-color:#ff0000;
 }
 
-.colorRedNoHov {
-	background-color:#b20000;
-}
+
 
 /*BLUE Color */
 #circle4 {
