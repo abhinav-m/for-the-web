@@ -18,6 +18,17 @@ $(document).ready(function() {
 	var displayIndex;
 	var allCircles;
 	var currentIndex;
+
+	/*Used for error audio
+	The AudioContext interface represents an audio-processing graph built from audio modules linked together,
+	each represented by an AudioNode. An audio context controls both the creation of the nodes
+    it contains and the execution of the audio processing, or decoding.
+	You need to create an AudioContext before you do anything else, as everything happens inside a context.*/
+	var audioCtx;
+	var errorOscill;
+	var ramp;
+	var vol;
+	var errNode;
 	init();
 	
 });
@@ -36,10 +47,30 @@ function init() {
 		"blue":["colorBlue","colorBrightBlue","audio4"]
 	};
 	playButton.onclick = initialiseGame;
-    allCircles = document.querySelectorAll(".circle");
-    allCircles.forEach(function(circle) {
-    	circle.onclick = moveClicked;
-    })
+    initialiseErrorSound();
+}
+
+function initialiseErrorSound() {
+	audioCtx = new AudioContext();
+	errorOscill =  audioCtx.createOscillator();
+	ramp = 0.05;
+	vol = 0.5;
+	errorOscill.type = "triangle";
+	errorOscill.frequency.value = "110";
+    errorOscill.start(0.0); //delay optional parameter is mandatory on Safari
+    errNode = audioCtx.createGain();
+    errorOscill.connect(errNode);
+    errNode.gain.value = 0;
+    errNode.connect(audioCtx.destination);
+}
+
+
+function playError() {
+  errNode.gain.linearRampToValueAtTime(vol, audioCtx.currentTime + ramp);
+}
+
+function stopError() {
+  errNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + ramp);
 }
  
 
@@ -56,6 +87,7 @@ for(var i =1;i<=4;i++)
 	circles.push(newCircle);
 	
 }
+
 changeDisplay();
 startGame();
 
@@ -65,7 +97,7 @@ function changeDisplay() {
 	playButton.className = "fa fa-refresh hoverBlue fa-2x";
 	$(".header").animate({left: '-=5200px'});
 		setTimeout(function() {
-		 		$(".header").text("Score:0");
+		 		$(".header").text("Level "+currentMoves.length);
 		 },500);
 	$(".header").css("font-size",'2.5em');
 	$(".header").animate({left: '+=5200px'});
@@ -90,6 +122,7 @@ currentMoves.push(randomMove);
 
 function playGame () {
 	//Initialise value of displayIndex for changing css and playing sound.
+	lockGame();
 	displayIndex = 0;
 	displayMovesInterval = setInterval(displayMoves ,1000);
 }
@@ -110,9 +143,26 @@ function displayMoves() {
 	currentAudio.play();
 	displayIndex++;
 	if(displayIndex==currentMoves.length)
+	{
 	clearInterval(displayMovesInterval);
-	
+	$(".header").text("Level "+currentMoves.length);
+	unlockGame();
+	}
+}
 
+function lockGame() {
+	allCircles = document.querySelectorAll(".circle");
+    allCircles.forEach(function(circle) {
+    	circle.onclick = "";
+    })
+}
+
+function unlockGame() {
+
+    allCircles = document.querySelectorAll(".circle");
+    allCircles.forEach(function(circle) {
+    	circle.onclick = moveClicked;
+    })
 }
 
 
@@ -137,7 +187,18 @@ function moveClicked() {
 	}
 	else
 	{
-		soundToPlay = "error";
+		shake();
+		currentIndex = 0;
+		playError();
+		setTimeout(stopError,250);
+		playGame();
 	}
 	
+}
+
+function shake () {
+	$(".header").animate({left: '-=50px'},250);
+	$(".header").animate({left: '+=50px'},250);
+	$(".header").animate({left: '-=50px'},250);
+	$(".header").animate({left: '+=50px'},250);
 }
