@@ -192,10 +192,18 @@ function moveClicked() {
 	currentIndex++;
 	if(currentIndex==currentMoves.length)
 	{
+		//20th level win condition
+		if(currentIndex == 20)
+		{
+		setTimeout(initialiseGame,5000);
+		$(".header").text("You win! Reset in 5 seconds! ");
+		shake();
+		}
+		else {
 		addMove();
 		currentIndex = 0;
 		playGame();
-
+		}
 	}
 	}
 	else

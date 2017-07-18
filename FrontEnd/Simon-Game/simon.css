@@ -244,6 +244,23 @@ a {
 	text-decoration:none;
 }
 
+a {
+	font-size:1.2em;
+	color:white;
+	text-decoration:none;
+}
+
+a:hover {
+	color:blue;
+}
+
+a:visited {
+	color:#87CEFA;
+}
+
+a:visited:hover {
+	color:blue;
+}
 
 .header-container {
 	height:150px;
