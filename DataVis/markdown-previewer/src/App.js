@@ -23,8 +23,7 @@ class TextComponent extends React.Component {
   render() {
     return (
       <div className="wrapper">
-        <div className="previewDiv" >
-          <span dangerouslySetInnerHTML={sanitise(this.state.text)} ></span>
+        <div className="previewDiv" dangerouslySetInnerHTML={sanitise(this.state.text)} >
         </div>
         <textarea className="writeArea" onChange={this.update}>
           {this.state.text}
@@ -54,7 +53,7 @@ function App() {
 }
 
 function setInitialState() {
-  return ("** Bold ** *Italic * \n\n [link to google](www.google.com)\n\n # HEADING 1 \n\n ## Heading 2 \n\n ~~Struck - through - my - heart~~ \n\n > This is a quote \n\n `Inlining` \n\nList \n\n* 1\n* 2\n* 3\n* 4\n");
+  return ("** Bold ** *Italic *  [link to google](www.google.com) ~~Struck - through - my - heart~~ `Inlining` \n\n # HEADING 1 \n\n ## Heading 2 \n\n  > This is a quote \n\n  \n\nList \n\n* 1\n* 2\n* 3\n* 4\n");
 }
 
 
