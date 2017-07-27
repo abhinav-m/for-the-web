@@ -1,0 +1,18 @@
+.App, .content, .toggleButtons {
+  text-align: center; }
+
+.toggleButtons {
+  position: relative;
+  display: inline-block;
+  background-color: #ADD8E6;
+  color: #ffffff;
+  height: 5vh;
+  width: 8vw;
+  font-size: 1em;
+  line-height: 3;
+  margin: 2vw;
+  border-radius: 5%; }
+
+.toggleButtons:hover {
+  cursor: pointer;
+  background-color: blue; }
