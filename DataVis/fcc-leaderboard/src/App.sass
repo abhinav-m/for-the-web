@@ -1,5 +1,8 @@
-.App, .content, .toggleButtons
+.App, .content, .toggleButtons 
     text-align: center 
+
+table
+    border-collapse: collapse
 
 .toggleButtons
     position: relative
@@ -17,4 +20,27 @@
 .toggleButtons:hover
     cursor: pointer
     background-color: blue
-    color:white
+    color: white
+
+.dataSection 
+    display: flex
+    justify-content: center
+
+td
+    height: 5vh
+    border: 5px solid black
+    line-height: 5vh
+    min-width: 10vw
+    max-width: 10vw
+
+tr
+    background-color: #7f7fff
+   
+
+tr:nth-child(2n)
+    background-color: #cbcbff
+
+.logo
+    width: 5vh
+    height: 5vh
+    border-radius: 50%

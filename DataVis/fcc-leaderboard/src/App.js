@@ -2,30 +2,69 @@ import React from 'react'
 import './App.css'
 
 
-const allURL= "https://fcctop100.herokuapp.com/api/fccusers/top/alltime";
-const recentURL ="https://fcctop100.herokuapp.com/api/fccusers/top/recent";
-var allData;
-var recentData;
 
-class CamperData extends React.component {
 
-  render() {
-    return(
-      <tr>
-        <td>{this.state.id}</td>
-        <td>{this.state.picture}</td>
-        <td>{this.state.Name}</td>
-        <td>{this.state.Points}</td>
-      </tr>
-    )
-  }
 
-}
+
+
+const RowData = (props) => <tr className="dataRow">
+  <td>{props.idx}</td>
+        <td><img className="logo" src={props.content.img}/></td>
+        <td>{props.content.username}</td>
+        <td>{props.content.alltime}</td>
+        <td>{props.content.recent}</td>
+</tr>
 
 class TableData extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      allData: [],
+      recentData: [],
+      shownData:[]
+    }
+  }
+  componentDidMount() {
+
+    const allURL= "https://fcctop100.herokuapp.com/api/fccusers/top/alltime";
+    const recentURL ="https://fcctop100.herokuapp.com/api/fccusers/top/recent";
+    const  that =this;
+  var xHttpReqRecent = new XMLHttpRequest();
+  var xHttpReqAll = new XMLHttpRequest();
+  xHttpReqRecent.open("GET",recentURL);
+  xHttpReqRecent.send();
+
+  xHttpReqAll.open("GET",allURL);
+  xHttpReqAll.send();
+
+  xHttpReqRecent.onreadystatechange = function () {
+    if(this.readyState == 4 && this.status==200)
+      {
+      var data = JSON.parse(this.responseText);
+     that.setState({recentData:data,shownData:data});
+      }
+    
+  }
+    
+
+  xHttpReqAll.onreadystatechange = function () {
+     if(xHttpReqAll.readyState == 4 && this.status==200)
+      {
+     var  data = JSON.parse(this.responseText);
+     that.setState({allData:data});
+      }
+  }
+
+
+  
+  }
   render() {
-   return( <table className="dataTable">
-      {camperData}
+
+   return(
+    <table className="dataTable">
+     <tbody>
+      {this.state.shownData.map( (content,i) => <RowData key={i+1} idx={i+1} content={content} />)}
+      </tbody>
     </table>)
   }
 }
@@ -46,9 +85,7 @@ class DataSection extends React.Component {
 
 class HeaderToggle extends React.Component {
  
-constructor(){
-  
-}
+
   render() {
     return(
       <div className = "headerToggle">
@@ -65,6 +102,7 @@ constructor(){
 
 const Button = (props) => <div className="toggleButtons"> {props.name} </div>
 
+
 //These are objects , React can't render objects directly, it instantiates each
 //class on ReactDOM.render() call
 /* const AllButton = <Button name="All Time"/>
@@ -75,22 +113,12 @@ class App extends React.Component {
     return(
     <div className="content">
       <HeaderToggle/>
+      <DataSection/>
       </div>
     )
   }
 }
 
-function loadDataAsync(url) {
-  var myObjArray = [];
-  var xHttpReq = new XMLHttpRequest();
-  xHttpReq.onreadystatechange = function () {
-    if(this.readyState == 4 && this.status==200)
-      myObjArray = this.responseText;
-  }
-  xHttpReq.open("GET",url);
-  xHttpReq.send();
-  return myObjArray;
-}
 
 
 export default App;
