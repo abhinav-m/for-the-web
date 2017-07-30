@@ -8,22 +8,71 @@ import './App.css'
 
 
 const RowData = (props) => <tr className="dataRow">
-  <td>{props.idx}</td>
-        <td><img className="logo" src={props.content.img}/></td>
-        <td>{props.content.username}</td>
-        <td>{props.content.alltime}</td>
-        <td>{props.content.recent}</td>
+  <td className="index">{props.idx}</td>
+        <td ><img className="logo" src={props.content.img}/></td>
+        <td className = "userArea">{props.content.username}</td>
+        <td className ="points">{props.content.alltime}</td>
+        <td className ="points">{props.content.recent}</td>
 </tr>
 
 class TableData extends React.Component {
-  constructor() {
+ 
+  render() {
+
+   return(
+    <table className="dataTable">
+     <tbody>
+      {this.props.datashown.map( (content,i) => <RowData key={i+1} idx={i+1} content={content} />)}
+      </tbody>
+    </table>)
+  }
+}
+
+
+
+class DataSection extends React.Component {
+
+  render() {
+    return(
+      <div className = "dataSection">
+        <TableData datashown={this.props.datashown}/>
+        </div>
+    );
+  }
+}
+
+
+class HeaderToggle extends React.Component {
+ 
+
+  render() {
+    return(
+      <div className = "headerToggle">
+        <Button name="All Time" click={this.props.setAll}/>
+        <Button name="Past 30" click={this.props.setRecent}/>
+        </div>
+    );
+    }
+
+}
+
+const Button = (props) => <div onClick={props.click} className="toggleButtons"> {props.name} </div>
+
+class App extends React.Component {
+
+   constructor() {
     super();
     this.state = {
       allData: [],
       recentData: [],
       shownData:[]
     }
+    this.setRecent = this.setRecent.bind(this);
+     this.setAll = this.setAll.bind(this);
   }
+
+
+
   componentDidMount() {
 
     const allURL= "https://fcctop100.herokuapp.com/api/fccusers/top/alltime";
@@ -58,62 +107,26 @@ class TableData extends React.Component {
 
   
   }
-  render() {
-
-   return(
-    <table className="dataTable">
-     <tbody>
-      {this.state.shownData.map( (content,i) => <RowData key={i+1} idx={i+1} content={content} />)}
-      </tbody>
-    </table>)
+   
+  
+  setAll() {
+    this.setState({
+      shownData:this.state.allData
+    })
   }
-}
 
-
-
-class DataSection extends React.Component {
-
-  render() {
-    return(
-      <div className = "dataSection">
-        <TableData/>
-        </div>
-    );
-  }
-}
-
-
-class HeaderToggle extends React.Component {
- 
-
-  render() {
-    return(
-      <div className = "headerToggle">
-        <Button name="All Time"/>
-        <Button name="Past 30"/>
-        </div>
-    );
+  setRecent() {
+    this.setState({
+      shownData:this.state.recentData
     }
-
-}
-
-
-
-
-const Button = (props) => <div className="toggleButtons"> {props.name} </div>
-
-
-//These are objects , React can't render objects directly, it instantiates each
-//class on ReactDOM.render() call
-/* const AllButton = <Button name="All Time"/>
-const PastThirty  = <Button name="Past 30"/> */
-
-class App extends React.Component {
+    )
+  }
   render() {
     return(
     <div className="content">
-      <HeaderToggle/>
-      <DataSection/>
+      FCC LEADERBOARD
+      <HeaderToggle setAll={this.setAll} setRecent={this.setRecent}/>
+      <DataSection datashown={this.state.shownData}/>
       </div>
     )
   }
