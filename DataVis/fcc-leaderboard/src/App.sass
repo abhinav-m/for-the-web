@@ -1,5 +1,6 @@
 .App, .content, .toggleButtons 
     text-align: center 
+    font-family: 'Rajdhani', sans-serif;
 
 .content
     margin-top: 5vh
@@ -22,10 +23,10 @@ table
     border-radius: 5%
 
 .selected
-    background-color: blue
+    background-color: black
 
 
-.toggleButtons:hover
+.toggleButtons:hover, .selected:hover
     cursor: pointer
     background-color: blue
     color: white
@@ -40,7 +41,7 @@ table
     border-left: 0px
     padding: 10px
 
-td
+td,th
     height: 8vh
     border: 2px solid black
     line-height: 5vh
@@ -48,6 +49,8 @@ td
     max-width: 10vw
     align: center
 
+th
+    font-size: 1.2em
 
 .index 
     min-width: 2vw
@@ -69,3 +72,18 @@ tr:nth-child(2n)
     height: 5vh
     border-radius: 50%
     vertical-align: middle
+
+.fa-heart
+    color: red
+
+a
+    text-decoration: none
+
+a:visited 
+	color: #87CEFA
+
+
+a:visited:hover 
+	color: blue
+
+	

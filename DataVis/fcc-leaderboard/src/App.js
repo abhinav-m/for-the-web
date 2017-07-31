@@ -18,10 +18,24 @@ const RowData = (props) => <tr className="dataRow">
 class TableData extends React.Component {
 
   render() {
+     if(this.props.datashown.length===0)
+       return (
+      
+      <div>  LOADING . . .</div>
+      
+    )
+  else
 
     return (
       <table className="dataTable">
         <tbody>
+          <tr className="dataRow">
+            <th>#</th>
+            <th>Logo</th>
+            <th >User</th>
+            <th>Points (All time)</th>
+            <th>Points (Last 30 days)</th>
+          </tr>
           {this.props.datashown.map((content, i) => <RowData key={i + 1} idx={i + 1} content={content} />)}
         </tbody>
       </table>)
@@ -33,7 +47,9 @@ class TableData extends React.Component {
 class DataSection extends React.Component {
 
   render() {
+   
     return (
+
       <div className="dataSection">
         <TableData datashown={this.props.datashown} />
       </div>
@@ -103,7 +119,7 @@ class App extends React.Component {
     xHttpReqAll.send();
 
     xHttpReqRecent.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
+      if (this.readyState === 4 && this.status === 200) {
         var data = JSON.parse(this.responseText);
         that.setState({ recentData: data, shownData: data });
       }
@@ -112,7 +128,7 @@ class App extends React.Component {
 
 
     xHttpReqAll.onreadystatechange = function () {
-      if (xHttpReqAll.readyState == 4 && this.status == 200) {
+      if (xHttpReqAll.readyState === 4 && this.status === 200) {
         var data = JSON.parse(this.responseText);
         that.setState({ allData: data });
       }
@@ -138,11 +154,19 @@ class App extends React.Component {
     )
   }
   render() {
+    
     return (
+    
       <div className="content">
-        FCC LEADERBOARD
+       
+       <h1> FCC LEADERBOARD</h1>
       <HeaderToggle setAll={this.setAll} setRecent={this.setRecent} datashown={this.state.shown} />
         <DataSection datashown={this.state.shownData} />
+        <div className="signature">
+<p ><i className="fa fa-heart" aria-hidden="true"></i></p>
+<p ><a href="https://github.com/abhinav-thinktank">Abhinav Mishra</a></p>
+<p ><a href="https://github.com/abhinav-thinktank">अभिनव मिश्रा</a></p>
+</div>
       </div>
     )
   }
