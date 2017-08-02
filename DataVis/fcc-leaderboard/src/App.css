@@ -37,7 +37,7 @@ table {
   border-left: 0px;
   padding: 10px; }
 
-td, th {
+td {
   height: 8vh;
   border: 2px solid black;
   line-height: 5vh;
@@ -46,7 +46,8 @@ td, th {
   align: center; }
 
 th {
-  font-size: 1.2em; }
+  font-size: 1.2em;
+  border: 2px solid black; }
 
 .index {
   min-width: 2vw;
