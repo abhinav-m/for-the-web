@@ -20,7 +20,9 @@ body {
   background: black; }
 
 .recipeMaker {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   background: #D3D3D3;
   height: 50vh;
   width: 50vh;
@@ -28,3 +30,6 @@ body {
 
 textArea {
   resize: none; }
+
+.center {
+  text-align: center; }
