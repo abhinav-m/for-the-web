@@ -3,21 +3,23 @@ body
     justify-content: center
     align-items: center 
     margin-top: 10vh
-    background: #E0E4CC
+    background: white
 
 .button-primary
     display: inline-block
     text-align: center
     background: #F38630 
     color: white
-    height: 8vh
-    width: 8vh
-    line-height: 8vh
+    height: 5vh
+    width: 10vh
+    line-height: 5vh
     border-radius: 5%
-    margin: 5%
+
+.buttonContainer
+    display: flex
+    justify-content: space-evenly
 
 .button-primary:hover
-
     cursor: pointer
     background: #FA6900
 
@@ -38,18 +40,37 @@ textArea
 
 .recipeTitle
     display: flex
-    justify-content: center
+    justify-content: space-between
     width: 50vw
     height: 5vh
     color: white
+    padding-left: 15px
+    padding-right: 15px
     align-items: center
     font-size: 1.5em
-    margin-bottom: 1vh
+    margin-top: 1vh
     border-radius: 10px
     background: #A7DBD8 
 
 .recipeTitle:hover
-
     border-left: #69D2E7 solid 5px
     border-bottom: #69D2E7 solid 5px
     cursor: pointer
+
+.recipeWrapper
+    background: #E0E4CC
+    border-radius: 10px
+    padding-bottom: 1vh
+    margin-top: 0.5vh
+
+.ingredientName
+    font-size: 1.2em
+    margin: 10px
+    border-radius: 5px
+    background: grey
+    padding: 5px
+   
+
+.deleteButton:hover
+    background: red
+
