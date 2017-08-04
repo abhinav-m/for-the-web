@@ -4,14 +4,28 @@ import './App.css';
 
 
 class RecipeInfo extends React.Component {
-  
+  constructor(){
+    super();
+   
+    this.toggleExpansion = this.toggleExpansion.bind(this)
+    this.state = {
+      isExpanded : false
+    }
+  }
+
+  toggleExpansion(){
+    this.setState({
+      isExpanded:!this.state.isExpanded
+    })
+  }
+
 render(){
-      if(this.props.isExpanded===false)
-  return( <div className="recipeTitle">{this.props.recipeDetails.title}</div>
+      if(this.state.isExpanded===false)
+  return( <div className="recipeTitle" onClick={this.toggleExpansion}>{this.props.recipeDetails.title}</div>
         )
     else
       return(<div className="recipeWrapper">
-      <div className="recipeTitle">{this.props.recipeDetails.title}</div>
+      <div className="recipeTitle" onClick={this.toggleExpansion}>{this.props.recipeDetails.title}</div>
       {this.props.recipeDetails.ingredients.split(",").map((ingred,i) => <div className="ingredientName">{ingred}</div> )}
       </div>
   )
@@ -25,15 +39,13 @@ class RecipesSection extends React.Component {
     this.state = {
       recipes: [{title:"bc",ingredients:"b,c"},{title:"cake",ingredients:"chocolate,cream,puff"}],
       makingRecipe: false,
-      newRecipe: {title:"",ingredients:""} ,
       newRecipeTitle: "",
       newRecipeIngredients: ""
     }
-    this.addRecipe = this.addRecipe.bind(this);
-    this.deleteRecipe = this.deleteRecipe.bind(this);
+    this.saveRecipe = this.saveRecipe.bind(this);
     this.toggleMaker = this.toggleMaker.bind(this);
-    this.sanitizeNewRecipe = this.sanitizeNewRecipe.bind(this);
-    this.resetNewRecipe = this.resetNewRecipe.bind(this);
+    this.sanitizeIngredients = this.sanitizeIngredients.bind(this);
+    this.resetRecipeValues = this.resetRecipeValues.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
     this.titleChanged = this.titleChanged.bind(this);
     this.recipeChanged = this.recipeChanged.bind(this);
@@ -50,40 +62,41 @@ class RecipesSection extends React.Component {
     recipes: this.state.recipes.slice(index,1)
   })
   }
-
-  addRecipe(){
-    this.toggleMaker();
-    this.sanitizeNewRecipe();
-    var newRecipes = this.state.recipes;
-    newRecipes.push(this.state.newRecipe);
-    this.setState({
-      recipes: newRecipes
-    })
-    this.state.recipes;
-  //  this.resetNewRecipe();
-    this.toggleMaker();
-  }
-
-  resetNewRecipe() {
-    this.setState({
-      newRecipe:{title:"",ingredients:""}
-      })
-  }
-
-  sanitizeNewRecipe(value){
-    var trimmedIngredients = this.state.newRecipeIngredients.split(",")
-    trimmedIngredients =  trimmedIngredients.join(",");
-    var existingRecipe = this.state.newRecipe;
-   
-    
-    this.setState(
-     { newRecipe : {title:this.state.newRecipeTitle,ingredients:trimmedIngredients}},
-     ()=>console.log(this.state.newRecipe.title+""+this.state.newRecipe.ingredients)
-      )
   
+  sanitizeIngredients() {
+   var trimmedIngredients = this.state.newRecipeIngredients.split(",")
+    trimmedIngredients.forEach( val => val = val.trim())
+    trimmedIngredients =  trimmedIngredients.join(",");
+    return trimmedIngredients;
   }
+
+  saveRecipe() {
+    var ingredients = this.sanitizeIngredients();
+    var newRecipes = this.state.recipes;
+    newRecipes.push({title:this.state.newRecipeTitle,ingredients:ingredients});
+    this.setState({
+      recipes: newRecipes},
+      () => { this.resetRecipeValues();
+              this.toggleMaker(); 
+            }
+     )
+   
+  }
+
+
+  resetRecipeValues() {
+    this.setState({
+      newRecipeTitle:"",
+      newRecipeIngredients:""
+      },
+    )
+  }
+
+  
+
   titleChanged(e) {
     var val = e.target.value;
+    val = val.trim();
     this.setState({
       newRecipeTitle:val
     })
@@ -106,13 +119,13 @@ class RecipesSection extends React.Component {
                  <div className ="ingredientPlace">
                  <textArea className="ingredientEditor" onChange={this.recipeChanged}></textArea>
                  </div>
-                 <div className="buttonContainer"><div className="button-primary saveButton" onClick={this.addRecipe}>Save</div><div className="button-primary backButton">  Back</div></div>
+                 <div className="buttonContainer"><div className="button-primary saveButton" onClick={this.saveRecipe}>Save</div><div className="button-primary backButton">  Back</div></div>
                </div> )
         else
       return(
           <div className="recipesSection">
             <div className="button-primary" onClick ={this.toggleMaker}>Add</div>
-            {this.state.recipes.map((recipeDetails,i)=> <RecipeInfo isExpanded={true} recipeDetails = {recipeDetails} deleteFn={this.deleteRecipe} />)}
+            {this.state.recipes.map((recipeDetails,i)=> <RecipeInfo  recipeDetails = {recipeDetails} deleteFn={this.deleteRecipe} />)}
           </div>
         )
     }
