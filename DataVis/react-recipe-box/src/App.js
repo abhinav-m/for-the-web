@@ -35,7 +35,7 @@ render(){
       return(<div className="recipeWrapper">
       <div className="recipeTitle" onClick={this.toggleExpansion}>{this.props.recipeDetails.title}</div>
       {this.props.recipeDetails.ingredients.split(",").map((ingred,i) => <div className="ingredientName">{ingred}</div> )}
-      <div className="buttonContainer"><div className="button-primary" onClick={this.editRecipe}>Edit</div><div className="button-primary deleteButton" onClick={this.delete}>Delete</div></div>
+      <div className="buttonContainer"><div className="button-primary" onClick={this.editRecipe}><i className="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></div><div className="button-primary deleteButton" onClick={this.delete}><i className="fa fa-trash fa-2x" aria-hidden="true"></i></div></div>
       </div>)
   } 
 
@@ -45,7 +45,7 @@ class RecipesSection extends React.Component {
   constructor() {
     super();
     this.state = {
-      recipes: [{title:"bc",ingredients:"b,c"},{title:"cake",ingredients:"chocolate,cream,puff"}],
+      recipes: [{title:"Butter chicken",ingredients:"Butter,chicken"},{title:"Cake",ingredients:"chocolate,MAGIC!"}],
       recipeIndex:-1,
       newRecipeTitle: "Enter title here",
       newRecipeIngredients: "Enter ingredients seperated by commas eg (butter,sugar,chocolate)"
@@ -58,8 +58,10 @@ class RecipesSection extends React.Component {
     this.titleChanged = this.titleChanged.bind(this);
     this.recipeChanged = this.recipeChanged.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
+   
   }
 
+ 
   editRecipe(index){
     var title = this.state.recipes[index].title
     var ingred = this.state.recipes[index].ingredients
@@ -133,19 +135,18 @@ class RecipesSection extends React.Component {
       if(this.state.makingRecipe)
         return(
           <div className="recipeMaker">
-            <h1 className="center">Recipe Maker</h1>
-            <h2 className="center">Title:</h2>
+            <div className ="textAreaWrapper">
             <textArea className="titleEditor" onChange={this.titleChanged} value={this.state.newRecipeTitle}></textArea>
-            <h3 className="center"> Ingredients:</h3>
-            <div className ="ingredientPlace">
+            </div>
+            <div className ="textAreaWrapper">
             <textArea className="ingredientEditor" onChange={this.recipeChanged} value={this.state.newRecipeIngredients}></textArea>
             </div>
-            <div className="buttonContainer"><div className="button-primary saveButton" onClick={this.saveRecipe}>Save</div><div className="button-primary backButton" onClick={this.toggleMaker}>  Back</div></div>
+            <div className="buttonContainer"><div className="button-primary saveButton" onClick={this.saveRecipe}><i className="fa fa-floppy-o fa-2x" aria-hidden="true"></i></div><div className="button-primary backButton" onClick={this.resetRecipeValues}><i className="fa fa-arrow-left fa-2x" aria-hidden="true"></i></div></div>
           </div> )
       else
         return(
           <div className="recipesSection">
-            <div className="button-primary" onClick ={this.toggleMaker}>Add</div>
+            <div className="buttonContainer" onClick ={this.toggleMaker}><i className="button-primary fa fa-plus-square fa-2x" aria-hidden="true"></i></div>
             {this.state.recipes.map((recipeDetails,i)=> <RecipeInfo key={i} recipeDetails = {recipeDetails} deleteFn={this.deleteRecipe} index={i} editRecipe={this.editRecipe}/>)}
           </div>
         )
@@ -156,6 +157,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <h1>Recipe Box</h1>
        <RecipesSection/>
       </div>
     );

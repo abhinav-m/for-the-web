@@ -5,11 +5,17 @@ body
     margin-top: 10vh
     background: white
 
+
+recipeSection
+    display: flex
+    justify-content: center
+
 .button-primary
-    display: inline-block
-    text-align: center
+    display: flex
+    justify-content: space-evenly
+    align-items: center
     background: #F38630 
-    color: white
+    color: black
     height: 5vh
     width: 10vh
     line-height: 5vh
@@ -22,10 +28,11 @@ body
 .button-primary:hover
     cursor: pointer
     background: #FA6900
+    color: white
 
 .recipeMaker
     display: flex
-    justify-content: center
+    justify-content: space-evenly
     flex-direction: column
     background: #D3D3D3
     height: 50vh
@@ -74,3 +81,14 @@ textArea
 .deleteButton:hover
     background: red
 
+textArea
+    border-radius: 10px
+    width: 40vh
+    height: 15vh
+
+h1
+    text-align: center
+
+.textAreaWrapper
+    display: flex
+    justify-content: center
