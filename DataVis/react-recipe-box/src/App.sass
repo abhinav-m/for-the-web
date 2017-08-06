@@ -1,29 +1,45 @@
-body
+body 
+    background: #E0E4CC
+
+#root
+    font-family: 'Indie Flower', cursive
     display: flex
+    flex-direction: column
+    align-items: center
     justify-content: center
-    align-items: center 
-    margin-top: 10vh
-    background: white
+    flex-wrap: wrap
+   
+
+.App 
+    align-self: center
+    flex: 1 0 auto
+    min-height: 60vh
 
 
 recipeSection
-    display: flex
-    justify-content: center
+    align-self: center
+    flex-shrink: 0
+
 
 .button-primary
-    display: flex
-    justify-content: space-evenly
-    align-items: center
+    align-self: center
+    flex: 0 0 auto
     background: #F38630 
+    height: 50px
+    width: 180px
     color: black
-    height: 5vh
-    width: 10vh
-    line-height: 5vh
+    text-align: center
+    line-height: 50px
     border-radius: 5%
 
 .buttonContainer
     display: flex
     justify-content: space-evenly
+    align-items: center
+    flex: 0 0 auto
+    flex-wrap: wrap
+    align-content: flex-start
+    
 
 .button-primary:hover
     cursor: pointer
@@ -34,10 +50,15 @@ recipeSection
     display: flex
     justify-content: space-evenly
     flex-direction: column
-    background: #D3D3D3
-    height: 50vh
-    width: 50vh
+    align-items: stretch
+    flex: 1 0 auto
+    align-self: center
+    min-width: 50vw
+    min-height: 350px
+    height: 60vh
+    background: #69D2E7
     border-radius: 5%
+
 
 textArea 
     resize: none
@@ -46,14 +67,12 @@ textArea
     text-align: center
 
 .recipeTitle
-    display: flex
-    justify-content: space-between
+    align-self: center
+    flex-shrink: 0
     width: 50vw
-    height: 5vh
     color: white
     padding-left: 15px
     padding-right: 15px
-    align-items: center
     font-size: 1.5em
     margin-top: 1vh
     border-radius: 10px
@@ -65,16 +84,21 @@ textArea
     cursor: pointer
 
 .recipeWrapper
-    background: #E0E4CC
+    display: flex
+    flex-direction: column
+    flex-shrink: 0
+    background: #69D2E7
     border-radius: 10px
     padding-bottom: 1vh
     margin-top: 0.5vh
 
 .ingredientName
+    align-self: stretch
+    flex-shrink: 0
     font-size: 1.2em
     margin: 10px
     border-radius: 5px
-    background: grey
+    background: white
     padding: 5px
    
 
@@ -82,9 +106,11 @@ textArea
     background: red
 
 textArea
+    font-family: 'Indie Flower', cursive
+    font-size: 1.6em
     border-radius: 10px
-    width: 40vh
-    height: 15vh
+    width: 70%
+    height: 100%
 
 h1
     text-align: center
@@ -92,3 +118,25 @@ h1
 .textAreaWrapper
     display: flex
     justify-content: center
+    align-self: center
+    align-items: center
+    min-width: 100%
+    height: 100px
+
+.signature
+    font-family: 'Rajdhani', sans-serif
+    text-align: center
+    align-self: center
+    color: red
+
+a
+    color: blue
+    text-decoration: none
+
+a:visited 
+	color: purple
+
+
+a:visited:hover 
+	color: blue
+

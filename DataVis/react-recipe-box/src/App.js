@@ -159,6 +159,11 @@ class App extends React.Component {
       <div className="App">
         <h1>Recipe Box</h1>
        <RecipesSection/>
+        <div className="signature">
+          <p ><i className="fa fa-heart" aria-hidden="true"></i></p>
+          <p ><a href="https://github.com/abhinav-thinktank">Abhinav Mishra</a></p>
+          <p ><a href="https://github.com/abhinav-thinktank">अभिनव मिश्रा</a></p>
+        </div>
       </div>
     );
   }
