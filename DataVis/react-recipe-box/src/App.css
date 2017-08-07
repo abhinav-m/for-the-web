@@ -74,8 +74,7 @@ textArea {
   background: #A7DBD8; }
 
 .recipeTitle:hover {
-  border-left: #69D2E7 solid 5px;
-  border-bottom: #69D2E7 solid 5px;
+  background: blue;
   cursor: pointer; }
 
 .recipeWrapper {

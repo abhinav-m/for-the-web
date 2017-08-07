@@ -45,7 +45,7 @@ class RecipesSection extends React.Component {
   constructor() {
     super();
     this.state = {
-      recipes: [{title:"Butter chicken",ingredients:"Butter,chicken"},{title:"Cake",ingredients:"chocolate,MAGIC!"}],
+      recipes: (typeof localStorage["thinkTankRecipes"]!="undefined")? JSON.parse(localStorage["thinkTankRecipes"]) : [{title:"Butter chicken",ingredients:"Butter,chicken"},{title:"Cake",ingredients:"chocolate,MAGIC!"}],
       recipeIndex:-1,
       newRecipeTitle: "Enter title here",
       newRecipeIngredients: "Enter ingredients seperated by commas eg (butter,sugar,chocolate)"
@@ -58,9 +58,13 @@ class RecipesSection extends React.Component {
     this.titleChanged = this.titleChanged.bind(this);
     this.recipeChanged = this.recipeChanged.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
+    this.updateLocalStorage = this.updateLocalStorage.bind(this);
    
   }
 
+  updateLocalStorage() {
+    localStorage.setItem("thinkTankRecipes", JSON.stringify(this.state.recipes));
+  }
  
   editRecipe(index){
     var title = this.state.recipes[index].title
@@ -84,12 +88,12 @@ class RecipesSection extends React.Component {
     newRecipes.splice(index,1)
     this.setState({
      recipes: newRecipes
-    })
+    },()=>{ this.updateLocalStorage();})
   }
   
   sanitizeRecipe() {
     var trimmedIngredients = this.state.newRecipeIngredients.split(",")
-    trimmedIngredients.forEach( val => val = val.trim())
+    trimmedIngredients.forEach( (val,i) => trimmedIngredients[i] = val.length>50? val.slice(0,50).trim(): val.trim())
     trimmedIngredients =  trimmedIngredients.join(",");
     var trimmedTitle = this.state.newRecipeTitle.trim();
     return {title:trimmedTitle,ingredients:trimmedIngredients}
@@ -106,7 +110,8 @@ class RecipesSection extends React.Component {
       { recipes: existingRecipes,
         recipeIndex: -1},
         () => { this.resetRecipeValues(); 
-      })
+                this.updateLocalStorage();
+               } )
   }
 
   resetRecipeValues() {
@@ -120,7 +125,7 @@ class RecipesSection extends React.Component {
   titleChanged(e) {
     var val = e.target.value;
     this.setState({
-      newRecipeTitle:val
+      newRecipeTitle:val.length > 80 ? val.slice(0,50):val
     })
   }
 
@@ -136,10 +141,10 @@ class RecipesSection extends React.Component {
         return(
           <div className="recipeMaker">
             <div className ="textAreaWrapper">
-            <textArea className="titleEditor" onChange={this.titleChanged} value={this.state.newRecipeTitle}></textArea>
+          <textArea className="titleEditor" onChange={this.titleChanged}  value={this.state.newRecipeTitle}></textArea>
             </div>
             <div className ="textAreaWrapper">
-            <textArea className="ingredientEditor" onChange={this.recipeChanged} value={this.state.newRecipeIngredients}></textArea>
+          <textArea className="ingredientEditor" onChange={this.recipeChanged}  value={this.state.newRecipeIngredients}></textArea>
             </div>
             <div className="buttonContainer"><div className="button-primary saveButton" onClick={this.saveRecipe}><i className="fa fa-floppy-o fa-2x" aria-hidden="true"></i></div><div className="button-primary backButton" onClick={this.resetRecipeValues}><i className="fa fa-arrow-left fa-2x" aria-hidden="true"></i></div></div>
           </div> )
@@ -163,7 +168,7 @@ class App extends React.Component {
           <p ><i className="fa fa-heart" aria-hidden="true"></i></p>
           <p ><a href="https://github.com/abhinav-thinktank">Abhinav Mishra</a></p>
           <p ><a href="https://github.com/abhinav-thinktank">अभिनव मिश्रा</a></p>
-        </div>
+      </div>
       </div>
     );
   }
