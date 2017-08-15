@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box; }
+
+.cell {
+  box-sizing: border-box;
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  float: left; }
+
+.live {
+  background: white; }
+
+.dead {
+  background: red; }
+
+.App {
+  background: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100vw;
+  height: 100vh; }
+
+.wrapper {
+  margin: 0;
+  padding: 0;
+  min-width: 500px;
+  min-height: 300px;
+  max-width: 500px;
+  max-height: 300px; }
+
+.row {
+  width: 500px;
+  height: 10px; }

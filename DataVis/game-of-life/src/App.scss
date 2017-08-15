@@ -4,14 +4,22 @@
 
 .cell {
     box-sizing: border-box;
-    display: inline-block;
     width: 10px;
     height: 10px;
     border: 1px solid black;
     float: left;
 }
 
+.live {
+    background: white;
+}
+
+.dead {
+    background: red;
+}
+
 .App {
+    background: lightblue;
     display: flex;
     justify-content: center;
     align-items: center;
