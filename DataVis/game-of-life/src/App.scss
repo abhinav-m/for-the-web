@@ -7,22 +7,31 @@
     display: inline-block;
     width: 10px;
     height: 10px;
-    border: 1px solid black
-}
-
-.row {
-    margin: 0;
-    display: inline-block;
-    line-height: 10px;
+    border: 1px solid black;
+    float: left;
 }
 
 .App {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0;
     padding: 0;
     text-align: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.wrapper {
+    margin: 0;
+    padding: 0;
     min-width: 500px;
     min-height: 300px;
     max-width: 500px;
     max-height: 300px;
+}
+
+.row {
+    width: 500px;
+    height: 10px;
 }

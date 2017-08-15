@@ -28,6 +28,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <div className="wrapper">
       {this.state[this.state.shown].map( function(r,i)  {
         return(
 
@@ -37,6 +38,7 @@ class App extends React.Component {
               )
         } )
       }
+      </div>
       </div>
     );
   }
