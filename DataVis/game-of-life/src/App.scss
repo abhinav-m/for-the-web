@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+}
+
+.cell {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 1px solid black
+}
+
+.row {
+    margin: 0;
+    display: inline-block;
+    line-height: 10px;
+}
+
+.App {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    min-width: 500px;
+    min-height: 300px;
+    max-width: 500px;
+    max-height: 300px;
+}
