@@ -23,7 +23,7 @@ const firstGeneration = (rows,cols) => {
   let randomCols = generateRandom(cols,cols-10);
   let liveCells = [];
   randomRows.forEach ( v => 
-     randomCols.forEach ( k =>     liveCells.push( v+""+k ) )
+     randomCols.forEach ( k =>     liveCells.push( v+","+k ) )
     )
   return liveCells;
   }
@@ -43,28 +43,72 @@ return randomArray;
 }
 
 class App extends React.Component {
+
+  
   constructor() {
     super();
+    this.neighbours = [[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1]];
+    this.small = Matrix(30,50);
+    this.medium = Matrix(70,50);
+    this.large = Matrix(100,80);
+    this.liveCells = firstGeneration();
+    this.currentBoard = this.small.map( (v,i) => {
+     return v.map ( (x,j) => this.liveCells.includes(i+","+j) ? 1 : -1)
+    })
     this.state = {
-      small:Matrix(30,50), 
-      medium:Matrix(70,50),
-      large:Matrix(100,80),
-      shown:"small",
-      liveCells: ["1425","1426","1427"]
+      board:this.currentBoard,
+      liveCells: ["14,25","14,26","14,27"],
+      generationGap:1000
     }
   }
 
+  //Using react component lifecycle method to set an interval to
+  //function that simulates generations when component loads initially.
+  componentDidMount() {
+     this.interval = setInterval(this.simulateNextGeneration,this.state.generationGap);
+    this.setState({
+      interval:interval
+    })
+  }
+
+//Helper method to simulate next generation of live / dead cells
+//Currently built to handle two things:
+// -> Check whether current live cells will live
+// -> Check whether neighbours of current live cells will get new life.
+//    (Doesn't check same cell twice for life)
+  simulateNextGeneration() {
+    let liveCells = this.state.liveCells;
+    let newCells = [];
+
+    liveCells.forEach(  (v,i) => {
+      if(willLive(v))
+        newCells.push(v)
+    })
+  
+  }
+
+  //Checks if an already living cell will continue living or will die
+  //by testing it's neighbours (in a clockwise manner)
+  willLive(cell) {
+    let index = cell.split(',');
+    let row = index[0];
+    let col = index[1];
+    let liveadj = 0, deadadj = 0;
+    let board = this.state.board;
+    this.neighbours.forEach( val => board[row + val[0]][col + val[1]] === 1? liveCells++ : deadCells++ )
+    return liveadj === 2 
+  }
 
 
   render() {
     return (
       <div className="App">
         <div className="wrapper">
-      {this.state[this.state.shown].map( (r,i) =>  {
+      {this.state.board.map( (r,i) =>  {
         return(
 
       <div className = "row" key = {i} id={i}>
-      {r.map( (e,j) => <div className= {this.state.liveCells.includes(i+""+j)?"cell live":"cell dead"} key={i+""+j} id={i+""+j}></div>)}
+      {r.map( (e,j) => <div className= {this.state.board[i][j] === 1?"cell live":"cell dead"} key={i+""+j} id={i+""+j}></div>)}
       </div> 
               )
         } )
