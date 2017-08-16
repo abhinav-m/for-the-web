@@ -79,12 +79,14 @@ class App extends React.Component {
   simulateNextGeneration() {
     let liveCells = this.state.liveCells;
     let newCells = [];
+    let neighbours = getNeighbours(liveCells);
 
+    //Checking if each live cell will live or die in the next generation.
     liveCells.forEach(  (v,i) => {
       if(willLive(v))
         newCells.push(v)
     })
-  
+    
   }
 
   //Checks if an already living cell will continue living or will die
@@ -99,6 +101,19 @@ class App extends React.Component {
     return liveadj === 2 
   }
 
+  getDeadNeighbours(liveCells) {
+     let deadneighbours = [];
+     let board = this.state.board;
+     liveCells.forEach( cell => {
+     let index = cell.split(',');
+     let row = index[0];
+     let col = index[1];
+     this.neighbours.forEach( val =>{
+       nRow = row + val[0];
+       nCol = row + val[1];
+        board[row + val[0]][col + val[1]] === -1? deadneighbours.push(val) })
+     })
+  }
 
   render() {
     return (
