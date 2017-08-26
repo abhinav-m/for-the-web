@@ -1,6 +1,9 @@
 import React from 'react';
 
 import './App.css';
+//TODO: Add live cells on click of cells.
+//TODO: Multiple UI improvements needed
+//TODO: Add corner cases: Horizontal , and vertical.
 
 //Helper function to initialize matrix.
 const Matrix = (rows, cols) => {
@@ -60,25 +63,32 @@ class App extends React.Component {
             this.medium = Matrix(70, 50);
             this.large = Matrix(100, 80);
             this.liveCells = firstGeneration();
-            this.currentBoard = this.small.map((v, i) => {
-                return v.map((x, j) => this.liveCells.includes(i + "," + j) ? 1 : -1)
-            })
             this.state = {
-                board: this.currentBoard,
+                board: this.small,
                 liveCells: ["14,25", "14,26", "14,27"],
-                generationGap: 1000
+                generationGap: 125
             }
 
             this.willLive = this.willLive.bind(this);
             this.getNeighbours  = this.getNeighbours.bind(this);
             this.simulateNextGeneration = this.simulateNextGeneration.bind(this);
+            this.nextGeneration = this.nextGeneration.bind(this);
+            
            
         }
+
 
         //Using react component lifecycle method to set an interval to
         //function that simulates generations when component loads initially.
         componentDidMount() {
+            console.log('componentDidMount')
             this.interval = setInterval(this.simulateNextGeneration, this.state.generationGap);
+        }
+
+        componentWillMount() {
+            console.log('componentWillMount')
+           if(this.interval)
+            clearInterval(this.interval)
         }
 
         //Helper method to simulate next generation of live / dead cells
@@ -88,48 +98,60 @@ class App extends React.Component {
         //    (Doesn't check same cell twice for life)
         simulateNextGeneration() {
             let liveCells = this.state.liveCells;
-            let newCells = [];
-            let neighbours = this.getNeighbours(liveCells);
-
-            //Checking if each live cell will live or die in the next generation.
-            liveCells.forEach((v, i) => {
-                if (this.willLive(v))
-                    newCells.push(v)
+            var newLiveCells = [];
+            var deadNeighbours = this.getNeighbours(liveCells,-1);
+            //Checking if each live cell will live or die in the next generation
+            this.nextGeneration(liveCells,newLiveCells,true)
+            //Checking if new cells are born from previous generations live cells DEAD  neighbours.
+           this.nextGeneration(deadNeighbours,newLiveCells,false)
+            this.setState({
+                liveCells: newLiveCells
             })
-
         }
+
+        nextGeneration(cellsArr,newLiveCells,type) {
+            cellsArr.forEach ( (v,i) => {
+                if(this.willLive(v,type))
+                    newLiveCells.push(v);
+            })
+   
+        }
+
+
 
         //Checks if an already living cell will continue living or will die
         //by testing it's neighbours (in a clockwise manner)
-        willLive(cell) {
+        willLive(cell,isLiveCell) {
             let index = cell.split(',');
             let row = Number(index[0]);
             let col = Number(index[1]);
-            let liveadj = 0,
-                deadadj = 0;
+            let liveadj = 0;
             let board = this.state.board;
-            this.neighbours.forEach(val => board[row + val[0]][col + val[1]] === 1 ? liveadj++ : deadadj++)
-            return liveadj === 2
+            this.neighbours.forEach(val => { let curRow = row + val[0]
+                let curCol = col + val[1];
+                if( this.state.liveCells.includes(curRow + ',' + curCol )  )
+                                                liveadj++ })
+            return isLiveCell? liveadj === 2 : liveadj === 3;
         }
+    
+        //FIXME: Doesn't get correct deadneighbours.
+    getNeighbours(cells,which) {
+        let neighbours = [];
+        cells.forEach(cell => {
+            let index = cell.split(',');
+            let row = index[0];
+            let col = index[1];
+            var nRow,nCol;
+            this.neighbours.forEach(function(val) {
+                nRow = Number(row) + val[0];
+                nCol = Number(col) + val[1];
+                if (!cells.includes(nRow+','+nCol) && !neighbours.includes(nRow + ',' + nCol) )
+                    neighbours.push(nRow + ',' + nCol)
+            })
+        })
 
-        getNeighbours(cells,which) {
-                let neighbours = [];
-                let board = this.state.board;
-                cells.forEach(cell => {
-                        let index = cell.split(',');
-                        let row = index[0];
-                        let col = index[1];
-                        var nRow,nCol;
-                        this.neighbours.forEach(function(val) {
-                                nRow = Number(row) + val[0];
-                                nCol = Number(row) + val[1];
-                                if (board[nRow][nCol] === which && !neighbours.includes(nRow + ',' + nCol) )
-                                    neighbours.push(nRow + ',' + nCol)
-                                })
-                        })
-
-                        return neighbours;
-                }
+    return neighbours;
+    }
 
                 render() {
                         return ( <div className = "App" >
@@ -140,7 +162,7 @@ class App extends React.Component {
                                             <  div className = "row"
                                             key = { i }
                                             id = { i } > {
-                                                r.map((e, j) => < div className = { this.state.board[i][j] === 1 ? "cell live" : "cell dead" }
+                                                r.map((e, j) => < div className = { this.state.liveCells.includes(i+','+j) ? "cell live" : "cell dead" }
                                                     key = { i + "" + j }
                                                     id = { i + "" + j } > </div>)} 
                                                   </div> 
