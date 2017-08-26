@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './App.css';
-//TODO: Add live cells on click of cells.
+//TODO: Add dead cells on click of live cells.
 //TODO: Multiple UI improvements needed
 //TODO: Add corner cases: Horizontal , and vertical.
 
@@ -65,7 +65,7 @@ class App extends React.Component {
             this.liveCells = firstGeneration();
             this.state = {
                 board: this.small,
-                liveCells: ["14,25", "14,26", "14,27"],
+                liveCells: ["0,25","0,26","0,27","14,25", "14,26", "14,27","15,0","16,0","17,0"],
                 generationGap: 125
             }
 
@@ -73,7 +73,8 @@ class App extends React.Component {
             this.getNeighbours  = this.getNeighbours.bind(this);
             this.simulateNextGeneration = this.simulateNextGeneration.bind(this);
             this.nextGeneration = this.nextGeneration.bind(this);
-            
+            this.changeCellState = this.changeCellState.bind(this);
+            this.wrapValue = this.wrapValue.bind(this)
            
         }
 
@@ -87,6 +88,7 @@ class App extends React.Component {
 
         componentWillMount() {
             console.log('componentWillMount')
+            //clear any previous interval if already set.
            if(this.interval)
             clearInterval(this.interval)
         }
@@ -100,6 +102,9 @@ class App extends React.Component {
             let liveCells = this.state.liveCells;
             var newLiveCells = [];
             var deadNeighbours = this.getNeighbours(liveCells,-1);
+
+            if(deadNeighbours.includes('29,26'))
+                console.log('test')
             //Checking if each live cell will live or die in the next generation
             this.nextGeneration(liveCells,newLiveCells,true)
             //Checking if new cells are born from previous generations live cells DEAD  neighbours.
@@ -119,43 +124,72 @@ class App extends React.Component {
 
 
 
-        //Checks if an already living cell will continue living or will die
+        //Checks if a cell will continue living or will die
         //by testing it's neighbours (in a clockwise manner)
         willLive(cell,isLiveCell) {
             let index = cell.split(',');
             let row = Number(index[0]);
             let col = Number(index[1]);
             let liveadj = 0;
-            let board = this.state.board;
-            this.neighbours.forEach(val => { let curRow = row + val[0]
+            let maxRows = this.state.board.length;
+            let maxCols = this.state.board[0].length;
+            this.neighbours.forEach(val => { 
+                let curRow = row + val[0]
                 let curCol = col + val[1];
+                if(curRow === maxRows || curRow < 0)
+                curRow =     this.wrapValue(curRow,maxRows)
+                if(curCol === maxCols || curCol < 0)
+                curCol = this.wrapValue(curCol,maxCols)
                 if( this.state.liveCells.includes(curRow + ',' + curCol )  )
                                                 liveadj++ })
             return isLiveCell? liveadj === 2 : liveadj === 3;
         }
     
-        //FIXME: Doesn't get correct deadneighbours.
+     
     getNeighbours(cells,which) {
         let neighbours = [];
+        var maxRows = this.state.board.length;
+        var maxCols = this.state.board[0].length;
         cells.forEach(cell => {
             let index = cell.split(',');
             let row = index[0];
             let col = index[1];
             var nRow,nCol;
-            this.neighbours.forEach(function(val) {
+            this.neighbours.forEach((val) =>{
                 nRow = Number(row) + val[0];
                 nCol = Number(col) + val[1];
+                if(nRow === maxRows || nRow < 0)
+                nRow =     this.wrapValue(nRow,maxRows)
+                if(nCol ===  maxCols || nCol < 0)
+                nCol = this.wrapValue(nCol,maxCols)
                 if (!cells.includes(nRow+','+nCol) && !neighbours.includes(nRow + ',' + nCol) )
                     neighbours.push(nRow + ',' + nCol)
             })
         })
-
     return neighbours;
     }
 
+    //Helper function to wrap the value to the edges of the matrix
+    //in case edge cases exist.
+      wrapValue(value,max){
+        return value < 0 ? max-1 :0
+    }
+
+         changeCellState(e){
+          let liveCells =   this.state.liveCells;
+          liveCells.push(e.target.id)
+          this.setState({
+              liveCells: liveCells
+          })
+       
+         }
+
+
+
                 render() {
+                    console.log('render')
                         return ( <div className = "App" >
-                            <div className = "wrapper" > {
+                            <div className = "wrapper" onClick={this.changeCellState}> {
                                 this.state.board.map((r, i) => {
                                         return (
 
@@ -164,7 +198,7 @@ class App extends React.Component {
                                             id = { i } > {
                                                 r.map((e, j) => < div className = { this.state.liveCells.includes(i+','+j) ? "cell live" : "cell dead" }
                                                     key = { i + "" + j }
-                                                    id = { i + "" + j } > </div>)} 
+                                                    id = { i + "," + j } > </div>)} 
                                                   </div> 
                                                 )
                                             })
