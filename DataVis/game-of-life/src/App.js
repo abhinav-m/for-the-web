@@ -71,6 +71,7 @@ class App extends React.Component {
 
             this.willLive = this.willLive.bind(this);
             this.getNeighbours  = this.getNeighbours.bind(this);
+            this.simulateNextGeneration = this.simulateNextGeneration.bind(this);
            
         }
 
@@ -102,8 +103,8 @@ class App extends React.Component {
         //by testing it's neighbours (in a clockwise manner)
         willLive(cell) {
             let index = cell.split(',');
-            let row = index[0];
-            let col = index[1];
+            let row = Number(index[0]);
+            let col = Number(index[1]);
             let liveadj = 0,
                 deadadj = 0;
             let board = this.state.board;
@@ -120,8 +121,8 @@ class App extends React.Component {
                         let col = index[1];
                         var nRow,nCol;
                         this.neighbours.forEach(function(val) {
-                                nRow = row + val[0];
-                                nCol = row + val[1];
+                                nRow = Number(row) + val[0];
+                                nCol = Number(row) + val[1];
                                 if (board[nRow][nCol] === which && !neighbours.includes(nRow + ',' + nCol) )
                                     neighbours.push(nRow + ',' + nCol)
                                 })
