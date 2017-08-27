@@ -5,7 +5,7 @@ import './App.css';
 //TODO: Multiple UI improvements needed
 //TODO: Add multiple sizes functionality.
 //Check responsiveness
-//FIXME: F
+
 
 //Helper function to initialize matrix.
 const Matrix = (rows, cols) => {
@@ -69,7 +69,8 @@ class App extends React.Component {
             liveCells: this.liveCells,//["0,25","0,26","0,27","14,25", "14,26", "14,27","15,0","16,0","17,0"],
             generationGap: 50,
             isPaused: false,
-            generation: 1
+            generation: 1,
+            oldLife: []
         }
 
         this.willLive = this.willLive.bind(this);
@@ -119,7 +120,8 @@ class App extends React.Component {
         let nextGen = this.state.generation + 1;
         this.setState({
             liveCells: newLiveCells,
-            generation: nextGen
+            generation: nextGen,
+            oldLife:liveCells
         })
     }
 
@@ -208,16 +210,19 @@ class App extends React.Component {
         let liveCells = this.state.liveCells;
         liveCells.push(e.target.id)
         this.setState({
-            liveCells: liveCells
-        })
+            liveCells: liveCells,
+         
+        },()=>{  this.setState({ isPaused:true}) })
 
     }
 
     clearBoard() {
         let emptyBoard = [];
         this.setState({
+            oldLife: [],
             liveCells: emptyBoard,
-            generation: 0
+            generation: 0,
+            isPaused:true
         })
         this.stopSimulation();
     }
@@ -236,7 +241,7 @@ class App extends React.Component {
                         <  div className="row"
                             key={i}
                             id={i} > {
-                                r.map((e, j) => < div className={this.state.liveCells.includes(i + ',' + j) ? "cell live" : "cell dead"}
+                                r.map((e, j) => < div className={this.state.liveCells.includes(i + ',' + j) ? this.state.oldLife.includes(i+','+j) ?'cell live' :'cell new-life': 'cell dead'}
                                     key={i + "" + j}
                                     id={i + "," + j} > </div>)}
                         </div>

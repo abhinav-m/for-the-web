@@ -12,10 +12,14 @@
   background: white; }
 
 .dead {
-  background: red; }
+  background: purple; }
+
+.new-life {
+  background: greenyellow; }
 
 .App {
-  background: lightblue;
+  background: lavenderblush;
+  flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,8 +35,27 @@
   min-width: 500px;
   min-height: 300px;
   max-width: 500px;
-  max-height: 300px; }
+  max-height: 300px;
+  outline-style: groove;
+  outline-color: black; }
 
 .row {
   width: 500px;
   height: 10px; }
+
+.state-button {
+  height: 60px;
+  width: 120px;
+  background: black;
+  color: white;
+  text-align: center;
+  line-height: 60px;
+  border-radius: 7.5px;
+  margin: 10px;
+  transition: border-radius 0.25s; }
+
+.state-button:hover {
+  cursor: pointer;
+  background: white;
+  color: black;
+  border-radius: 15px; }
