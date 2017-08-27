@@ -3,7 +3,9 @@ import React from 'react';
 import './App.css';
 //TODO: Add dead cells on click of live cells.
 //TODO: Multiple UI improvements needed
-//TODO: Add pause , unpause functionality button.
+//TODO: Add multiple sizes functionality.
+//Check responsiveness
+//FIXME: F
 
 //Helper function to initialize matrix.
 const Matrix = (rows, cols) => {
@@ -46,7 +48,6 @@ const generateRandom = (num, length) => {
 
 class App extends React.Component {
 
-
     constructor() {
         super();
         this.neighbours = [
@@ -62,12 +63,13 @@ class App extends React.Component {
         this.small = Matrix(30, 50);
         this.medium = Matrix(70, 50);
         this.large = Matrix(100, 80);
-        this.liveCells = firstGeneration(30,50);
+        this.liveCells = firstGeneration(30, 50);
         this.state = {
             board: this.small,
             liveCells: this.liveCells,//["0,25","0,26","0,27","14,25", "14,26", "14,27","15,0","16,0","17,0"],
-            generationGap: 100,
-            isPaused:false
+            generationGap: 50,
+            isPaused: false,
+            generation: 1
         }
 
         this.willLive = this.willLive.bind(this);
@@ -79,6 +81,7 @@ class App extends React.Component {
         this.stopSimulation = this.stopSimulation.bind(this)
         this.startSimulation = this.startSimulation.bind(this)
         this.pause = this.pause.bind(this)
+        this.clearBoard = this.clearBoard.bind(this)
 
     }
 
@@ -113,28 +116,30 @@ class App extends React.Component {
         this.nextGeneration(liveCells, newLiveCells, true)
         //Checking if new cells are born from previous generations live cells DEAD  neighbours.
         this.nextGeneration(deadNeighbours, newLiveCells, false)
+        let nextGen = this.state.generation + 1;
         this.setState({
-            liveCells: newLiveCells
+            liveCells: newLiveCells,
+            generation: nextGen
         })
     }
 
-    startSimulation(){
-        this.interval = setInterval(this.simulateNextGeneration, this.state.generationGap); 
+    startSimulation() {
+        this.interval = setInterval(this.simulateNextGeneration, this.state.generationGap);
     }
 
-    stopSimulation(){
+    stopSimulation() {
         clearInterval(this.interval)
     }
 
     pause() {
-        if(this.state.isPaused)
+        if (this.state.isPaused)
             this.startSimulation();
         else {
             this.stopSimulation();
         }
         let pauseStatus = !this.state.isPaused;
         this.setState({
-            isPaused:pauseStatus
+            isPaused: pauseStatus
         })
     }
 
@@ -145,8 +150,6 @@ class App extends React.Component {
         })
 
     }
-
-
 
     //Checks if a cell will continue living or will die
     //by testing it's neighbours (in a clockwise manner)
@@ -167,7 +170,7 @@ class App extends React.Component {
             if (this.state.liveCells.includes(curRow + ',' + curCol))
                 liveadj++
         })
-        return isLiveCell ? liveadj === 2 : liveadj === 3;
+        return isLiveCell ? liveadj === 2 || liveadj === 3 : liveadj === 3;
     }
 
     //This is a helper function to get the neighbours of cells.
@@ -210,12 +213,22 @@ class App extends React.Component {
 
     }
 
+    clearBoard() {
+        let emptyBoard = [];
+        this.setState({
+            liveCells: emptyBoard,
+            generation: 0
+        })
+        this.stopSimulation();
+    }
 
 
     render() {
         console.log('render')
         return (<div className="App" >
-            <button onClick={this.pause}>Pause/Unpause</button>
+            {this.state.generation}
+            <div onClick={this.pause} className='state-button'>{this.state.isPaused ? 'Start' : 'Stop'}</div>
+            <div onClick={this.clearBoard} className='state-button'>Clear</div>
             <div className="wrapper" onClick={this.changeCellState}> {
                 this.state.board.map((r, i) => {
                     return (
