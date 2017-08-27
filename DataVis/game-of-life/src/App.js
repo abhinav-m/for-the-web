@@ -156,6 +156,7 @@ class App extends React.Component {
     }
 
     changeSpeed(e) {
+     this.stopSimulation();
         let speed = 100;
         let selected = '';
         switch (e.target.id) {
@@ -175,8 +176,8 @@ class App extends React.Component {
             generationGap: speed,
             isSelected: selected
         },()=>{
-             this.stopSimulation();
-        this.startSimulation();
+            if(!this.state.isPaused)
+             this.startSimulation();
         })
        
     }
@@ -259,21 +260,15 @@ class App extends React.Component {
     render() {
         console.log('render')
         return (<div className="App" >
-            <div className='genBox'>Generation</div>
+            <h1>Game of Life</h1>
+            <div>Generation </div>
+            <hr/>
             {this.state.generation}
-            <hr />
-            Speed
-            <div className='button-wrapper' onClick={this.changeSpeed}>
-                <div className={this.state.isSelected === 'Fast' ?'state-button selected' : 'state-button'} id='Fast'>Fast</div>
-                <div className={this.state.isSelected === 'Medium' ?'state-button selected' : 'state-button'}  id='Medium'>Medium</div>
-                <div className={this.state.isSelected === 'Slow' ?'state-button selected' : 'state-button'}  id='Slow'>Slow</div>
-            </div>
             <div onClick={this.pause} className='state-button'>{this.state.isPaused ? 'Start' : 'Stop'}</div>
             <div onClick={this.clearBoard} className='state-button'>Clear</div>
             <div className="wrapper" onClick={this.changeCellState}> {
                 this.state.board.map((r, i) => {
                     return (
-
                         <  div className="row"
                             key={i}
                             id={i} > {
@@ -284,6 +279,18 @@ class App extends React.Component {
                     )
                 })
             } </div>
+
+            <div className='button-wrapper' onClick={this.changeSpeed}>
+                <div className={this.state.isSelected === 'Fast' ?'state-button selected' : 'state-button'} id='Fast'>Fast</div>
+                <div className={this.state.isSelected === 'Medium' ?'state-button selected' : 'state-button'}  id='Medium'>Medium</div>
+                <div className={this.state.isSelected === 'Slow' ?'state-button selected' : 'state-button'}  id='Slow'>Slow</div>
+            </div>
+           
+                 <div className="signature">
+<p ><i className="fa fa-heart" aria-hidden="true"></i></p>
+<p ><a href="https://github.com/abhinav-thinktank">Abhinav Mishra</a></p>
+<p ><a href="https://github.com/abhinav-thinktank">अभिनव मिश्रा</a></p>
+</div>
         </div>
         );
     }
