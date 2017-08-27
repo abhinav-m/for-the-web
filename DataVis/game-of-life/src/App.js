@@ -2,7 +2,6 @@ import React from 'react';
 
 import './App.css';
 //TODO: Add dead cells on click of live cells.
-//TODO: Multiple UI improvements needed
 //TODO: Add multiple sizes functionality.
 //Check responsiveness
 
@@ -237,7 +236,7 @@ class App extends React.Component {
 
     changeCellState(e) {
         let liveCells = this.state.liveCells;
-        liveCells.push(e.target.id)
+        liveCells.includes(e.target.id)? liveCells.splice(liveCells.indexOf(e.target.id),1) :liveCells.push(e.target.id)
         this.setState({
             liveCells: liveCells,
 
@@ -287,6 +286,7 @@ class App extends React.Component {
             </div>
            
                  <div className="signature">
+                     <p><a href='https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life'>Learn about it here!</a></p>
 <p ><i className="fa fa-heart" aria-hidden="true"></i></p>
 <p ><a href="https://github.com/abhinav-thinktank">Abhinav Mishra</a></p>
 <p ><a href="https://github.com/abhinav-thinktank">अभिनव मिश्रा</a></p>
