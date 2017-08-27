@@ -18,7 +18,7 @@
   background: greenyellow; }
 
 .App {
-  background: lavenderblush;
+  background: white;
   flex-direction: column;
   display: flex;
   justify-content: center;
@@ -39,6 +39,11 @@
   outline-style: groove;
   outline-color: black; }
 
+.button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
 .row {
   width: 500px;
   height: 10px; }
@@ -54,8 +59,10 @@
   margin: 10px;
   transition: border-radius 0.25s; }
 
+.selected {
+  background: saddlebrown; }
+
 .state-button:hover {
   cursor: pointer;
-  background: white;
-  color: black;
+  background: blue;
   border-radius: 15px; }

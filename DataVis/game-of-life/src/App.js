@@ -68,6 +68,7 @@ class App extends React.Component {
             board: this.small,
             liveCells: this.liveCells,//["0,25","0,26","0,27","14,25", "14,26", "14,27","15,0","16,0","17,0"],
             generationGap: 50,
+            isSelected: 'Fast',
             isPaused: false,
             generation: 1,
             oldLife: []
@@ -83,6 +84,7 @@ class App extends React.Component {
         this.startSimulation = this.startSimulation.bind(this)
         this.pause = this.pause.bind(this)
         this.clearBoard = this.clearBoard.bind(this)
+        this.changeSpeed = this.changeSpeed.bind(this)
 
     }
 
@@ -121,7 +123,7 @@ class App extends React.Component {
         this.setState({
             liveCells: newLiveCells,
             generation: nextGen,
-            oldLife:liveCells
+            oldLife: liveCells
         })
     }
 
@@ -151,6 +153,32 @@ class App extends React.Component {
                 newLiveCells.push(v);
         })
 
+    }
+
+    changeSpeed(e) {
+        let speed = 100;
+        let selected = '';
+        switch (e.target.id) {
+            case 'Fast': speed = 50;
+            selected='Fast';
+                break;
+            case 'Medium': speed = 100;
+                selected ='Medium';
+                break;
+            case 'Slow': speed = 200;
+                selected = 'Slow';
+                break;
+        }
+
+
+        this.setState({
+            generationGap: speed,
+            isSelected: selected
+        },()=>{
+             this.stopSimulation();
+        this.startSimulation();
+        })
+       
     }
 
     //Checks if a cell will continue living or will die
@@ -211,8 +239,8 @@ class App extends React.Component {
         liveCells.push(e.target.id)
         this.setState({
             liveCells: liveCells,
-         
-        },()=>{  this.setState({ isPaused:true}) })
+
+        }, () => { this.setState({ isPaused: true }) })
 
     }
 
@@ -222,7 +250,7 @@ class App extends React.Component {
             oldLife: [],
             liveCells: emptyBoard,
             generation: 0,
-            isPaused:true
+            isPaused: true
         })
         this.stopSimulation();
     }
@@ -231,7 +259,15 @@ class App extends React.Component {
     render() {
         console.log('render')
         return (<div className="App" >
+            <div className='genBox'>Generation</div>
             {this.state.generation}
+            <hr />
+            Speed
+            <div className='button-wrapper' onClick={this.changeSpeed}>
+                <div className={this.state.isSelected === 'Fast' ?'state-button selected' : 'state-button'} id='Fast'>Fast</div>
+                <div className={this.state.isSelected === 'Medium' ?'state-button selected' : 'state-button'}  id='Medium'>Medium</div>
+                <div className={this.state.isSelected === 'Slow' ?'state-button selected' : 'state-button'}  id='Slow'>Slow</div>
+            </div>
             <div onClick={this.pause} className='state-button'>{this.state.isPaused ? 'Start' : 'Stop'}</div>
             <div onClick={this.clearBoard} className='state-button'>Clear</div>
             <div className="wrapper" onClick={this.changeCellState}> {
@@ -241,7 +277,7 @@ class App extends React.Component {
                         <  div className="row"
                             key={i}
                             id={i} > {
-                                r.map((e, j) => < div className={this.state.liveCells.includes(i + ',' + j) ? this.state.oldLife.includes(i+','+j) ?'cell live' :'cell new-life': 'cell dead'}
+                                r.map((e, j) => < div className={this.state.liveCells.includes(i + ',' + j) ? this.state.oldLife.includes(i + ',' + j) ? 'cell live' : 'cell new-life' : 'cell dead'}
                                     key={i + "" + j}
                                     id={i + "," + j} > </div>)}
                         </div>
