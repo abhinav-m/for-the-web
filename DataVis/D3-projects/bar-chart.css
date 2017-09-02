@@ -1,10 +1,23 @@
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     height: 100vh;
     width: 100vw;
     align-items: center;
-    background: black;
+    background: white;
+}
+
+h1 {
+    font-family: 'Roboto Condensed', sans-serif;
+    color: purple;
+}
+
+.signature {
+    font-family: 'Mukta', sans-serif;
+    text-align: center;
+    align-self: center;
+    color: red;
 }
 
 .bar {
@@ -17,16 +30,17 @@ body {
 }
 
 .axis text {
-    fill: black;
+    fill: white;
     font: 15px sans-serif;
 }
 
 #content {
     flex: 0 0 auto;
+    border-radius: 15px;
     height: 600px;
     width: 1200px;
     padding: 15px;
-    background: white;
+    background: black;
     justify-content: center;
     align-items: center
 }
@@ -34,6 +48,19 @@ body {
 .axis path,
 .axis line {
     fill: none;
-    stroke: #000;
+    stroke: white;
     shape-rendering: crispEdges;
+}
+
+a {
+    color: blue;
+    text-decoration: none;
+}
+
+a:visited {
+    color: purple;
+}
+
+a:visited:hover {
+    color: blue;
 }

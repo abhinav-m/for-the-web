@@ -42,10 +42,11 @@ function makeChart(data) {
         .domain([0, d3.max(chartData, d => d[1])])
         .range([height, 0])
 
-
+    //offsetting chart by left and top margin.
     var g = svg.append('g')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+    //Appending and translating both axis to chart.
     g.append('g')
         .attr('class', 'axis')
         .attr('transform', 'translate(0,' + height + ')')
@@ -61,6 +62,7 @@ function makeChart(data) {
         .style('text-anchor', 'end')
         .text('GDP, USA')
 
+    //Adding properties of each bar in chart.
     g.selectAll('.bar')
         .data(chartData)
         .enter().append('rect')
