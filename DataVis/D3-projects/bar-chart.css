@@ -8,6 +8,20 @@ body {
     background: white;
 }
 
+.info {
+    font-family: 'Mukta', sans-serif;
+    position: absolute;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    width: auto;
+    height: auto;
+    background-color: lightblue;
+    color: green;
+    text-decoration-style: bold;
+    font-size: 1em;
+}
+
 h1 {
     font-family: 'Roboto Condensed', sans-serif;
     color: purple;

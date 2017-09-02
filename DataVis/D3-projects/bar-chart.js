@@ -12,6 +12,9 @@ function makeChart(data) {
     const minDate = new Date(chartData[0][0])
     const maxDate = new Date(chartData[chartData.length - 1][0]);
 
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const currFormatter = d3.format("$,.2f");
+
     //Margins for our chart svg.
     var margin = {
         top: 20,
@@ -52,6 +55,11 @@ function makeChart(data) {
         .attr('transform', 'translate(0,' + height + ')')
         .call(d3.axisBottom(x))
 
+    var infoCard = d3.select("#content").append("div")
+        .attr("class", "info")
+        .style("opacity", 0);
+
+
     g.append('g')
         .attr('class', 'axis')
         .call(d3.axisLeft(y).ticks(10, ".0f"))
@@ -71,6 +79,26 @@ function makeChart(data) {
         .attr('y', d => y(d[1]))
         .attr('width', barWidth)
         .attr('height', d => height - y(d[1]))
+        .on('mouseover', (d) => {
+            let date = new Date(d[0]);
+            let year = date.getFullYear();
+            let month = date.getMonth();
+            let amount = d[1];
+
+            infoCard.transition()
+                .duration(200)
+                .style('opacity', 0.8);
+
+            infoCard.html('<span >' + currFormatter(amount) + '&nbsp;Billion </span><br><span >' + months[month] + ' , ' + year + '</span>')
+                .style("left", (d3.event.pageX + 5) + "px")
+                .style("top", (d3.event.pageY - 80) + "px");
+
+        })
+        .on("mouseout", function() {
+            infoCard.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
 
 
 
