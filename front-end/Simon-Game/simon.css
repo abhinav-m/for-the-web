@@ -1,0 +1,280 @@
+body{
+	font-family: 'Rajdhani',sans-serif;
+	background-color:black;
+	color:white;
+} 
+
+.circle {
+	position:relative;
+	height:10vw;
+	width:10vw;
+	border-radius:50%;
+}
+
+
+#content {
+	position:absolute;
+	display:inline-block;
+	left:40vw;
+	width:20vw;
+	margin-top:1%;
+}
+
+/* YELLOW*/
+.colorYellow {
+	background-color: #e5e500;
+}
+
+.colorYellowNoHov {
+	background-color:#e5e500;
+}
+
+.colorBrightYellow {
+	background-color: #ffff33;
+}
+
+#circle1 {
+	position:absolute;
+	left:0;
+}
+
+/* BRIGHT YELLOW */
+.colorYellow:hover {
+	cursor:pointer;
+	background-color:#ffff33;
+}
+
+
+
+/*GREEN */
+
+.colorGreen {
+	background-color: #00b300;
+}
+
+#circle2 {
+	top:0%;
+	left:10vw;
+}
+
+.colorGreenNoHov {
+	background-color:#00b300;
+}
+
+ /*green  BRIGHT ->#00ff00*/
+
+.colorGreen:hover {
+	cursor:pointer;
+	background-color:#00ff00;
+}
+
+.colorBrightGreen {
+	background-color:#00ff00 
+}
+
+/*RED Color */
+#circle3 {
+	position:absolute;
+	left:0;
+}
+
+.colorRed {
+	background-color:#b20000;
+}
+
+
+.colorRedNoHov {
+	background-color:#b20000;
+}
+
+.colorBrightRed {
+	background-color:#ff0000;
+}
+
+/* red BRIGHT 	  ->#ff0000*/
+.colorRed:hover {
+	cursor:pointer;
+	background-color:#ff0000;
+}
+
+
+
+/*BLUE Color */
+#circle4 {
+	bottom:0;
+	left:10vw;
+}
+
+.colorBlue {
+	background-color:#000099;
+}
+
+.colorBlueNoHov {
+	background-color:#000099;
+}
+
+.colorBrightBlue {
+	background-color:#0000ff;
+}
+
+/* blue BRIGHT   ->#0000ff */
+.colorBlue:hover {
+	cursor:pointer;
+	background-color:#0000ff;
+}
+
+.signature {
+	position:relative;
+}
+
+.header {
+	position:absolute;
+	left:0;
+	text-align:center;
+	font-size:5em;
+	height:150px;
+	right:0;
+	margin:0 auto;
+}
+
+.startButton {
+	border-radius:10%;
+	font-size:2.5em;
+	padding:1%;
+	justify-content: center;
+	display:inline-block;
+}
+
+.startButtonContainer {
+	text-align:center;
+}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: red;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px red;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+#strictAndNotif {
+	font-size:1.2em;
+	text-align:center;
+	line-height:100px;
+	margin-top:1%;
+	color:red;
+	transition:opacity 1s ease-in-out;
+}
+
+.fa-play-circle {
+	font-size:2em;
+	color:white;
+}
+
+.hoverBlue {
+	color:black;
+
+}
+
+.hoverBlue:hover {
+	color:blue;
+	cursor:pointer;
+}
+
+.fa-play-circle:hover {
+	color:blue;
+	cursor:pointer;
+
+}
+
+.fa-play-circle:focus {
+	font-size:1em;
+	color:blue;
+	cursor:pointer;
+
+}
+
+a {
+	text-decoration:none;
+}
+
+a {
+	font-size:1.2em;
+	color:white;
+	text-decoration:none;
+}
+
+a:hover {
+	color:blue;
+}
+
+a:visited {
+	color:#87CEFA;
+}
+
+a:visited:hover {
+	color:blue;
+}
+
+.header-container {
+	height:150px;
+	width:100%;
+}
+
+.fa-heart {
+	color:red;
+	font-size:1.2em;
+}
+
+.fa-refresh {
+	color:white;
+}
