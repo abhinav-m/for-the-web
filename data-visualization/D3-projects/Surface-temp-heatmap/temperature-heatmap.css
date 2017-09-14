@@ -1,0 +1,30 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.cell:hover {
+    cursor: pointer;
+    fill: black;
+}
+
+.info {
+    color: white;
+    background: black;
+    text-align: center;
+    position: absolute;
+    border-radius: 5px;
+    padding: 5px;
+}
