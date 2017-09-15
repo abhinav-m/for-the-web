@@ -13,11 +13,24 @@ body {
     fill: none;
     stroke: black;
     shape-rendering: crispEdges;
+    font-size: 0.7em;
 }
 
 .cell:hover {
     cursor: pointer;
     fill: black;
+}
+
+h3,
+h4,
+h2 {
+    text-align: center;
+    color: purple;
+}
+
+.label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2em;
 }
 
 .info {
@@ -27,4 +40,28 @@ body {
     position: absolute;
     border-radius: 5px;
     padding: 5px;
+}
+
+.legend {
+    font-size: 0.8em;
+}
+
+.signature {
+    font-family: 'Mukta', sans-serif;
+    text-align: center;
+    align-self: center;
+    color: red;
+}
+
+a {
+    color: blue;
+    text-decoration: none;
+}
+
+a:visited {
+    color: purple;
+}
+
+a:visited:hover {
+    color: blue;
 }

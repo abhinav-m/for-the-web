@@ -30,13 +30,13 @@ function makeChart(data) {
 
     const margins = {
         top: 20,
-        right: 20,
+        right: 200,
         bottom: 90,
-        left: 100
+        left: 200
     }
 
-    const WIDTH = window.innerWidth - window.innerWidth / 4;
-    const HEIGHT = window.innerHeight - window.innerHeight / 4;
+    const WIDTH = window.innerWidth - window.innerWidth / 2;
+    const HEIGHT = window.innerHeight - window.innerHeight / 2;
 
     const BASE_TEMP = data.baseTemperature;
 
@@ -84,10 +84,37 @@ function makeChart(data) {
     var g = svg.append('g')
         .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')');
 
+
+    g.append('g')
+        .attr('transform', `translate(${-margins.left/2},${(HEIGHT - margins.bottom)/2})`)
+        .append('text')
+        .attr('text-anchor', 'middle')
+        .attr('class', 'label')
+        .attr('transform', 'rotate(-90)')
+        .text('Months');
+
+    g.append('g')
+        .attr('transform', `translate(${(WIDTH )/2},${HEIGHT + margins.bottom/2})`)
+        .append('text')
+        .attr('class', 'label')
+        .attr('text-anchor', 'middle')
+        .text('Years');
+
+    var legend_key = d3.legendColor()
+        .cells(11)
+        .shape('circle')
+        .title('Variance from base:')
+        .scale(colorScale);
+
+    g.append('g')
+        .attr('class', 'legend')
+        .attr('transform', `translate(${WIDTH+20},${(HEIGHT - margins.bottom)/2})`)
+        .call(legend_key);
+
     g.append('g')
         .attr('class', 'axis')
         .attr('transform', 'translate(0,' + HEIGHT + ')')
-        .call(d3.axisBottom(x).ticks(15));
+        .call(d3.axisBottom(x).ticks(25));
 
     g.selectAll('.months')
         .data(MONTHS)
