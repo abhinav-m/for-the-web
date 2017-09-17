@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width:100vw;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items: center;
+}
+
+.wrapper {
+    margin: 0;
+    padding: 0;
+    height:270px;
+    width:750px;
+    outline-style: groove;
+    outline-color: black;
+}
+
+.row {
+    width: 750px;
+    height: 45px;
+}
+
+
+
+.cell {
+    float: left;
+    height: 45px;
+    width: 25px;
+    background: black;
+}
