@@ -6,7 +6,7 @@ const MATRIX = (rows, cols) => {
     for (let i = 0; i < rows; i++) {
         arr[i] = [];
         for (let j = 0; j < cols; j++)
-            arr[i][j]  = Math.floor(Math.random() * 6);
+            arr[i][j]  = 0;
     }
     return arr;
 }
@@ -19,12 +19,51 @@ const HALF_MATRIX = (matrix) => {
   return rendered;
 }
 
+/* The random dungeon creating algorithm
+   Do not alter the code unless you are ready to lose your hairline
+   and a few years of your life.
+*/
+const MAKE_DUNGEON = (matrix) => {
+ const AREA_HEIGHT = 8;
+ const AREA_WIDTH = 10;
+ const NUM_AREAS = 3;
+ var cellsPlacedVert = 0;
+
+//Starting i and j from 1
+//and subtracting width and height by 1
+//to add some margin to playable area.
+ for(let i= 1; i< matrix.length -1 ;i++) {
+   var cellsPlacedHor = 0;
+   cellsPlacedVert++;
+   for(let j =1; j < matrix[i].length -1 ;j++)
+   {
+
+          if( cellsPlacedHor === AREA_WIDTH ) {
+            //Add connection to the matrix on the right ( if on the middle of area height)
+            if( cellsPlacedVert === AREA_HEIGHT/2 )
+            matrix[i][j] = 1;
+            cellsPlacedHor = 0;
+          }
+          else {
+            matrix[i][j] = 1;
+            cellsPlacedHor++;
+          }
+      
+  }
+    if(cellsPlacedVert === AREA_HEIGHT) {
+      cellsPlacedVert = 0;
+      i+= 1;
+    }
+ }
+
+ return matrix;
+}
 
 
 class Game extends Component {
   constructor(props) {
     super(props);
-    this.level = MATRIX(20,30);
+    this.level = MAKE_DUNGEON(MATRIX(28,34));
     //Render bottom half of the matrix initially,move it as character moves.
     this.rendered = HALF_MATRIX(this.level)
     this.state = {

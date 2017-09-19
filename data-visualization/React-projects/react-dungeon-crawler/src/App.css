@@ -14,14 +14,14 @@ body {
 .wrapper {
     margin: 0;
     padding: 0;
-    height:495px;
-    width:750px;
+    height:675px;
+    width:850px;
     outline-style: groove;
     outline-color: black;
 }
 
 .row {
-    width: 750px;
+    width: 850px;
     height: 45px;
 }
 
