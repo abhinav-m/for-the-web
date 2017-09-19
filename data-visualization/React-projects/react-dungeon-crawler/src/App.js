@@ -36,7 +36,11 @@ const MAKE_DUNGEON = (matrix) => {
    var cellsPlacedHor = 0;
    for(let j =1; j < matrix[i].length -1 ;j++)
    {
-
+        if(i%9===0){
+          if(j%10 === 0 )
+          matrix[i][j-3] = 1
+        }
+        else {
           if( cellsPlacedHor === AREA_WIDTH ) {
             //Add connection to the matrix on the right ( if on the middle of area height)
             if( cellsPlacedVert === AREA_HEIGHT/2 )
@@ -47,12 +51,12 @@ const MAKE_DUNGEON = (matrix) => {
             matrix[i][j] = 1;
             cellsPlacedHor++;
           }
+        }
 
   }
 
   cellsPlacedVert++;
     if(cellsPlacedVert === AREA_HEIGHT) {
-      i+=1;
       cellsPlacedVert = 0;
       //Skip the next row.
     }
