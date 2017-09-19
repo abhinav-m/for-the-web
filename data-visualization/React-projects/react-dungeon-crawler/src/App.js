@@ -34,7 +34,6 @@ const MAKE_DUNGEON = (matrix) => {
 //to add some margin to playable area.
  for(let i= 1; i< matrix.length -1 ;i++) {
    var cellsPlacedHor = 0;
-   cellsPlacedVert++;
    for(let j =1; j < matrix[i].length -1 ;j++)
    {
 
@@ -48,12 +47,16 @@ const MAKE_DUNGEON = (matrix) => {
             matrix[i][j] = 1;
             cellsPlacedHor++;
           }
-      
+
   }
+
+  cellsPlacedVert++;
     if(cellsPlacedVert === AREA_HEIGHT) {
+      i+=1;
       cellsPlacedVert = 0;
-      i+= 1;
+      //Skip the next row.
     }
+
  }
 
  return matrix;
@@ -69,8 +72,8 @@ class Game extends Component {
     this.state = {
       level: this.level,
       board: this.rendered,
-      top_index: 9,
-      bottom_index:19
+      top_index: 18,
+      bottom_index:33
     }
     this.moveChar = this.moveChar.bind(this);
   }
@@ -79,7 +82,7 @@ class Game extends Component {
   up = 38
   right = 39
   down = 40 */
-
+//FIXTHIS: Rendered dungeon logic is correct. some correction needed here.
  moveChar(e) {
    let level = this.state.level;
    let rendered = this.state.board;
