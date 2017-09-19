@@ -72,8 +72,8 @@ class Game extends Component {
     this.state = {
       level: this.level,
       board: this.rendered,
-      top_index: 18,
-      bottom_index:33
+      top_index: 13,
+      bottom_index:27
     }
     this.moveChar = this.moveChar.bind(this);
   }
