@@ -80,12 +80,12 @@ const ADD_RANDOM_CHAR = (matrix,character,num) => {
   const COL_MIN = 1;
   const COL_MAX = 32;
   var phase;
-  if(num === 1)
-  phase = getRandomInclusive(1,3);
-  else
-  phase = 1;
 
-  for(let i = 1;i<=num;i++,phase++) {
+
+
+
+  for(let i = 1;i<=num;i++) {
+    phase = getRandomInclusive(1,3);
     if(phase === 1) {
        ROW_MIN = 1;
        ROW_MAX = 8;
@@ -97,7 +97,6 @@ const ADD_RANDOM_CHAR = (matrix,character,num) => {
     if(phase === 3) {
       ROW_MIN = 19;
       ROW_MAX = 26;
-      phase = 0;
     }
     //Generate random row between ROW_MIN and ROW_MAX.
      let randomRow = getRandomInclusive(ROW_MIN,ROW_MAX);
@@ -112,7 +111,7 @@ const ADD_RANDOM_CHAR = (matrix,character,num) => {
 }
 
 //Helper function to generate random value (inclusive) between two values.
-const getRandomInclusive = (min,max) => Math.floor(Math.random() * max - min + 1)  + min;
+const getRandomInclusive = (min,max) => Math.floor(Math.random() * (max - min + 1) )  + min;
 
 
 class Game extends Component {
