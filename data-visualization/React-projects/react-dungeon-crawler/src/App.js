@@ -141,6 +141,8 @@ class Game extends Component {
    let bottomIndex = this.state.bottom_index;
    var newRow;
 
+if(topIndex !== 0 && e.which === 38 || bottomIndex !== level.length -1 && e.which === 40)
+   {
   switch(e.which) {
     case 38: bottomIndex--;
              topIndex--;
@@ -163,6 +165,7 @@ class Game extends Component {
     top_index:topIndex,
     bottom_index:bottomIndex
   });
+ }
  }
 
 cellClass(cellType) {
