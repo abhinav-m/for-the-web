@@ -38,7 +38,7 @@ const MAKE_DUNGEON = (matrix) => {
    {
         if(i%9===0){
           if(j%10 === 0 )
-          matrix[i][j-3] = 1
+          matrix[i][j-3] = 1;
         }
         else {
           if( cellsPlacedHor === AREA_WIDTH ) {
@@ -58,13 +58,61 @@ const MAKE_DUNGEON = (matrix) => {
   cellsPlacedVert++;
     if(cellsPlacedVert === AREA_HEIGHT) {
       cellsPlacedVert = 0;
-      //Skip the next row.
     }
-
  }
-
+//Add health.
+ADD_RANDOM_CHAR(matrix,2,5);
+//Add enemies.
+ ADD_RANDOM_CHAR(matrix,3,6);
+//Add weapon.
+ ADD_RANDOM_CHAR(matrix,4,1);
+//Add next level entrance.
+ADD_RANDOM_CHAR(matrix,5,1);
  return matrix;
 }
+
+//Adds the passed character to the matrix randomly,
+//Works in three phases so things are (a little) more uniformly distributed.
+//num is the number of items to be added.
+const ADD_RANDOM_CHAR = (matrix,character,num) => {
+  var ROW_MIN, ROW_MAX;
+
+  const COL_MIN = 1;
+  const COL_MAX = 32;
+  var phase;
+  if(num === 1)
+  phase = getRandomInclusive(1,3);
+  else
+  phase = 1;
+
+  for(let i = 1;i<=num;i++,phase++) {
+    if(phase === 1) {
+       ROW_MIN = 1;
+       ROW_MAX = 8;
+    }
+    if(phase === 2) {
+       ROW_MIN = 10;
+       ROW_MAX = 17;
+    }
+    if(phase === 3) {
+      ROW_MIN = 19;
+      ROW_MAX = 26;
+      phase = 0;
+    }
+    //Generate random row between ROW_MIN and ROW_MAX.
+     let randomRow = getRandomInclusive(ROW_MIN,ROW_MAX);
+    //Generate random column between COL_MIN and COL_MAX
+     let randomCol = getRandomInclusive(COL_MIN,COL_MAX);
+    while(randomCol === 11 || randomCol === 22)
+     randomCol = getRandomInclusive(COL_MIN,COL_MAX);
+     //Add the random character
+     matrix[randomRow][randomCol] = character;
+  }
+
+}
+
+//Helper function to generate random value (inclusive) between two values.
+const getRandomInclusive = (min,max) => Math.floor(Math.random() * max - min + 1)  + min;
 
 
 class Game extends Component {
@@ -120,7 +168,7 @@ class Game extends Component {
 
 cellClass(cellType) {
   //0 -> Unpassable terrain, 1 -> part of dungeon, 2 -> Health ,3 -> enemy ,4 -> weapon,5-> next level entrance.
-  const cells = ['cell','cell dungeon','cell health','cell enemy','cell weapon','cell nextlevel'];
+  const cells = ['cell','cell dungeon','cell health','cell enemy','cell weapon','cell nextLevel'];
   return cells[cellType];
 
 }
