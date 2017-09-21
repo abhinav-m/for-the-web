@@ -1,67 +1,28 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  width:100vw;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items: center;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .wrapper {
-    margin: 0;
-    padding: 0;
-    height:675px;
-    width:850px;
+    height: 188px;
+    width: 200px;
+    outline-color: purple;
     outline-style: groove;
-    outline-color: black;
 }
-
-.row {
-    width: 850px;
-    height: 45px;
-}
-
-
 
 .cell {
     float: left;
-    height: 45px;
+    height: 47px;
     width: 25px;
-    background: #CF1020;
+    background: pink;
 }
-
-
-.dungeon {
-  background:black;
-}
-
-.health {
-
-    background-image: url('./images/PotionTallGreen.PNG');
-    background-repeat: no-repeat;
-}
-
-.weapon {
-  background:blue;
-}
-
-.nextLevel {
-    background-image: url('./images/stone_stairs_down.png');
-    background-repeat: no-repeat;
-}
-
-.enemy {
-  
-	background: url('./images/enemy.png') no-repeat -38px -4px;
-	width: 21px;
-	height: 42px;
-}
-
-
 
 .lord-up-0,
 .lord-up-1,
@@ -79,7 +40,7 @@ body {
 .lord-right-1,
 .lord-right-2,
 .lord-right-3 {
-    background-image: url('./images/starlord.png');
+    background-image: url('./starlord.png');
     background-repeat: no-repeat;
 }
 

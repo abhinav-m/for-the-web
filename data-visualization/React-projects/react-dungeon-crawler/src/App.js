@@ -68,6 +68,8 @@ ADD_RANDOM_CHAR(matrix,2,5);
  ADD_RANDOM_CHAR(matrix,4,1);
 //Add next level entrance.
 ADD_RANDOM_CHAR(matrix,5,1);
+//Add Player
+ADD_RANDOM_CHAR(matrix,6,1);
  return matrix;
 }
 
@@ -105,6 +107,7 @@ const ADD_RANDOM_CHAR = (matrix,character,num) => {
     while(randomCol === 11 || randomCol === 22)
      randomCol = getRandomInclusive(COL_MIN,COL_MAX);
 
+   //Add check whether tile generated is empty.
     while(matrix[randomRow][randomCol] !== 1)
     randomRow = getRandomInclusive(ROW_MIN,ROW_MAX);
      //Add the random character
@@ -172,8 +175,8 @@ if(topIndex !== 0 && e.which === 38 || bottomIndex !== level.length -1 && e.whic
  }
 
 cellClass(cellType) {
-  //0 -> Unpassable terrain, 1 -> part of dungeon, 2 -> Health ,3 -> enemy ,4 -> weapon,5-> next level entrance.
-  const cells = ['cell','cell dungeon','cell health','cell enemy','cell weapon','cell nextLevel'];
+  //0 -> Unpassable terrain, 1 -> part of dungeon, 2 -> Health ,3 -> enemy ,4 -> weapon,5-> next level entrance,6-> Player position.
+  const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy','cell dungeon  weapon','cell dungeon nextLevel','cell dungeon lord-up-0'];
   return cells[cellType];
 
 }
