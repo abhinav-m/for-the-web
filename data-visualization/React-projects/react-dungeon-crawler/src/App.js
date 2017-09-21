@@ -104,6 +104,9 @@ const ADD_RANDOM_CHAR = (matrix,character,num) => {
      let randomCol = getRandomInclusive(COL_MIN,COL_MAX);
     while(randomCol === 11 || randomCol === 22)
      randomCol = getRandomInclusive(COL_MIN,COL_MAX);
+
+    while(matrix[randomRow][randomCol] !== 1)
+    randomRow = getRandomInclusive(ROW_MIN,ROW_MAX);
      //Add the random character
      matrix[randomRow][randomCol] = character;
   }
