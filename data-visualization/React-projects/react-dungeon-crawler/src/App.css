@@ -46,7 +46,9 @@ body {
 }
 
 .weapon {
-  background:blue;
+  background: url('./images/SwordShort.PNG');
+      background-repeat: no-repeat;
+      height:32px;
 }
 
 .nextLevel {
@@ -55,10 +57,9 @@ body {
 }
 
 .enemy {
-  
-	background: url('./images/enemy.png') no-repeat -38px -4px;
-	width: 21px;
-	height: 42px;
+
+	background: url('./images/enemy-down.png');
+      background-repeat: no-repeat;
 }
 
 
