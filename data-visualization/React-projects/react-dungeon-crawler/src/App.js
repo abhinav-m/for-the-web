@@ -60,6 +60,8 @@ const MAKE_DUNGEON = (matrix) => {
       cellsPlacedVert = 0;
     }
  }
+ //Add Player in center of matrix(approx)
+ matrix[13][16] = 6;
 //Add health.
 ADD_RANDOM_CHAR(matrix,2,5);
 //Add enemies.
@@ -68,8 +70,6 @@ ADD_RANDOM_CHAR(matrix,2,5);
  ADD_RANDOM_CHAR(matrix,4,1);
 //Add next level entrance.
 ADD_RANDOM_CHAR(matrix,5,1);
-//Add Player
-ADD_RANDOM_CHAR(matrix,6,1);
  return matrix;
 }
 
