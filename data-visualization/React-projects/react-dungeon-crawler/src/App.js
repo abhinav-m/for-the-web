@@ -130,7 +130,15 @@ const getRevealedNeighbours = (row,col) => {
             [0, -1],
             [-1, -1]];
     let revealed = [];
-    neighbours.forEach( v => revealed.push( (row+v[0]) + ',' + (col+v[1]) ) );
+    neighbours.forEach( v => {
+      if(Math.abs(v[1]) === 1) {
+        revealed.push( (row+v[0]) + ',' + (col+v[1]) );
+        revealed.push( (row+v[0]) + ',' + (col+v[1]*2) );
+      }
+      else
+      revealed.push( (row+v[0]) + ',' + (col+v[1]) );
+
+     });
     return revealed;
 }
 
@@ -147,7 +155,8 @@ class Game extends Component {
       board: this.rendered,
       top_index: 13,
       bottom_index:27,
-      player_pos :   [23,16],
+      player_pos_board :   [23,16],
+      player_pos_rend : [10,16],
       revealed:this.revealed
     }
     this.moveChar = this.moveChar.bind(this);
@@ -164,9 +173,11 @@ class Game extends Component {
    let rendered = this.state.board;
    let topIndex = this.state.top_index;
    let bottomIndex = this.state.bottom_index;
-   let player_row = this.state.player_pos[0];
-   let player_col = this.state.player_pos[1];
-   level[player_row][player_col] = 1;
+   let player_row_board = this.state.player_pos_board[0];
+   let player_col_board = this.state.player_pos_board[1];
+   let player_row_rend = this.state.player_pos_rend[0];
+   let player_col_rend = this.state.player_pos_rend[1];
+   level[player_row_board ][player_col_board] = 1;
    var newRow;
 
 if(topIndex !== 0 && e.which === 38 || bottomIndex !== level.length -1 && e.which === 40)
@@ -174,14 +185,16 @@ if(topIndex !== 0 && e.which === 38 || bottomIndex !== level.length -1 && e.whic
   switch(e.which) {
     case 38: bottomIndex--;
              topIndex--;
-             player_row--;
+             player_row_board--;
+          //   player_row_rend++;
              newRow = level[topIndex];
              rendered.pop();
              rendered.unshift(newRow);
              break;
    case 40: bottomIndex++;
             topIndex++;
-            player_row++;
+            player_row_board++;
+          //  player_row_rend--;
             newRow = level[bottomIndex];
             rendered.shift();
             rendered.push(newRow);
@@ -190,14 +203,15 @@ if(topIndex !== 0 && e.which === 38 || bottomIndex !== level.length -1 && e.whic
   default: console.log('wrong key press')
   }
 
-level[player_row][player_col] = 6;
-let revealed = getRevealedNeighbours(player_row,player_col);
-revealed.push(player_row+','+player_col);
+level[player_row_board][player_col_board] = 6;
+let revealed = getRevealedNeighbours(player_row_rend,player_col_rend);
+revealed.push(player_row_rend+','+player_col_rend);
   this.setState({
     board: rendered,
     top_index:topIndex,
     bottom_index:bottomIndex,
-    player_pos:[player_row,player_col],
+    player_pos_board:[player_row_board,player_col_board],
+    player_pos_rend:[player_row_rend,player_col_rend],
     level:level,
     revealed: revealed
   });
