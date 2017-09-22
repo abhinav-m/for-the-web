@@ -157,6 +157,9 @@ class Game extends Component {
       bottom_index:27,
       player_pos_board :   [23,16],
       player_pos_rend : [10,16],
+      movIndex:0,
+      movClass:'lord-up-0',
+      playerDIR:38,
       revealed:this.revealed
     }
     this.moveChar = this.moveChar.bind(this);
@@ -177,8 +180,20 @@ class Game extends Component {
    let player_col_board = this.state.player_pos_board[1];
    let player_row_rend = this.state.player_pos_rend[0];
    let player_col_rend = this.state.player_pos_rend[1];
+
+
+   let playerDIR = this.state.playerDIR;
+   let movIndex =this.state.movIndex;
+
+   if(e.which === playerDIR) {
+     if(movIndex === 3)
+     movIndex = 0;
+     else
+     movIndex++;
+   }
    level[player_row_board ][player_col_board] = 1;
    var newRow;
+   var movClass;
 
 if(topIndex !== 0 && e.which === 38 || bottomIndex !== level.length -1 && e.which === 40)
    {
@@ -187,6 +202,7 @@ if(topIndex !== 0 && e.which === 38 || bottomIndex !== level.length -1 && e.whic
              topIndex--;
              player_row_board--;
           //   player_row_rend++;
+             movClass =`lord-up-${movIndex}`;
              newRow = level[topIndex];
              rendered.pop();
              rendered.unshift(newRow);
@@ -195,6 +211,7 @@ if(topIndex !== 0 && e.which === 38 || bottomIndex !== level.length -1 && e.whic
             topIndex++;
             player_row_board++;
           //  player_row_rend--;
+            movClass =`lord-down-${movIndex}`;
             newRow = level[bottomIndex];
             rendered.shift();
             rendered.push(newRow);
@@ -212,6 +229,8 @@ revealed.push(player_row_rend+','+player_col_rend);
     bottom_index:bottomIndex,
     player_pos_board:[player_row_board,player_col_board],
     player_pos_rend:[player_row_rend,player_col_rend],
+    movClass:movClass,
+    movIndex:movIndex,
     level:level,
     revealed: revealed
   });
@@ -220,7 +239,7 @@ revealed.push(player_row_rend+','+player_col_rend);
 
 cellClass(cellType,pos) {
   //0 -> Unpassable terrain, 1 -> part of dungeon, 2 -> Health ,3 -> enemy ,4 -> weapon,5-> next level entrance,6-> Player position.
-  const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy','cell dungeon  weapon','cell dungeon nextLevel','cell dungeon lord-up-0'];
+  const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy','cell dungeon  weapon','cell dungeon nextLevel',`cell dungeon ${this.state.movClass}`];
   if(pos==='9,16')
   console.log('test');
   return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType] + ' hidden';
