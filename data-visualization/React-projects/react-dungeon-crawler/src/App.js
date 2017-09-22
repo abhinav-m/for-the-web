@@ -61,7 +61,7 @@ const MAKE_DUNGEON = (matrix) => {
     }
  }
  //Add Player in center of matrix(approx)
- matrix[13][16] = 6;
+ matrix[23][16] = 6;
 //Add health.
 ADD_RANDOM_CHAR(matrix,2,5);
 //Add enemies.
@@ -119,18 +119,36 @@ const ADD_RANDOM_CHAR = (matrix,character,num) => {
 //Helper function to generate random value (inclusive) between two values.
 const getRandomInclusive = (min,max) => Math.floor(Math.random() * (max - min + 1) )  + min;
 
+//Logic for revealing neighbours adjacent to player position.
+const getRevealedNeighbours = (row,col) => {
+  let neighbours =[[-1, 0],
+            [-1, 1],
+            [0, 1],
+            [1, 1],
+            [1, 0],
+            [1, -1],
+            [0, -1],
+            [-1, -1]];
+    let revealed = [];
+    neighbours.forEach( v => revealed.push( (row+v[0]) + ',' + (col+v[1]) ) );
+    return revealed;
+}
 
 class Game extends Component {
   constructor(props) {
     super(props);
     this.level = MAKE_DUNGEON(MATRIX(28,34));
     //Render bottom half of the matrix initially,move it as character moves.
-    this.rendered = HALF_MATRIX(this.level)
+    this.rendered = HALF_MATRIX(this.level);
+    this.revealed = getRevealedNeighbours(10,16);
+    this.revealed.push(10+','+16);
     this.state = {
       level: this.level,
       board: this.rendered,
       top_index: 13,
-      bottom_index:27
+      bottom_index:27,
+      player_pos :   [23,16],
+      revealed:this.revealed
     }
     this.moveChar = this.moveChar.bind(this);
   }
@@ -140,11 +158,15 @@ class Game extends Component {
   right = 39
   down = 40 */
 //FIXTHIS: Rendered dungeon logic is correct. some correction needed here.
+//Add old player pos and new player pos comparison to simulate movement on one cell?
  moveChar(e) {
    let level = this.state.level;
    let rendered = this.state.board;
    let topIndex = this.state.top_index;
    let bottomIndex = this.state.bottom_index;
+   let player_row = this.state.player_pos[0];
+   let player_col = this.state.player_pos[1];
+   level[player_row][player_col] = 1;
    var newRow;
 
 if(topIndex !== 0 && e.which === 38 || bottomIndex !== level.length -1 && e.which === 40)
@@ -152,12 +174,14 @@ if(topIndex !== 0 && e.which === 38 || bottomIndex !== level.length -1 && e.whic
   switch(e.which) {
     case 38: bottomIndex--;
              topIndex--;
+             player_row--;
              newRow = level[topIndex];
              rendered.pop();
              rendered.unshift(newRow);
              break;
    case 40: bottomIndex++;
             topIndex++;
+            player_row++;
             newRow = level[bottomIndex];
             rendered.shift();
             rendered.push(newRow);
@@ -166,19 +190,26 @@ if(topIndex !== 0 && e.which === 38 || bottomIndex !== level.length -1 && e.whic
   default: console.log('wrong key press')
   }
 
+level[player_row][player_col] = 6;
+let revealed = getRevealedNeighbours(player_row,player_col);
+revealed.push(player_row+','+player_col);
   this.setState({
     board: rendered,
     top_index:topIndex,
-    bottom_index:bottomIndex
+    bottom_index:bottomIndex,
+    player_pos:[player_row,player_col],
+    level:level,
+    revealed: revealed
   });
  }
  }
 
-cellClass(cellType) {
+cellClass(cellType,pos) {
   //0 -> Unpassable terrain, 1 -> part of dungeon, 2 -> Health ,3 -> enemy ,4 -> weapon,5-> next level entrance,6-> Player position.
   const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy','cell dungeon  weapon','cell dungeon nextLevel','cell dungeon lord-up-0'];
-  return cells[cellType];
-
+  if(pos==='9,16')
+  console.log('test');
+  return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType] + ' hidden';
 }
 
 
@@ -189,7 +220,7 @@ cellClass(cellType) {
           return (<div className='row'
                     key={i}
                     id={i}>
-          {r.map( (v,j) => <div className = { this.cellClass(this.state.board[i][j])  } key ={i+','+j} id ={i+','+j}> </div>)}
+          {r.map( (v,j) => <div className = { this.cellClass(this.state.board[i][j],i+','+j)  } key ={i+','+j} id ={i+','+j}> </div>)}
         </div>) } ) }
       </div>
     );

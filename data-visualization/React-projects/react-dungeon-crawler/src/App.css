@@ -36,9 +36,11 @@ body {
 }
 
 
+
 .dungeon {
   background:black;
 }
+
 
 .health {
 
@@ -63,7 +65,9 @@ body {
 }
 
 
-
+.hidden {
+  background:white;
+}
 .lord-up-0,
 .lord-up-1,
 .lord-up-2,
