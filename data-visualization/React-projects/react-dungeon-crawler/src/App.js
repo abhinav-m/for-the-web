@@ -191,6 +191,10 @@ class Game extends Component {
      else
      movIndex++;
    }
+   else {
+   movIndex = 0;
+   playerDIR = e.which;
+  }
    level[player_row_board ][player_col_board] = 1;
    var newRow;
    var movClass;
@@ -231,6 +235,7 @@ revealed.push(player_row_rend+','+player_col_rend);
     player_pos_rend:[player_row_rend,player_col_rend],
     movClass:movClass,
     movIndex:movIndex,
+    playerDIR:playerDIR,
     level:level,
     revealed: revealed
   });
@@ -239,7 +244,7 @@ revealed.push(player_row_rend+','+player_col_rend);
 
 cellClass(cellType,pos) {
   //0 -> Unpassable terrain, 1 -> part of dungeon, 2 -> Health ,3 -> enemy ,4 -> weapon,5-> next level entrance,6-> Player position.
-  const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy','cell dungeon  weapon','cell dungeon nextLevel',`cell dungeon ${this.state.movClass}`];
+  const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy','cell dungeon  weapon','cell dungeon nextLevel',`cell dungeon   ${this.state.movClass}`];
   if(pos==='9,16')
   console.log('test');
   return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType] + ' hidden';
