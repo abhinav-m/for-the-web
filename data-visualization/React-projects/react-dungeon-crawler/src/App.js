@@ -165,10 +165,7 @@ class Game extends Component {
     this.moveChar = this.moveChar.bind(this);
   }
 
-  /* left = 37
-  up = 38
-  right = 39
-  down = 40 */
+
 //FIXTHIS: Rendered dungeon logic is correct. some correction needed here.
 //Add old player pos and new player pos comparison to simulate movement on one cell?
  moveChar(e) {
@@ -198,9 +195,11 @@ class Game extends Component {
    level[player_row_board ][player_col_board] = 1;
    var newRow;
    var movClass;
+   /* left = 37
+   up = 38
+   right = 39
+   down = 40 */
 
-if(topIndex !== 0 && e.which === 38 || bottomIndex !== level.length -1 && e.which === 40)
-   {
   switch(e.which) {
     case 38: bottomIndex--;
              topIndex--;
@@ -211,6 +210,14 @@ if(topIndex !== 0 && e.which === 38 || bottomIndex !== level.length -1 && e.whic
              rendered.pop();
              rendered.unshift(newRow);
              break;
+   case 37: player_col_board--;
+            movClass = `lord-left-${movIndex}`;
+            player_col_rend--;
+            break;
+  case 39: player_col_board++;
+           movClass = `lord-right-${movIndex}`;
+           player_col_rend++;
+           break;
    case 40: bottomIndex++;
             topIndex++;
             player_row_board++;
@@ -239,7 +246,7 @@ revealed.push(player_row_rend+','+player_col_rend);
     level:level,
     revealed: revealed
   });
- }
+
  }
 
 cellClass(cellType,pos) {
