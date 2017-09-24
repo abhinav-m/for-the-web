@@ -199,7 +199,7 @@ class Game extends Component {
    up = 38
    right = 39
    down = 40 */
-
+if(topIndex !== 0 && bottomIndex !== level.length) {
   switch(e.which) {
     case 38: bottomIndex--;
              topIndex--;
@@ -230,7 +230,7 @@ class Game extends Component {
 
   default: console.log('wrong key press')
   }
-
+}
 level[player_row_board][player_col_board] = 6;
 let revealed = getRevealedNeighbours(player_row_rend,player_col_rend);
 revealed.push(player_row_rend+','+player_col_rend);
