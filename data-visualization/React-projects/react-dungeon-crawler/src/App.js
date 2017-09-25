@@ -199,9 +199,11 @@ class Game extends Component {
    up = 38
    right = 39
    down = 40 */
-if(topIndex !== 0 && bottomIndex !== level.length) {
+
   switch(e.which) {
-    case 38: bottomIndex--;
+
+    case 38: if(topIndex !== 0) {
+              bottomIndex--;
              topIndex--;
              player_row_board--;
           //   player_row_rend++;
@@ -209,7 +211,9 @@ if(topIndex !== 0 && bottomIndex !== level.length) {
              newRow = level[topIndex];
              rendered.pop();
              rendered.unshift(newRow);
-             break;
+           }
+                 break;
+
    case 37: player_col_board--;
             movClass = `lord-left-${movIndex}`;
             player_col_rend--;
@@ -218,7 +222,9 @@ if(topIndex !== 0 && bottomIndex !== level.length) {
            movClass = `lord-right-${movIndex}`;
            player_col_rend++;
            break;
-   case 40: bottomIndex++;
+
+   case 40: if(bottomIndex!== 27) {
+   bottomIndex++;
             topIndex++;
             player_row_board++;
           //  player_row_rend--;
@@ -226,11 +232,12 @@ if(topIndex !== 0 && bottomIndex !== level.length) {
             newRow = level[bottomIndex];
             rendered.shift();
             rendered.push(newRow);
-            break;
 
+          }
+              break;
   default: console.log('wrong key press')
   }
-}
+
 level[player_row_board][player_col_board] = 6;
 let revealed = getRevealedNeighbours(player_row_rend,player_col_rend);
 revealed.push(player_row_rend+','+player_col_rend);
