@@ -160,7 +160,10 @@ class Game extends Component {
       movIndex:0,
       movClass:'lord-up-0',
       playerDIR:38,
-      revealed:this.revealed
+      revealed:this.revealed,
+      weapon:0,
+      health:100,
+      level:1,
     }
     this.moveChar = this.moveChar.bind(this);
   }
