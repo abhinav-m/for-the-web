@@ -206,6 +206,7 @@ class Game extends Component {
   switch(e.which) {
 
     case 38: if(topIndex !== 0) {
+              if(canMove())
               bottomIndex--;
              topIndex--;
              player_row_board--;
@@ -227,6 +228,7 @@ class Game extends Component {
            break;
 
    case 40: if(bottomIndex!== 27) {
+     if(canMove())
    bottomIndex++;
             topIndex++;
             player_row_board++;
@@ -265,6 +267,11 @@ cellClass(cellType,pos) {
   if(pos==='9,16')
   console.log('test');
   return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType] + ' hidden';
+}
+
+//Helper function to determine if character can move to cell or not.
+canMove() {
+
 }
 
 
