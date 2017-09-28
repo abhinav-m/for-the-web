@@ -66,6 +66,10 @@ body {
       background-repeat: no-repeat;
 }
 
+.boss {
+  background: url('./images/enemy-down.png');
+      background-repeat: no-repeat;
+}
 
 .hidden {
   background:white;
