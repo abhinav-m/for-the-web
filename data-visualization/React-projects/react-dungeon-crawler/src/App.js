@@ -270,8 +270,8 @@ cellClass(cellType,pos) {
 }
 
 //Helper function to determine if character can move to cell or not.
-canMove() {
-
+canMove(row,col) {
+return this.state.level[row][col] === 0;
 }
 
 
