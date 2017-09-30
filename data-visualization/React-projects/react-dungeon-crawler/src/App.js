@@ -206,7 +206,7 @@ class Game extends Component {
   switch(e.which) {
 
     case 38: if(topIndex !== 0) {
-              if(canMove())
+              if(canMove(player_row_board,player_col_board))
               bottomIndex--;
              topIndex--;
              player_row_board--;
@@ -228,7 +228,7 @@ class Game extends Component {
            break;
 
    case 40: if(bottomIndex!== 27) {
-     if(canMove())
+       if(canMove(player_row_board,player_col_board))
    bottomIndex++;
             topIndex++;
             player_row_board++;
