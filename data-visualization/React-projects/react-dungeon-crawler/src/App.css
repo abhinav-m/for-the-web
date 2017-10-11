@@ -47,12 +47,10 @@ body {
 .health {
 
     background-image: url('./images/PotionTallGreen.PNG');
-    background-repeat: no-repeat;
 }
 
 .weapon {
   background: url('./images/SwordFlaming.PNG');
-      background-repeat: no-repeat;
 }
 
 .nextLevel {
