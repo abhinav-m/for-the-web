@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
+
+//Todo : Add levels , add hitting enemies logic.
 const MATRIX = (rows, cols) => {
     let arr = [];
     for (let i = 0; i < rows; i++) {
