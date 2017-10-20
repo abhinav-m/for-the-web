@@ -165,7 +165,7 @@ class Game extends Component {
       revealed:this.revealed,
       weapon:0,
       health:100,
-      levelNum:-1
+      levelNum:0
     }
     this.moveChar = this.moveChar.bind(this);
   }
