@@ -9,7 +9,7 @@ body {
   flex-direction:column;
   justify-content:center;
   align-items: center;
-  background:grey;
+  background:red;
 }
 
 .wrapper {
@@ -54,7 +54,7 @@ body {
 }
 
 .nextLevel {
-    background-image: url('./images/stone_stairs_down.png');
+    background- image: url('./images/stone_stairs_down.png');
     background-repeat: no-repeat;
 }
 
