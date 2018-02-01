@@ -168,6 +168,7 @@ class Game extends Component {
       levelNum:2
     }
     this.moveChar = this.moveChar.bind(this);
+    this.canMove = this.canMove.bind(this);
   }
 
 
@@ -232,7 +233,7 @@ class Game extends Component {
    case 40: if(bottomIndex!== 27) {
        if(canMove(player_row_board,player_col_board))
    bottomIndex++;
-            topIndex++;f
+            topIndex++;
             player_row_board++;
           //  player_row_rend--;
             movClass =`lord-down-${movIndex}`;
