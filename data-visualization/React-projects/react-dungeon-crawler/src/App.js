@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 
-//Todo : Add levels , add hitting enemies logic.
+//Makes the game matrix.
 const MATRIX = (rows, cols) => {
     let arr = [];
     for (let i = 0; i < rows; i++) {
@@ -13,6 +13,7 @@ const MATRIX = (rows, cols) => {
     return arr;
 }
 
+//Makes half the matrix (for rendering)
 const HALF_MATRIX = (matrix) => {
   let rendered = [];
   for(let i = Math.floor(matrix.length/2) - 1,j=0;i<matrix.length;i++,j++)
@@ -168,7 +169,7 @@ class Game extends Component {
       levelNum:2
     }
     this.moveChar = this.moveChar.bind(this);
-    this.canMove = this.canMove.bind(this);
+
   }
 
 
@@ -187,7 +188,8 @@ class Game extends Component {
 
    let playerDIR = this.state.playerDIR;
    let movIndex =this.state.movIndex;
-
+ //Player can move in one direction three times, after that it has to reset
+ //for animating the player movement.
    if(e.which === playerDIR) {
      if(movIndex === 3)
      movIndex = 0;
@@ -209,7 +211,7 @@ class Game extends Component {
   switch(e.which) {
 
     case 38: if(topIndex !== 0) {
-              if(canMove(player_row_board,player_col_board))
+            //  if( this.state.level[row][col] === 0)
               bottomIndex--;
              topIndex--;
              player_row_board--;
@@ -231,7 +233,7 @@ class Game extends Component {
            break;
 
    case 40: if(bottomIndex!== 27) {
-       if(canMove(player_row_board,player_col_board))
+    //   if(canMove(player_row_board,player_col_board))
    bottomIndex++;
             topIndex++;
             player_row_board++;
@@ -272,10 +274,8 @@ cellClass(cellType,pos) {
   return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType] + ' hidden';
 }
 
-//Helper function to determine if character can move to cell or not.
-canMove(row,col) {
-return this.state.level[row][col] === 0;
-}
+// TODO: Helper function to determine if character can move to cell or not.
+
 
 
   render() {
