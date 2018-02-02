@@ -176,42 +176,51 @@ class Game extends Component {
 //FIXTHIS: Rendered dungeon logic is correct. some correction needed here.
 //Add old player pos and new player pos comparison to simulate movement on one cell?
  moveChar(e) {
+   //The whole board.
    let level = this.state.level;
+   //The current rendered part of the board.
    let rendered = this.state.board;
+   //Current top index of the rendered board in the whole board.
    let topIndex = this.state.top_index;
+  //Current bottom index of the rendered board in the whole board.
    let bottomIndex = this.state.bottom_index;
+   //Player position in the level.
    let player_row_board = this.state.player_pos_board[0];
    let player_col_board = this.state.player_pos_board[1];
+   //Player position in the rendered part of the board.
    let player_row_rend = this.state.player_pos_rend[0];
    let player_col_rend = this.state.player_pos_rend[1];
-
-
+   //Movement of player direction currently.
    let playerDIR = this.state.playerDIR;
+   //index for movement animation(3 steps to move.)
    let movIndex =this.state.movIndex;
  //Player can move in one direction three times, after that it has to reset
  //for animating the player movement.
+ //If movement is in the current direction,
    if(e.which === playerDIR) {
+     //Reset the movement if it is complete.
      if(movIndex === 3)
      movIndex = 0;
      else
      movIndex++;
    }
+   //else reset the movement direction and the index to 0.
    else {
    movIndex = 0;
    playerDIR = e.which;
   }
-   level[player_row_board ][player_col_board] = 1;
+   level[player_row_board][player_col_board] = 1;
    var newRow;
    var movClass;
    /* left = 37
    up = 38
    right = 39
    down = 40 */
-
+//FIX:Main movement switch, have to understand and fix.
   switch(e.which) {
 
     case 38: if(topIndex !== 0) {
-            //  if( this.state.level[row][col] === 0)
+            if( this.state.level[row][col] === 0)
               bottomIndex--;
              topIndex--;
              player_row_board--;
