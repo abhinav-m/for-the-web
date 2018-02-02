@@ -220,14 +220,17 @@ class Game extends Component {
   switch(e.which) {
 
     case 38: if(topIndex !== 0) {
-            if( this.state.level[row][col] === 0)
+          //  if( this.state.level[row][col] === 0)
               bottomIndex--;
              topIndex--;
              player_row_board--;
           //   player_row_rend++;
              movClass =`lord-up-${movIndex}`;
+             //Take the top row of the level (after movement)
              newRow = level[topIndex];
+             //Remove the last row of the rendered section of the board
              rendered.pop();
+             //Add the new row to the start of the rendered board.
              rendered.unshift(newRow);
            }
                  break;
