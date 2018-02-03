@@ -226,8 +226,7 @@ class Game extends Component {
           //Move player one row above in the board.
              player_row_board--;
              //To test and fix.
-             player_row_rend--;
-          // player_row_rend++;
+            //player_row_rend--;
              movClass =`lord-up-${movIndex}`;
              //Take the top row of the level (after movement)
              newRow = level[topIndex];
