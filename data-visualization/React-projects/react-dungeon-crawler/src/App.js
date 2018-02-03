@@ -218,13 +218,16 @@ class Game extends Component {
    down = 40 */
 //FIX:Main movement switch, have to understand and fix.
   switch(e.which) {
-
+            //Check if the top of the board has been reached.
     case 38: if(topIndex !== 0) {
-          //  if( this.state.level[row][col] === 0)
-              bottomIndex--;
+          //Decreasing bottomIndex to keep track of rendered board.
+             bottomIndex--;
              topIndex--;
+          //Move player one row above in the board.
              player_row_board--;
-          //   player_row_rend++;
+             //To test and fix.
+             player_row_rend--;
+          // player_row_rend++;
              movClass =`lord-up-${movIndex}`;
              //Take the top row of the level (after movement)
              newRow = level[topIndex];
