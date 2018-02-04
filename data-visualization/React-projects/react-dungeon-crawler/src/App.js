@@ -224,7 +224,9 @@ class Game extends Component {
     case 38: if(topIndex === 0) {
       //To test and fix.
      player_row_rend--;
-      level[player_row_rend][player_col_rend] = 6;
+     player_row_board--;
+       level[player_row_board][player_col_board] = 6;
+        movClass =`lord-up-${movIndex}`;
    }
    else {
           //Decreasing bottomIndex to keep track of rendered board.
