@@ -217,16 +217,21 @@ class Game extends Component {
    right = 39
    down = 40 */
 //FIX:Main movement switch, have to understand and fix.
+//TOFIX: Player not moving with top edge of matrix reached,
+//Maybe keep seperate track of position of player?
   switch(e.which) {
             //Check if the top of the board has been reached.
-    case 38: if(topIndex !== 0) {
+    case 38: if(topIndex === 0) {
+      //To test and fix.
+     player_row_rend--;
+      level[player_row_rend][player_col_rend] = 6;
+   }
+   else {
           //Decreasing bottomIndex to keep track of rendered board.
              bottomIndex--;
              topIndex--;
           //Move player one row above in the board.
              player_row_board--;
-             //To test and fix.
-            //player_row_rend--;
              movClass =`lord-up-${movIndex}`;
              //Take the top row of the level (after movement)
              newRow = level[topIndex];
@@ -234,16 +239,19 @@ class Game extends Component {
              rendered.pop();
              //Add the new row to the start of the rendered board.
              rendered.unshift(newRow);
-           }
+             level[player_row_board][player_col_board] = 6;
+          }
                  break;
 
    case 37: player_col_board--;
             movClass = `lord-left-${movIndex}`;
             player_col_rend--;
+            level[player_row_board][player_col_board] = 6;
             break;
   case 39: player_col_board++;
            movClass = `lord-right-${movIndex}`;
            player_col_rend++;
+           level[player_row_board][player_col_board] = 6;
            break;
 
    case 40: if(bottomIndex!== 27) {
@@ -256,13 +264,13 @@ class Game extends Component {
             newRow = level[bottomIndex];
             rendered.shift();
             rendered.push(newRow);
-
+              level[player_row_board][player_col_board] = 6;
           }
               break;
   default: console.log('wrong key press')
   }
+//Place player on new position.
 
-level[player_row_board][player_col_board] = 6;
 let revealed = getRevealedNeighbours(player_row_rend,player_col_rend);
 revealed.push(player_row_rend+','+player_col_rend);
   this.setState({
