@@ -27,14 +27,15 @@ const HALF_MATRIX = (matrix) => {
    and a few years of your life.
 */
 const MAKE_DUNGEON = (matrix) => {
- const AREA_HEIGHT = 8;
+  //Constants for making dungeon's playable area/cross section.
+ const AREA_HEIGHT = 4;
  const AREA_WIDTH = 10;
  const NUM_AREAS = 3;
  var cellsPlacedVert = 0;
 
 //Starting i and j from 1
 //and subtracting width and height by 1
-//to add some margin to playable area.
+//to add border  to playable area.
  for(let i= 1; i< matrix.length -1 ;i++) {
    var cellsPlacedHor = 0;
    for(let j =1; j < matrix[i].length -1 ;j++)
@@ -64,7 +65,7 @@ const MAKE_DUNGEON = (matrix) => {
     }
  }
  //Add Player in center of matrix(approx)
- matrix[23][16] = 6;
+ matrix[13][16] = 6;
 //Add health.
 ADD_RANDOM_CHAR(matrix,2,5);
 //Add enemies.
@@ -83,7 +84,7 @@ const ADD_RANDOM_CHAR = (matrix,character,num) => {
   var ROW_MIN, ROW_MAX;
 
   const COL_MIN = 1;
-  const COL_MAX = 32;
+  const COL_MAX = 5;
   var phase;
 
 
@@ -93,15 +94,15 @@ const ADD_RANDOM_CHAR = (matrix,character,num) => {
     phase = getRandomInclusive(1,3);
     if(phase === 1) {
        ROW_MIN = 1;
-       ROW_MAX = 8;
+       ROW_MAX = 4;
     }
     if(phase === 2) {
-       ROW_MIN = 10;
-       ROW_MAX = 17;
+       ROW_MIN = 6;
+       ROW_MAX = 9;
     }
     if(phase === 3) {
-      ROW_MIN = 19;
-      ROW_MAX = 26;
+      ROW_MIN = 11;
+      ROW_MAX = 15;
     }
     //Generate random row between ROW_MIN and ROW_MAX.
      let randomRow = getRandomInclusive(ROW_MIN,ROW_MAX);
@@ -148,7 +149,7 @@ const getRevealedNeighbours = (row,col) => {
 class Game extends Component {
   constructor(props) {
     super(props);
-    this.level = MAKE_DUNGEON(MATRIX(28,34));
+    this.level = MAKE_DUNGEON(MATRIX(16,58));
     //Render bottom half of the matrix initially,move it as character moves.
     this.rendered = HALF_MATRIX(this.level);
     this.revealed = getRevealedNeighbours(10,16);
@@ -219,6 +220,7 @@ class Game extends Component {
 //FIX:Main movement switch, have to understand and fix.
 //TOFIX: Player not moving with top edge of matrix reached,
 //Maybe keep seperate track of position of player?
+//TODO: correct movement while character is moving towards bottom of board.
   switch(e.which) {
             //Check if the top of the board has been reached.
     case 38: if(topIndex === 0) {
@@ -256,9 +258,14 @@ class Game extends Component {
            level[player_row_board][player_col_board] = 6;
            break;
 
-   case 40: if(bottomIndex!== 27) {
-    //   if(canMove(player_row_board,player_col_board))
-   bottomIndex++;
+   case 40: if(bottomIndex === 27) {
+     player_row_rend--;
+     player_row_board--;
+     level[player_row_board][player_col_board] = 6;
+}
+else {
+            //Add check if on top of the board?
+            bottomIndex++;
             topIndex++;
             player_row_board++;
           //  player_row_rend--;
