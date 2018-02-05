@@ -13,14 +13,14 @@ const MATRIX = (rows, cols) => {
     return arr;
 }
 
-//Makes half the matrix (for rendering)
-const HALF_MATRIX = (matrix) => {
-  let rendered = [];
-  for(let i = Math.floor(matrix.length/2) - 1,j=0;i<matrix.length;i++,j++)
-    rendered[j] = matrix[i];
-
-  return rendered;
-}
+// //Makes half the matrix (for rendering)
+// const HALF_MATRIX = (matrix) => {
+//   let rendered = [];
+//   for(let i = Math.floor(matrix.length/2) - 1,j=0;i<matrix.length;i++,j++)
+//     rendered[j] = matrix[i];
+//
+//   return rendered;
+// }
 
 /* The random dungeon creating algorithm
    Do not alter the code unless you are ready to lose your hairline
@@ -30,7 +30,6 @@ const MAKE_DUNGEON = (matrix) => {
   //Constants for making dungeon's playable area/cross section.
  const AREA_HEIGHT = 4;
  const AREA_WIDTH = 10;
- const NUM_AREAS = 3;
  var cellsPlacedVert = 0;
 
 //Starting i and j from 1
@@ -40,7 +39,7 @@ const MAKE_DUNGEON = (matrix) => {
    var cellsPlacedHor = 0;
    for(let j =1; j < matrix[i].length -1 ;j++)
    {
-        if(i%9===0){
+        if(i%5===0){
           if(j%10 === 0 )
           matrix[i][j-3] = 1;
         }
@@ -84,7 +83,7 @@ const ADD_RANDOM_CHAR = (matrix,character,num) => {
   var ROW_MIN, ROW_MAX;
 
   const COL_MIN = 1;
-  const COL_MAX = 5;
+  const COL_MAX = 54;
   var phase;
 
 
@@ -149,7 +148,7 @@ const getRevealedNeighbours = (row,col) => {
 class Game extends Component {
   constructor(props) {
     super(props);
-    this.level = MAKE_DUNGEON(MATRIX(16,58));
+    this.level = MAKE_DUNGEON(MATRIX(16,56));
     //Render bottom half of the matrix initially,move it as character moves.
 //    this.rendered = HALF_MATRIX(this.level);
     this.revealed = getRevealedNeighbours(10,16);
@@ -302,7 +301,7 @@ cellClass(cellType,pos) {
   const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy','cell dungeon  weapon','cell dungeon nextLevel',`cell dungeon   ${this.state.movClass}`];
   if(pos==='9,16')
   console.log('test');
-  return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType] + ' hidden';
+  return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType]+ ' hidden';
 }
 
 // TODO: Helper function to determine if character can move to cell or not.

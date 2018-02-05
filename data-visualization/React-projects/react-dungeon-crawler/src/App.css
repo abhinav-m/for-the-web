@@ -16,14 +16,14 @@ body {
     margin: 0;
     padding: 0;
     height:720px;
-    width:1450px;
+    width:1400px;
     outline-style: groove;
     outline-color: black;
     background:grey;
 }
 
 .row {
-   width:1450px;
+   width:1400px;
   height: 45px;
 }
 
