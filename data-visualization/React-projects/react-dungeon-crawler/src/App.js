@@ -64,7 +64,7 @@ const MAKE_DUNGEON = (matrix) => {
     }
  }
  //Add Player in center of matrix(approx)
- matrix[10][16] = 6;
+ matrix[11][16] = 6;
 //Add health.
 ADD_RANDOM_CHAR(matrix,2,5);
 //Add enemies.
@@ -151,15 +151,13 @@ class Game extends Component {
     this.level = MAKE_DUNGEON(MATRIX(16,56));
     //Render bottom half of the matrix initially,move it as character moves.
 //    this.rendered = HALF_MATRIX(this.level);
-    this.revealed = getRevealedNeighbours(10,16);
-    this.revealed.push(10+','+16);
+    this.revealed = getRevealedNeighbours(11,16);
+    this.revealed.push(11+','+16);
     this.state = {
       level: this.level,
       board: this.level,
-      top_index: 13,
-      bottom_index:27,
-      player_pos_board :   [10,16],
-     player_pos_rend : [10,16],
+      player_pos_board :   [11,16],
+     player_pos_rend : [11,16],
       movIndex:0,
       movClass:'lord-up-0',
       playerDIR:38,
@@ -178,18 +176,11 @@ class Game extends Component {
  moveChar(e) {
    //The whole board.
    let level = this.state.level;
-   //The current rendered part of the board.
-   let rendered = this.state.board;
-   //Current top index of the rendered board in the whole board.
-   let topIndex = this.state.top_index;
-  //Current bottom index of the rendered board in the whole board.
-   let bottomIndex = this.state.bottom_index;
+
    //Player position in the level.
    let player_row_board = this.state.player_pos_board[0];
    let player_col_board = this.state.player_pos_board[1];
-   //Player position in the rendered part of the board.
-   let player_row_rend = this.state.player_pos_rend[0];
-   let player_col_rend = this.state.player_pos_rend[1];
+
    //Movement of player direction currently.
    let playerDIR = this.state.playerDIR;
    //index for movement animation(3 steps to move.)
@@ -209,8 +200,7 @@ class Game extends Component {
    movIndex = 0;
    playerDIR = e.which;
   }
-   level[player_row_board][player_col_board] = 1;
-   var newRow;
+
    var movClass;
    /* left = 37
    up = 38
@@ -221,72 +211,49 @@ class Game extends Component {
 //Maybe keep seperate track of position of player?
 //TODO: correct movement while character is moving towards bottom of board.
   switch(e.which) {
-            //Check if the top of the board has been reached.
-    case 38: if(topIndex === 0) {
-      //To test and fix.
-     player_row_rend--;
-     player_row_board--;
+    //Check if any untraversable part has been reached.
+    case 38:  movClass =`lord-up-${movIndex}`;
+    if( level[player_row_board-1][player_col_board] !== 0){
+      level[player_row_board][player_col_board] = 1;
+       player_row_board--;
        level[player_row_board][player_col_board] = 6;
-        movClass =`lord-up-${movIndex}`;
-   }
-   else {
-          //Decreasing bottomIndex to keep track of rendered board.
-             bottomIndex--;
-             topIndex--;
-          //Move player one row above in the board.
-             player_row_board--;
-             movClass =`lord-up-${movIndex}`;
-             //Take the top row of the level (after movement)
-             newRow = level[topIndex];
-             //Remove the last row of the rendered section of the board
-             rendered.pop();
-             //Add the new row to the start of the rendered board.
-             rendered.unshift(newRow);
-             level[player_row_board][player_col_board] = 6;
-          }
-                 break;
 
-   case 37: player_col_board--;
+      }
+                 break;
+   case 37:      movClass = `lord-left-${movIndex}`;
+    if( level[player_row_board][player_col_board-1] !== 0){
+       level[player_row_board][player_col_board] = 1;
+            player_col_board--;
             movClass = `lord-left-${movIndex}`;
-            player_col_rend--;
             level[player_row_board][player_col_board] = 6;
+          }
             break;
-  case 39: player_col_board++;
+  case 39: movClass = `lord-right-${movIndex}`;
+  if( level[player_row_board][player_col_board+1] !== 0){
+      level[player_row_board][player_col_board] = 1;
+           player_col_board++;
            movClass = `lord-right-${movIndex}`;
-           player_col_rend++;
            level[player_row_board][player_col_board] = 6;
+         }
            break;
 
-   case 40: if(bottomIndex === 27) {
-     player_row_rend--;
-     player_row_board--;
-     level[player_row_board][player_col_board] = 6;
-}
-else {
-            //Add check if on top of the board?
-            bottomIndex++;
-            topIndex++;
+   case 40:movClass =`lord-down-${movIndex}`;
+   if( level[player_row_board+1][player_col_board]!== 0){
+     level[player_row_board][player_col_board] = 1;
             player_row_board++;
-          //  player_row_rend--;
-            movClass =`lord-down-${movIndex}`;
-            newRow = level[bottomIndex];
-            rendered.shift();
-            rendered.push(newRow);
-              level[player_row_board][player_col_board] = 6;
+            level[player_row_board][player_col_board] = 6;
           }
               break;
+
   default: console.log('wrong key press')
   }
 //Place player on new position.
 
-let revealed = getRevealedNeighbours(player_row_rend,player_col_rend);
-revealed.push(player_row_rend+','+player_col_rend);
+let revealed = getRevealedNeighbours(player_row_board,player_col_board);
+revealed.push(player_row_board+','+player_col_board);
   this.setState({
-    board: rendered,
-    top_index:topIndex,
-    bottom_index:bottomIndex,
+    board: level,
     player_pos_board:[player_row_board,player_col_board],
-    player_pos_rend:[player_row_rend,player_col_rend],
     movClass:movClass,
     movIndex:movIndex,
     playerDIR:playerDIR,
@@ -301,7 +268,7 @@ cellClass(cellType,pos) {
   const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy','cell dungeon  weapon','cell dungeon nextLevel',`cell dungeon   ${this.state.movClass}`];
   if(pos==='9,16')
   console.log('test');
-  return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType]+ ' hidden';
+  return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType]+' hidden';
 }
 
 // TODO: Helper function to determine if character can move to cell or not.
