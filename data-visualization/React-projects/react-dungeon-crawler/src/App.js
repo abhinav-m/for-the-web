@@ -65,7 +65,7 @@ const MAKE_DUNGEON = (matrix) => {
     }
  }
  //Add Player in center of matrix(approx)
- matrix[13][16] = 6;
+ matrix[10][16] = 6;
 //Add health.
 ADD_RANDOM_CHAR(matrix,2,5);
 //Add enemies.
@@ -151,16 +151,16 @@ class Game extends Component {
     super(props);
     this.level = MAKE_DUNGEON(MATRIX(16,58));
     //Render bottom half of the matrix initially,move it as character moves.
-    this.rendered = HALF_MATRIX(this.level);
+//    this.rendered = HALF_MATRIX(this.level);
     this.revealed = getRevealedNeighbours(10,16);
     this.revealed.push(10+','+16);
     this.state = {
       level: this.level,
-      board: this.rendered,
+      board: this.level,
       top_index: 13,
       bottom_index:27,
-      player_pos_board :   [23,16],
-      player_pos_rend : [10,16],
+      player_pos_board :   [10,16],
+     player_pos_rend : [10,16],
       movIndex:0,
       movClass:'lord-up-0',
       playerDIR:38,
