@@ -168,6 +168,7 @@ class Game extends Component {
     }
     this.moveChar = this.moveChar.bind(this);
 
+
   }
 
 
@@ -213,7 +214,7 @@ class Game extends Component {
   switch(e.which) {
     //Check if any untraversable part has been reached.
     case 38:  movClass =`lord-up-${movIndex}`;
-    if( level[player_row_board-1][player_col_board] !== 0){
+    if( this.canMove(player_row_board-1,player_col_board) ){
       level[player_row_board][player_col_board] = 1;
        player_row_board--;
        level[player_row_board][player_col_board] = 6;
@@ -268,11 +269,28 @@ cellClass(cellType,pos) {
   const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy','cell dungeon  weapon','cell dungeon nextLevel',`cell dungeon   ${this.state.movClass}`];
   if(pos==='9,16')
   console.log('test');
-  return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType]+' hidden';
+  return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType];//+' hidden';
 }
 
 // TODO: Helper function to determine if character can move to cell or not.
-
+canMove(row,col) {
+  let level = this.state.level;
+  let cell = level[row][col];
+  if(  cell !== 0 ) {
+    switch(cell) {
+      case 2: //Add health code.
+        break;
+      case 3: //Add enemy code.
+        break;
+      case 4: //Add weapon code.
+        break;
+      case 5: //Add next level code.
+        break;
+    }
+    return true;
+  }
+  return false;
+}
 
 
   render() {
