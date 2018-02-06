@@ -222,7 +222,7 @@ class Game extends Component {
       }
                  break;
    case 37:      movClass = `lord-left-${movIndex}`;
-    if( level[player_row_board][player_col_board-1] !== 0){
+    if( this.canMove(player_row_board,player_col_board-1) ){
        level[player_row_board][player_col_board] = 1;
             player_col_board--;
             movClass = `lord-left-${movIndex}`;
@@ -230,7 +230,7 @@ class Game extends Component {
           }
             break;
   case 39: movClass = `lord-right-${movIndex}`;
-  if( level[player_row_board][player_col_board+1] !== 0){
+  if( this.canMove(player_row_board,player_col_board+1 ) ){
       level[player_row_board][player_col_board] = 1;
            player_col_board++;
            movClass = `lord-right-${movIndex}`;
@@ -239,7 +239,7 @@ class Game extends Component {
            break;
 
    case 40:movClass =`lord-down-${movIndex}`;
-   if( level[player_row_board+1][player_col_board]!== 0){
+   if( this.canMove(player_row_board+1,player_col_board) ){
      level[player_row_board][player_col_board] = 1;
             player_row_board++;
             level[player_row_board][player_col_board] = 6;
@@ -279,10 +279,23 @@ canMove(row,col) {
   if(  cell !== 0 ) {
     switch(cell) {
       case 2: //Add health code.
+      let health = this.state.health;
+      health+=25;
+      this.setState({
+        health:health
+      });
+      console.log("health"+health);
+        break;
         break;
       case 3: //Add enemy code.
         break;
       case 4: //Add weapon code.
+      let weapon = this.state.weapon;
+      weapon++;
+      this.setState({
+        weapon:weapon
+      });
+      console.log("weapon"+weapon);
         break;
       case 5: //Add next level code.
         break;
