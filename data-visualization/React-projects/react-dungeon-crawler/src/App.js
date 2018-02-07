@@ -157,14 +157,16 @@ class Game extends Component {
       level: this.level,
       board: this.level,
       player_pos_board :   [13,16],
-     player_pos_rend : [13,16],
+      player_pos_rend : [13,16],
       movIndex:0,
       movClass:'lord-up-0',
       playerDIR:38,
       revealed:this.revealed,
       weapon:0,
       health:100,
-      levelNum:2
+      levelNum:1,
+      playerLevel:1,
+      enemies: {}
     }
     this.moveChar = this.moveChar.bind(this);
 
@@ -280,14 +282,56 @@ canMove(row,col) {
     switch(cell) {
       case 2: //Add health code.
       let health = this.state.health;
-      health+=25;
+      health+=50;
       this.setState({
         health:health
       });
       console.log("health"+health);
         break;
-        break;
       case 3: //Add enemy code.
+      let enemies = this.state.enemies;
+      var enemyHealth;
+      //Check enemy health and attack.
+      if (enemies.hasOwnProperty(row+','+col)) {
+        //Do damage to enemy, if dead allow movement.
+        enemyHealth = enemies[row+','+col];
+
+      }
+      else {
+        //Encountered enemy is new, its health is maximum.
+        let levelNum = this.state.levelNum;
+        enemyHealth =  50 * levelNum;
+
+      }
+      //Get details such as player level, current level in the game, weapon,current health of player etc.
+      let playerLevel = this.state.playerLevel;
+      let gameLevel = this.state.levelNum;
+      let curWeapon = this.state.weapon;
+      let playerHealth = this.state.health;
+      let canMove = false;
+      //Calculate damage done by player based on his level and weapon. ( random between a range, inclusive)
+      let minDamage = (playerLevel * curWeapon) + 5;
+      let maxDamage = minDamage * 2;
+      let damageDone = getRandomInclusive(minDamage,maxDamage);
+      //Calculate damage done by enemy done to player based on current game level( random between a range, inclusive)
+      let minDamageEnemy = ( gameLevel * (gameLevel -1) ) + 5;
+      let maxDamageEnemy = minDamageEnemy  * 2;
+      let enemyDamage = getRandomInclusive(minDamageEnemy,maxDamageEnemy);
+      //Reduce player health <=0 dead.
+      playerHealth -= enemyDamage;
+      //Reduce that particular enemies health, and assign to enemies object.
+      enemyHealth -= damageDone;
+      if(enemyHealth<=0)
+      canMove = true;
+      else {
+      enemies[row+','+col] = enemyHealth;
+      }
+
+      this.setState({
+        enemies:enemies,
+        health:playerHealth
+      })
+      return canMove;
         break;
       case 4: //Add weapon code.
       let weapon = this.state.weapon;
