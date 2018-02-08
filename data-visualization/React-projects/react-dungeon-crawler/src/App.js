@@ -166,6 +166,7 @@ class Game extends Component {
       health:100,
       levelNum:1,
       playerLevel:1,
+      playerExp:0,
       enemies: {}
     }
     this.moveChar = this.moveChar.bind(this);
@@ -308,6 +309,7 @@ canMove(row,col) {
       let gameLevel = this.state.levelNum;
       let curWeapon = this.state.weapon;
       let playerHealth = this.state.health;
+      let playerExp = this.state.playerExp;
       let canMove = false;
       //Calculate damage done by player based on his level and weapon. ( random between a range, inclusive)
       let minDamage = (playerLevel * curWeapon) + 5;
@@ -321,15 +323,24 @@ canMove(row,col) {
       playerHealth -= enemyDamage;
       //Reduce that particular enemies health, and assign to enemies object.
       enemyHealth -= damageDone;
-      if(enemyHealth<=0)
+      if(enemyHealth<=0){
       canMove = true;
+      playerExp += 20;
+      if (playerExp === 100){
+      playerLevel++;
+      console.log("player levelled, exp reset");
+      playerExp = 0;
+      }
+    }
       else {
       enemies[row+','+col] = enemyHealth;
       }
 
       this.setState({
         enemies:enemies,
-        health:playerHealth
+        health:playerHealth,
+        playerExp:playerExp,
+        playerLevel:playerLevel
       })
       return canMove;
         break;
