@@ -328,7 +328,8 @@ canMove(row,col) {
       playerExp += 20;
       if (playerExp === 100){
       playerLevel++;
-      console.log("player levelled, exp reset");
+      playerHealth = 50 * playerLevel + 100;
+      console.log("player levelled, exp/health reset");
       playerExp = 0;
       }
     }
@@ -363,6 +364,10 @@ canMove(row,col) {
 
   render() {
     return (
+      <div className ="App">
+      <h1>React dungeon crawler</h1>
+      <div>Player Level: {this.state.playerLevel} Health {this.state.health} Stage: {this.state.levelNum} Experience:{this.state.playerExp} Weapon:{this.state.weapon}</div>
+      <hr/>
       <div className="wrapper" onKeyDown = {this.moveChar} tabIndex='0'>
         {this.state.board.map ( (r,i) => {
           return (<div className='row'
@@ -370,6 +375,7 @@ canMove(row,col) {
                     id={i}>
           {r.map( (v,j) => <div className = { this.cellClass(this.state.board[i][j],i+','+j)  } key ={i+','+j} id ={i+','+j}> </div>)}
         </div>) } ) }
+      </div>
       </div>
     );
   }
