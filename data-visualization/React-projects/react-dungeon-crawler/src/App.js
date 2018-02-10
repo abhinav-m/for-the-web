@@ -354,6 +354,17 @@ canMove(row,col) {
       console.log("weapon"+weapon);
         break;
       case 5: //Add next level code.
+        let curLevel = this.state.levelNum;
+        curLevel++;
+        let newLevel =  MAKE_DUNGEON(MATRIX(16,56));
+        let revealed = getRevealedNeighbours(13,16);
+        revealed.push(13+','+16);
+        let newEnemies = {};
+        this.setState({
+          level:newLevel,
+          levelNum:curLevel,
+          revealed:revealed
+        })
         break;
     }
     return true;
