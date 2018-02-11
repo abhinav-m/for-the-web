@@ -189,6 +189,8 @@ class Game extends Component {
    let playerDIR = this.state.playerDIR;
    //index for movement animation(3 steps to move.)
    let movIndex =this.state.movIndex;
+   //Boolean for moving to next levle and resetting the board.
+   var isNewLevel = false;
  //Player can move in one direction three times, after that it has to reset
  //for animating the player movement.
  //If movement is in the current direction,
@@ -220,6 +222,9 @@ class Game extends Component {
     if( this.canMove(player_row_board-1,player_col_board) ){
       level[player_row_board][player_col_board] = 1;
        player_row_board--;
+       if(level[player_row_board][player_col_board] === 5)
+       isNewLevel = true;
+       else
        level[player_row_board][player_col_board] = 6;
 
       }
@@ -229,6 +234,9 @@ class Game extends Component {
        level[player_row_board][player_col_board] = 1;
             player_col_board--;
             movClass = `lord-left-${movIndex}`;
+            if(level[player_row_board][player_col_board] === 5)
+            isNewLevel = true;
+            else
             level[player_row_board][player_col_board] = 6;
           }
             break;
@@ -237,6 +245,9 @@ class Game extends Component {
       level[player_row_board][player_col_board] = 1;
            player_col_board++;
            movClass = `lord-right-${movIndex}`;
+           if(level[player_row_board][player_col_board] === 5)
+           isNewLevel = true;
+           else
            level[player_row_board][player_col_board] = 6;
          }
            break;
@@ -245,14 +256,38 @@ class Game extends Component {
    if( this.canMove(player_row_board+1,player_col_board) ){
      level[player_row_board][player_col_board] = 1;
             player_row_board++;
+            if(level[player_row_board][player_col_board] === 5)
+            isNewLevel = true;
+            else
             level[player_row_board][player_col_board] = 6;
           }
               break;
 
   default: console.log('wrong key press')
   }
-//Place player on new position.
+///Code for resetting level once entrance has been reached
 
+ if(isNewLevel) {
+   let curLevel = this.state.levelNum;
+   curLevel++;
+   let newLevel =  MAKE_DUNGEON(MATRIX(16,56));
+   let newRevealed = getRevealedNeighbours(13,16);
+   newRevealed.push(13+','+16);
+   let newEnemies = {};
+
+   //Set state for new level
+   this.setState({
+     board: newLevel,
+     player_pos_board :   [13,16],
+     levelNum:curLevel,
+     movIndex:0,
+     movClass:'lord-up-0',
+     playerDIR:38,
+     level:newLevel,
+     revealed: newRevealed
+   });
+ }
+ else {
 let revealed = getRevealedNeighbours(player_row_board,player_col_board);
 revealed.push(player_row_board+','+player_col_board);
   this.setState({
@@ -264,7 +299,7 @@ revealed.push(player_row_board+','+player_col_board);
     level:level,
     revealed: revealed
   });
-
+}
  }
 
 cellClass(cellType,pos) {
@@ -352,24 +387,6 @@ canMove(row,col) {
         weapon:weapon
       });
       console.log("weapon"+weapon);
-        break;
-      case 5: //Add next level code.
-        let curLevel = this.state.levelNum;
-        curLevel++;
-        let newLevel =  MAKE_DUNGEON(MATRIX(16,56));
-        let revealed = getRevealedNeighbours(13,16);
-        revealed.push(13+','+16);
-        let newEnemies = {};
-        this.setState({
-          level:newLevel,
-          board:newLevel,
-          levelNum:curLevel,
-          player_pos_board :   [13,16],
-          movIndex:0,
-          movClass:'lord-up-0',
-          playerDIR:38,
-          revealed:revealed
-        })
         break;
     }
     return true;
