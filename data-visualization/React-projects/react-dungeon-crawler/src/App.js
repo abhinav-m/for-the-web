@@ -66,12 +66,13 @@ const MAKE_DUNGEON = (matrix,isBoss) => {
  //Add Player in center of matrix(approx)
  matrix[13][16] = 6;
 //Add health.
-ADD_RANDOM_CHAR(matrix,2,5);
+ADD_RANDOM_CHAR(matrix,2,9);
 //Add enemies.
  ADD_RANDOM_CHAR(matrix,3,6);
 //Add weapon.
  ADD_RANDOM_CHAR(matrix,4,1);
-//Add next level entrance.
+//Add next level entrance (unless its final level)
+if(!isBoss)
 ADD_RANDOM_CHAR(matrix,5,1);
 //Add boss if its the last boss stage
 if(isBoss)
@@ -170,7 +171,8 @@ class Game extends Component {
       levelNum:1,
       playerLevel:1,
       playerExp:0,
-      enemies: {}
+      enemies: {},
+      bossHealth:250
     }
     this.moveChar = this.moveChar.bind(this);
 
@@ -353,12 +355,12 @@ canMove(row,col) {
       var minDamage,maxDamage;
       //Calculate damage done by player based on his weapon and current game level.
       if(curWeapon === playerLevel && playerLevel >= gameLevel){
-       minDamage = Math.ceil(maxEnemyhealth )/ 6;
-       maxDamage = Math.ceil(maxEnemyhealth )/ 4;
+       minDamage = Math.ceil(maxEnemyhealth / 6);
+       maxDamage = Math.ceil(maxEnemyhealth / 4);
       }
       else {
-       minDamage = Math.ceil(maxEnemyhealth )/ 8;
-       maxDamage = Math.ceil(maxEnemyhealth )/ 6;
+       minDamage = Math.ceil(maxEnemyhealth / 8);
+       maxDamage = Math.ceil(maxEnemyhealth / 6);
       }
       let damageDone = getRandomInclusive(minDamage,maxDamage);
       //Calculate damage done by enemy done to player based on current game level( random between a range, inclusive)
@@ -399,6 +401,40 @@ canMove(row,col) {
       });
       console.log("weapon"+weapon);
         break;
+      case 7:
+      //Getting all values needed for boss fight.
+      let playerLevelB = this.state.playerLevel;
+      let gameLevelB = this.state.levelNum;
+      let curWeaponB = this.state.weapon;
+      let playerHealthB = this.state.health;
+      let canMoveB = false;
+      var minDamageB ,maxDamageB;
+      let bossHealth = this.state.bossHealth;
+      //Checking if player is correctly levelled and has max weapon.
+      if(curWeaponB === playerLevelB && playerLevelB > gameLevelB){
+       minDamageB = Math.ceil(250 / 6);
+       maxDamageB = Math.ceil(250 / 4);
+      }
+      else {
+        minDamageB = Math.ceil(250 / 8);
+        maxDamageB = Math.ceil(250 / 6);
+      }
+      //Calculte damage done to boss.
+      let bossDamageDone = getRandomInclusive(minDamageB,maxDamageB);
+      //Calculate damage done by boss.
+      let bossDealtDamage = getRandomInclusive(40,45);
+      playerHealthB -= bossDealtDamage;
+      bossHealth -= bossDamageDone;
+      //Player moves if boss dies.
+      if(bossHealth <= 0 )
+      canMoveB =  true;
+      this.setState({
+        health:playerHealthB,
+        bossHealth:bossHealth
+      });
+      console.log("Boss health:"+bossHealth);
+      return canMoveB;
+
     }
     return true;
   }
