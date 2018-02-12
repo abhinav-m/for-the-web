@@ -321,7 +321,7 @@ canMove(row,col) {
     switch(cell) {
       case 2: //Add health code.
       let health = this.state.health;
-      health+=25;
+      health += Math.ceil( ( (50 * this.state.playerLevel) + 50) / 4);
       this.setState({
         health:health
       });
@@ -374,7 +374,7 @@ canMove(row,col) {
       playerExp += 20;
       if (playerExp === 100){
       playerLevel++;
-      playerHealth = 50 * playerLevel + 100;
+      playerHealth = 50 * playerLevel + 50;
       console.log("player levelled, exp/health reset");
       playerExp = 0;
       }
