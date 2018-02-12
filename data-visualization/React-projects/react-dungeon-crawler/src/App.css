@@ -65,8 +65,8 @@ body {
 }
 
 .boss {
-  background: url('./images/enemy-down.png');
-      background-repeat: no-repeat;
+  background: url('./images/boss-down.png');
+  background-repeat: no-repeat;
 }
 
 .hidden {

@@ -26,7 +26,7 @@ const MATRIX = (rows, cols) => {
    Do not alter the code unless you are ready to lose your hairline
    and a few years of your life.
 */
-const MAKE_DUNGEON = (matrix) => {
+const MAKE_DUNGEON = (matrix,isBoss) => {
   //Constants for making dungeon's playable area/cross section.
  const AREA_HEIGHT = 4;
  const AREA_WIDTH = 10;
@@ -73,6 +73,9 @@ ADD_RANDOM_CHAR(matrix,2,5);
  ADD_RANDOM_CHAR(matrix,4,1);
 //Add next level entrance.
 ADD_RANDOM_CHAR(matrix,5,1);
+//Add boss if its the last boss stage
+if(isBoss)
+ADD_RANDOM_CHAR(matrix,7,1);
  return matrix;
 }
 
@@ -270,7 +273,7 @@ class Game extends Component {
  if(isNewLevel) {
    let curLevel = this.state.levelNum;
    curLevel++;
-   let newLevel =  MAKE_DUNGEON(MATRIX(16,56));
+   let newLevel =  MAKE_DUNGEON(MATRIX(16,56),curLevel === 4);
    let newRevealed = getRevealedNeighbours(13,16);
    newRevealed.push(13+','+16);
    let newEnemies = {};
@@ -304,7 +307,7 @@ revealed.push(player_row_board+','+player_col_board);
 
 cellClass(cellType,pos) {
   //0 -> Unpassable terrain, 1 -> part of dungeon, 2 -> Health ,3 -> enemy ,4 -> weapon,5-> next level entrance,6-> Player position.
-  const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy','cell dungeon  weapon','cell dungeon nextLevel',`cell dungeon   ${this.state.movClass}`];
+  const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy','cell dungeon  weapon','cell dungeon nextLevel',`cell dungeon   ${this.state.movClass}`,`cell dungeon boss`];
   if(pos==='9,16')
   console.log('test');
   return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType];// +' hidden';
@@ -318,7 +321,7 @@ canMove(row,col) {
     switch(cell) {
       case 2: //Add health code.
       let health = this.state.health;
-      health+=50;
+      health+=25;
       this.setState({
         health:health
       });
@@ -345,13 +348,21 @@ canMove(row,col) {
       let curWeapon = this.state.weapon;
       let playerHealth = this.state.health;
       let playerExp = this.state.playerExp;
+      let maxEnemyhealth = 50 * gameLevel;
       let canMove = false;
-      //Calculate damage done by player based on his level and weapon. ( random between a range, inclusive)
-      let minDamage = (playerLevel * curWeapon) + 5;
-      let maxDamage = minDamage * 2;
+      var minDamage,maxDamage;
+      //Calculate damage done by player based on his weapon and current game level.
+      if(curWeapon === playerLevel && playerLevel >= gameLevel){
+       minDamage = Math.ceil(maxEnemyhealth )/ 6;
+       maxDamage = Math.ceil(maxEnemyhealth )/ 4;
+      }
+      else {
+       minDamage = Math.ceil(maxEnemyhealth )/ 8;
+       maxDamage = Math.ceil(maxEnemyhealth )/ 6;
+      }
       let damageDone = getRandomInclusive(minDamage,maxDamage);
       //Calculate damage done by enemy done to player based on current game level( random between a range, inclusive)
-      let minDamageEnemy = ( gameLevel * (gameLevel -1) ) + 5;
+      let minDamageEnemy = ( gameLevel * (gameLevel -1) ) + 3;
       let maxDamageEnemy = minDamageEnemy  * 2;
       let enemyDamage = getRandomInclusive(minDamageEnemy,maxDamageEnemy);
       //Reduce player health <=0 dead.
