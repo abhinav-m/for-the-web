@@ -13,15 +13,6 @@ const MATRIX = (rows, cols) => {
     return arr;
 }
 
-// //Makes half the matrix (for rendering)
-// const HALF_MATRIX = (matrix) => {
-//   let rendered = [];
-//   for(let i = Math.floor(matrix.length/2) - 1,j=0;i<matrix.length;i++,j++)
-//     rendered[j] = matrix[i];
-//
-//   return rendered;
-// }
-
 /* The random dungeon creating algorithm
    Do not alter the code unless you are ready to lose your hairline
    and a few years of your life.
@@ -309,7 +300,7 @@ revealed.push(player_row_board+','+player_col_board);
 
 cellClass(cellType,pos) {
   //0 -> Unpassable terrain, 1 -> part of dungeon, 2 -> Health ,3 -> enemy ,4 -> weapon,5-> next level entrance,6-> Player position.
-  const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy','cell dungeon  weapon','cell dungeon nextLevel',`cell dungeon   ${this.state.movClass}`,`cell dungeon boss`];
+  const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy',`cell dungeon  weapon-${this.state.levelNum}`,'cell dungeon nextLevel',`cell dungeon   ${this.state.movClass}`,`cell dungeon boss`];
   if(pos==='9,16')
   console.log('test');
   return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType];// +' hidden';
@@ -394,12 +385,12 @@ canMove(row,col) {
       return canMove;
         break;
       case 4: //Add weapon code.
-      let weapon = this.state.weapon;
-      weapon++;
+      let levelNum = this.state.levelNum;
+
       this.setState({
-        weapon:weapon
+        weapon:levelNum
       });
-      console.log("weapon"+weapon);
+      console.log("weapon"+levelNum);
         break;
       case 7:
       //Getting all values needed for boss fight.

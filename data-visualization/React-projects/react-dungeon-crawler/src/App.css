@@ -49,8 +49,20 @@ body {
     background-image: url('./images/PotionTallGreen.PNG');
 }
 
-.weapon {
+.weapon-1 {
   background: url('./images/SwordShort.PNG');
+}
+
+.weapon-2 {
+  background: url('./images/SwordSabre.PNG');
+}
+
+.weapon-3 {
+  background: url('./images/SwordMedieval.PNG');
+}
+
+.weapon-4 {
+  background: url('./images/SwordFlaming.PNG');
 }
 
 .nextLevel {
