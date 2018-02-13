@@ -9,7 +9,7 @@ body {
   flex-direction:column;
   justify-content:center;
   align-items: center;
-  background:pink;
+  background:lightblue;
 }
 
 .wrapper {
@@ -37,7 +37,12 @@ body {
     background: #CF1020;
 }
 
-
+.gameInfo {
+  display:flex;
+  flex-direction:column;
+  justify-content:space-around;
+  align-items:center;
+}
 
 .dungeon {
   background:black;
@@ -82,8 +87,10 @@ body {
 }
 
 .healthBar {
-  background:green;
+  background:red;
   color:red;
+  appearence:none;
+  border-radius:2px;
 }
 
 .hidden {

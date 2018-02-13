@@ -154,12 +154,15 @@ class Game extends Component {
       playerDIR:38,
       revealed:this.revealed,
       weapon:0,
+      weapons:['Fists','Needle','LongClaw','LightBringer'],
       health:100,
       levelNum:1,
       playerLevel:1,
       playerExp:0,
       enemies: {},
-      bossHealth:250
+      bossHealth:250,
+      isWin:false,
+      isLoss:false
     }
     this.moveChar = this.moveChar.bind(this);
 
@@ -182,7 +185,9 @@ class Game extends Component {
    let movIndex =this.state.movIndex;
    //Boolean for moving to next levle and resetting the board.
    var isNewLevel = false;
-
+   //Stop the event from propogating, to prevent screen from scrolling.
+   e.preventDefault();
+   e.stopPropagation();
  //Player can move in one direction three times, after that it has to reset
  //for animating the player movement.
  //If movement is in the current direction,
@@ -295,7 +300,7 @@ cellClass(cellType,pos) {
   const cells = ['cell','cell dungeon','cell dungeon health','cell dungeon enemy',`cell dungeon  weapon-${this.state.levelNum}`,'cell dungeon nextLevel',`cell dungeon   ${this.state.movClass}`,`cell dungeon boss`];
   if(pos==='9,16')
   console.log('test');
-  return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType];// +' hidden';
+  return this.state.revealed.includes(pos) ? cells[cellType] : cells[cellType];//' hidden';
 }
 
 // TODO: Helper function to determine if character can move to cell or not.
@@ -333,6 +338,7 @@ canMove(row,col) {
       let curWeapon = this.state.weapon;
       let playerHealth = this.state.health;
       let playerExp = this.state.playerExp;
+      var isDead = false;
       let maxEnemyhealth = 50 * gameLevel;
       let canMove = false;
       var minDamage,maxDamage;
@@ -352,6 +358,10 @@ canMove(row,col) {
       let enemyDamage = getRandomInclusive(minDamageEnemy,maxDamageEnemy);
       //Reduce player health <=0 dead.
       playerHealth -= enemyDamage;
+      if(playerHealth <=0 ) {
+        isDead = true;
+      }
+      console.log("player dead:"+isDead);
       //Reduce that particular enemies health, and assign to enemies object.
       enemyHealth -= damageDone;
       if(enemyHealth<=0){
@@ -372,7 +382,8 @@ canMove(row,col) {
         enemies:enemies,
         health:playerHealth,
         playerExp:playerExp,
-        playerLevel:playerLevel
+        playerLevel:playerLevel,
+        isLoss: isDead
       })
       return canMove;
         break;
@@ -393,6 +404,7 @@ canMove(row,col) {
       let canMoveB = false;
       var minDamageB ,maxDamageB;
       let bossHealth = this.state.bossHealth;
+      var isWin = false, isLoss = false;
       //Checking if player is correctly levelled and has max weapon.
       if(curWeaponB === playerLevelB && playerLevelB > gameLevelB){
        minDamageB = Math.ceil(250 / 6);
@@ -409,11 +421,18 @@ canMove(row,col) {
       playerHealthB -= bossDealtDamage;
       bossHealth -= bossDamageDone;
       //Player moves if boss dies.
-      if(bossHealth <= 0 )
+      if(bossHealth <= 0 ){
       canMoveB =  true;
+      isWin = true;
+     }
+     if(playerHealthB <=0) {
+       isLoss = true;
+     }
       this.setState({
         health:playerHealthB,
-        bossHealth:bossHealth
+        bossHealth:bossHealth,
+        isWin:isWin,
+        isLoss:isLoss
       });
       console.log("Boss health:"+bossHealth);
       return canMoveB;
@@ -426,10 +445,18 @@ canMove(row,col) {
 
 
   render() {
+    if(this.state.isLoss)
+    return(<h1>You Lost!</h1>)
+    else if(this.state.isWin)
+      return(<h1>You Win!</h1>)
+      else
     return (
       <div className ="App">
-      <h1>React dungeon crawler</h1>
-      <div>Player Level: {this.state.playerLevel} Health<progress className ='healthBar' value={this.state.health} max={this.state.playerLevel * 50 + 50}></progress> {this.state.health} Stage: {this.state.levelNum} Experience:{this.state.playerExp} Weapon:{this.state.weapon}</div>
+      <div className ="gameInfo">
+      <h1>Dungeon:{this.state.levelNum}</h1>
+      <div>Lv.{this.state.playerLevel}<progress className ='healthBar' value={this.state.health} max={this.state.playerLevel * 50 + 50}></progress>  Exp: <progress className ='Experience' value={this.state.playerExp} max={100}></progress></div>
+      <div>Weapon: {this.state.weapons[this.state.weapon]}</div>
+      </div>
       <hr/>
       <div className="wrapper" onKeyDown = {this.moveChar} tabIndex='0'>
         {this.state.level.map ( (r,i) => {
@@ -439,6 +466,7 @@ canMove(row,col) {
           {r.map( (v,j) => <div className = { this.cellClass(this.state.level[i][j],i+','+j)  } key ={i+','+j} id ={i+','+j}> </div>)}
         </div>) } ) }
       </div>
+
       </div>
     );
   }
