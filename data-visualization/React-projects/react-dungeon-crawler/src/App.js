@@ -144,15 +144,11 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.level = MAKE_DUNGEON(MATRIX(16,56));
-    //Render bottom half of the matrix initially,move it as character moves.
-//    this.rendered = HALF_MATRIX(this.level);
     this.revealed = getRevealedNeighbours(13,16);
     this.revealed.push(13+','+16);
     this.state = {
       level: this.level,
-      board: this.level,
       player_pos_board :   [13,16],
-      player_pos_rend : [13,16],
       movIndex:0,
       movClass:'lord-up-0',
       playerDIR:38,
@@ -171,8 +167,7 @@ class Game extends Component {
   }
 
 
-//FIXTHIS: Rendered dungeon logic is correct. some correction needed here.
-//Add old player pos and new player pos comparison to simulate movement on one cell?
+
  moveChar(e) {
    //The whole board.
    let level = this.state.level;
@@ -187,6 +182,7 @@ class Game extends Component {
    let movIndex =this.state.movIndex;
    //Boolean for moving to next levle and resetting the board.
    var isNewLevel = false;
+
  //Player can move in one direction three times, after that it has to reset
  //for animating the player movement.
  //If movement is in the current direction,
@@ -208,10 +204,8 @@ class Game extends Component {
    up = 38
    right = 39
    down = 40 */
-//FIX:Main movement switch, have to understand and fix.
-//TOFIX: Player not moving with top edge of matrix reached,
-//Maybe keep seperate track of position of player?
-//TODO: correct movement while character is moving towards bottom of board.
+//FIX:Player exceeding board edge while moving left and right.
+
   switch(e.which) {
     //Check if any untraversable part has been reached.
     case 38:  movClass =`lord-up-${movIndex}`;
@@ -273,7 +267,6 @@ class Game extends Component {
 
    //Set state for new level
    this.setState({
-     board: newLevel,
      player_pos_board :   [13,16],
      levelNum:curLevel,
      movIndex:0,
@@ -287,7 +280,6 @@ class Game extends Component {
 let revealed = getRevealedNeighbours(player_row_board,player_col_board);
 revealed.push(player_row_board+','+player_col_board);
   this.setState({
-    board: level,
     player_pos_board:[player_row_board,player_col_board],
     movClass:movClass,
     movIndex:movIndex,
@@ -437,14 +429,14 @@ canMove(row,col) {
     return (
       <div className ="App">
       <h1>React dungeon crawler</h1>
-      <div>Player Level: {this.state.playerLevel} Health {this.state.health} Stage: {this.state.levelNum} Experience:{this.state.playerExp} Weapon:{this.state.weapon}</div>
+      <div>Player Level: {this.state.playerLevel} Health<progress className ='healthBar' value={this.state.health} max={this.state.playerLevel * 50 + 50}></progress> {this.state.health} Stage: {this.state.levelNum} Experience:{this.state.playerExp} Weapon:{this.state.weapon}</div>
       <hr/>
       <div className="wrapper" onKeyDown = {this.moveChar} tabIndex='0'>
-        {this.state.board.map ( (r,i) => {
+        {this.state.level.map ( (r,i) => {
           return (<div className='row'
                     key={i}
                     id={i}>
-          {r.map( (v,j) => <div className = { this.cellClass(this.state.board[i][j],i+','+j)  } key ={i+','+j} id ={i+','+j}> </div>)}
+          {r.map( (v,j) => <div className = { this.cellClass(this.state.level[i][j],i+','+j)  } key ={i+','+j} id ={i+','+j}> </div>)}
         </div>) } ) }
       </div>
       </div>
