@@ -3,7 +3,11 @@
     font-family: 'Rajdhani', sans-serif;
 
 .content
-    margin-top: 5vh
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    align-items: center
+    margin-top: 50px
 
 table
     border-collapse: collapse
@@ -11,42 +15,42 @@ table
 
 
 .toggleButtons,.selected
-    position: relative
-    display: inline-block
     background-color: #ADD8E6
     color: #ffffff
-    height: 5vh
-    width: 8vw
+    padding:none
+    height: 50px
+    width: 150px
     font-size: 1em
-    line-height: 3
-    margin: 2vw
-    border-radius: 5%
+    line-height: 50px
+    border-radius: 10px
 
 .selected
     background-color: black
 
+.headerToggle
+    display: flex
+    justify-content: space-around
+    align-items: center
+    margin-bottom: 50px
 
 .toggleButtons:hover, .selected:hover
     cursor: pointer
     background-color: blue
     color: white
 
-.dataSection 
-    display: flex
-    justify-content: center
 
 
 .userArea 
     text-align: justify
     border-left: 0px
-    padding: 10px
+    padding: 5px
 
 td
-    height: 8vh
+    height: 50px
     border: 2px solid black
-    line-height: 5vh
-    min-width: 10vw
-    max-width: 10vw
+    line-height: 50px
+    min-width: 100px
+    max-width: 200px
     align: center
 
 th
@@ -54,12 +58,8 @@ th
     border: 2px solid black
     
 .index 
-    min-width: 2vw
-    max-width: 10vw
+    min-width: 50px
 
-.points 
-   
-    max-width: 10vw
 
 tr
     background-color: #7f7fff
