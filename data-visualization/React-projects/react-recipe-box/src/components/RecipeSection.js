@@ -1,64 +1,84 @@
 import React, { Component } from 'react';
+
 import RecipeEditor from './RecipeEditor';
+import RecipeInfo from './RecipeInfo';
 
 class RecipesSection extends Component {
   constructor() {
     super();
+
     this.state = {
       recipes:
-        typeof localStorage['thinkTankRecipes'] != 'undefined'
-          ? JSON.parse(localStorage['thinkTankRecipes'])
+        typeof localStorage['recipeMakerTTabhinav'] != 'undefined'
+          ? JSON.parse(localStorage['recipeMakerTTabhinav'])
           : [
-              { title: 'Butter chicken', ingredients: 'Butter,chicken' },
-              { title: 'Cake', ingredients: 'chocolate,MAGIC!' }
+              {
+                title: 'Butter chicken',
+                ingredients: 'Butter,chicken',
+                isExpanded: true
+              },
+              {
+                title: 'Cake',
+                ingredients: 'chocolate,MAGIC!',
+                isExpanded: false
+              }
             ],
-      recipeIndex: -1,
-      newRecipeTitle: 'Enter title here',
-      newRecipeIngredients:
-        'Enter ingredients seperated by commas eg (butter,sugar,chocolate)'
+      index: -1,
+      makingRecipe: false
     };
+
     this.saveRecipe = this.saveRecipe.bind(this);
-    this.toggleMaker = this.toggleMaker.bind(this);
-    this.sanitizeRecipe = this.sanitizeRecipe.bind(this);
-    this.resetRecipeValues = this.resetRecipeValues.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
-    this.titleChanged = this.titleChanged.bind(this);
-    this.recipeChanged = this.recipeChanged.bind(this);
+    this.discardRecipe = this.discardRecipe.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
+    this.makeRecipe = this.makeRecipe.bind(this);
     this.updateLocalStorage = this.updateLocalStorage.bind(this);
+    this.toggleExpansion = this.toggleExpansion.bind(this);
   }
 
   updateLocalStorage() {
     localStorage.setItem(
-      'thinkTankRecipes',
+      'recipeMakerTTabhinav',
       JSON.stringify(this.state.recipes)
     );
   }
 
-  editRecipe(index) {
-    var title = this.state.recipes[index].title;
-    var ingred = this.state.recipes[index].ingredients;
+  makeRecipe() {
+    this.setState({
+      makingRecipe: true,
+      index: -1
+    });
+  }
+
+  saveRecipe(index, recipe) {
+    let newRecipes;
+    if (index !== -1) {
+      newRecipes = this.state.recipes.map((r, i) => (i === index ? recipe : r));
+    } else {
+      newRecipes = this.state.recipes.concat(recipe);
+    }
+
     this.setState(
       {
-        recipeIndex: index,
-        newRecipeIngredients: ingred,
-        newRecipeTitle: title
+        recipes: newRecipes,
+        makingRecipe: false,
+        index: -1
       },
       () => {
-        this.toggleMaker();
+        this.updateLocalStorage();
       }
     );
   }
 
-  toggleMaker() {
+  editRecipe(index) {
     this.setState({
-      makingRecipe: !this.state.makingRecipe
+      index: index,
+      makingRecipe: true
     });
   }
 
   deleteRecipe(index) {
-    var newRecipes = this.state.recipes;
-    newRecipes.splice(index, 1);
+    let newRecipes = this.state.recipes.filter((_, i) => i !== index);
     this.setState(
       {
         recipes: newRecipes
@@ -69,78 +89,47 @@ class RecipesSection extends Component {
     );
   }
 
-  sanitizeRecipe() {
-    var trimmedIngredients = this.state.newRecipeIngredients.split(',');
-    trimmedIngredients.forEach(
-      (val, i) =>
-        (trimmedIngredients[i] =
-          val.length > 50 ? val.slice(0, 50).trim() : val.trim())
-    );
-    trimmedIngredients = trimmedIngredients.join(',');
-    var trimmedTitle = this.state.newRecipeTitle.trim();
-    return { title: trimmedTitle, ingredients: trimmedIngredients };
-  }
+  renderRecipeEditor(index) {
+    let title = index === -1 ? '' : this.state.recipes[index].title;
+    let ingredients = index === -1 ? '' : this.state.recipes[index].ingredients;
 
-  saveRecipe() {
-    var sanitizedRecipe = this.sanitizeRecipe();
-    var existingRecipes = this.state.recipes;
-    if (this.state.recipeIndex === -1 && this.state.newRecipeTitle !== '')
-      existingRecipes.push(sanitizedRecipe);
-    else if (this.state.newRecipeTitle !== '')
-      existingRecipes.splice(this.state.recipeIndex, 1, sanitizedRecipe);
-    this.setState(
-      {
-        recipes: existingRecipes,
-        recipeIndex: -1
-      },
-      () => {
-        this.resetRecipeValues();
-        this.updateLocalStorage();
-      }
+    return (
+      <RecipeEditor
+        title={title}
+        ingredients={ingredients}
+        index={index}
+        saveRecipe={this.saveRecipe}
+        discardRecipe={this.discardRecipe}
+      />
     );
   }
 
-  resetRecipeValues() {
-    this.setState(
-      {
-        newRecipeTitle: 'Enter title here',
-        newRecipeIngredients:
-          'Enter ingredients seperated by commas eg (butter,sugar,chocolate)'
-      },
-      () => {
-        this.toggleMaker();
-      }
-    );
-  }
-
-  titleChanged(e) {
-    var val = e.target.value;
+  discardRecipe() {
     this.setState({
-      newRecipeTitle: val.length > 80 ? val.slice(0, 50) : val
+      makingRecipe: false
     });
   }
 
-  recipeChanged(e) {
-    var val = e.target.value;
+  toggleExpansion(index) {
+    let changedRecipe = this.state.recipes[index];
+    changedRecipe.isExpanded = !changedRecipe.isExpanded;
+
+    let recipes = this.state.recipes.map(
+      (r, i) => (index === i ? changedRecipe : r)
+    );
+
     this.setState({
-      newRecipeIngredients: val
+      recipes: recipes
     });
   }
 
   render() {
-    if (this.state.makingRecipe)
-      return (
-        <RecipeEditor
-          title={this.state.title}
-          ingredients={this.state.ingredients}
-          saveRecipe={this.saveRecipe}
-          discardRecipe={this.discardRecipe}
-        />
-      );
-    else
+    if (this.state.makingRecipe) {
+      return this.renderRecipeEditor(this.state.index);
+    } else
       return (
         <div className="recipesSection">
-          <div className="buttonContainer" onClick={this.toggleMaker}>
+          <div className="buttonContainer" onClick={this.makeRecipe}>
             <i
               className="button-primary fa fa-plus-square fa-2x"
               aria-hidden="true"
@@ -149,8 +138,10 @@ class RecipesSection extends Component {
           {this.state.recipes.map((recipeDetails, i) => (
             <RecipeInfo
               key={i}
+              isExpanded={recipeDetails.isExpanded}
+              toggleExpansion={this.toggleExpansion}
               recipeDetails={recipeDetails}
-              deleteFn={this.deleteRecipe}
+              delete={this.deleteRecipe}
               index={i}
               editRecipe={this.editRecipe}
             />
@@ -159,3 +150,5 @@ class RecipesSection extends Component {
       );
   }
 }
+
+export default RecipesSection;
