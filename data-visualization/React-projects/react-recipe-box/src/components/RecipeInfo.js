@@ -33,6 +33,7 @@ const RecipeTitle = props => (
   </div>
 );
 
+//FIXME: Returns error on splitting up divs with ingredients.
 const Ingredients = props => (
   <React.Fragment>
     {props.data
