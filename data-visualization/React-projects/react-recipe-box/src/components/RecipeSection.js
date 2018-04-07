@@ -1,154 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import RecipeEditor from './RecipeEditor';
 import RecipeInfo from './RecipeInfo';
 
-class RecipesSection extends Component {
-  constructor() {
-    super();
+const RecipeSection = props => {
+  return (
+    <div className="recipesSection">
+      <div className="buttonContainer" onClick={props.makeRecipe}>
+        <i
+          className="button-primary fa fa-plus-square fa-2x"
+          aria-hidden="true"
+        />
+      </div>
+      {props.data.map((recipe, i) => (
+        <RecipeInfo
+          key={i}
+          isExpanded={recipe.isExpanded}
+          toggleExpansion={props.toggleExpansion}
+          recipe={recipe}
+          delete={props.deleteRecipe}
+          index={i}
+          editRecipe={props.editRecipe}
+        />
+      ))}
+    </div>
+  );
+};
 
-    this.state = {
-      recipes:
-        typeof localStorage['recipeMakerTTabhinav'] != 'undefined'
-          ? JSON.parse(localStorage['recipeMakerTTabhinav'])
-          : [
-              {
-                title: 'Butter chicken',
-                ingredients: 'Butter,chicken',
-                isExpanded: true
-              },
-              {
-                title: 'Cake',
-                ingredients: 'chocolate,MAGIC!',
-                isExpanded: false
-              }
-            ],
-      index: -1,
-      makingRecipe: false
-    };
-
-    this.saveRecipe = this.saveRecipe.bind(this);
-    this.deleteRecipe = this.deleteRecipe.bind(this);
-    this.discardRecipe = this.discardRecipe.bind(this);
-    this.editRecipe = this.editRecipe.bind(this);
-    this.makeRecipe = this.makeRecipe.bind(this);
-    this.updateLocalStorage = this.updateLocalStorage.bind(this);
-    this.toggleExpansion = this.toggleExpansion.bind(this);
-  }
-
-  updateLocalStorage() {
-    localStorage.setItem(
-      'recipeMakerTTabhinav',
-      JSON.stringify(this.state.recipes)
-    );
-  }
-
-  makeRecipe() {
-    this.setState({
-      makingRecipe: true,
-      index: -1
-    });
-  }
-
-  saveRecipe(index, recipe) {
-    let newRecipes;
-    if (index !== -1) {
-      newRecipes = this.state.recipes.map((r, i) => (i === index ? recipe : r));
-    } else {
-      newRecipes = this.state.recipes.concat(recipe);
-    }
-
-    this.setState(
-      {
-        recipes: newRecipes,
-        makingRecipe: false,
-        index: -1
-      },
-      () => {
-        this.updateLocalStorage();
-      }
-    );
-  }
-
-  editRecipe(index) {
-    this.setState({
-      index: index,
-      makingRecipe: true
-    });
-  }
-
-  deleteRecipe(index) {
-    let newRecipes = this.state.recipes.filter((_, i) => i !== index);
-    this.setState(
-      {
-        recipes: newRecipes
-      },
-      () => {
-        this.updateLocalStorage();
-      }
-    );
-  }
-
-  renderRecipeEditor(index) {
-    let title = index === -1 ? '' : this.state.recipes[index].title;
-    let ingredients = index === -1 ? '' : this.state.recipes[index].ingredients;
-
-    return (
-      <RecipeEditor
-        title={title}
-        ingredients={ingredients}
-        index={index}
-        saveRecipe={this.saveRecipe}
-        discardRecipe={this.discardRecipe}
-      />
-    );
-  }
-
-  discardRecipe() {
-    this.setState({
-      makingRecipe: false
-    });
-  }
-
-  toggleExpansion(index) {
-    let changedRecipe = this.state.recipes[index];
-    changedRecipe.isExpanded = !changedRecipe.isExpanded;
-
-    let recipes = this.state.recipes.map(
-      (r, i) => (index === i ? changedRecipe : r)
-    );
-
-    this.setState({
-      recipes: recipes
-    });
-  }
-
-  render() {
-    if (this.state.makingRecipe) {
-      return this.renderRecipeEditor(this.state.index);
-    } else
-      return (
-        <div className="recipesSection">
-          <div className="buttonContainer" onClick={this.makeRecipe}>
-            <i
-              className="button-primary fa fa-plus-square fa-2x"
-              aria-hidden="true"
-            />
-          </div>
-          {this.state.recipes.map((recipeDetails, i) => (
-            <RecipeInfo
-              key={i}
-              isExpanded={recipeDetails.isExpanded}
-              toggleExpansion={this.toggleExpansion}
-              recipeDetails={recipeDetails}
-              delete={this.deleteRecipe}
-              index={i}
-              editRecipe={this.editRecipe}
-            />
-          ))}
-        </div>
-      );
-  }
-}
-
-export default RecipesSection;
+export default RecipeSection;

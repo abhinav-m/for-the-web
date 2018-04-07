@@ -2,6 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './index.css';
-import RecipeSection from './components/RecipeSection';
+import RecipeContainer from './containers/RecipeContainer';
 
-ReactDOM.render(<RecipeSection />, document.getElementById('root'));
+ReactDOM.render(<RecipeContainer />, document.getElementById('root'));

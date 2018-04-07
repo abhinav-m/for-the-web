@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-//TODO: Add validaton for saving recipe.
 class RecipeEditor extends Component {
   constructor(props) {
     super(props);
