@@ -8,7 +8,7 @@ const RecipeSection = props => {
     <div className="recipesSection">
       <div className="buttonContainer" onClick={props.makeRecipe}>
         <i
-          className="button-primary fa fa-plus-square fa-2x"
+          className="button-primary fa fa-plus-square fa-1.5x line-height-50"
           aria-hidden="true"
         />
       </div>

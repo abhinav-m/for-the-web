@@ -1,5 +1,8 @@
 body 
-    background: #E0E4CC
+    height: 100vh
+    width: 100vw
+    background: linear-gradient(to bottom right,#B066FE , #63E2FF)
+    
 
 #root
     font-family: 'Indie Flower', cursive
@@ -10,32 +13,30 @@ body
     flex-wrap: wrap
    
 
-.App 
-    align-self: center
-    flex: 1 0 auto
-    min-height: 60vh
-
-
 recipeSection
     align-self: center
     flex-shrink: 0
 
+.line-height-50
+    line-height: 50px 
+
 
 .button-primary
-    align-self: center
     flex: 0 0 auto
-    background: #F38630 
+    background: white
     height: 50px
-    width: 180px
+    width: 50px
     color: black
     text-align: center
     line-height: 50px
-    border-radius: 5%
+    border-radius: 50%
 
 .buttonContainer
     display: flex
     justify-content: space-evenly
     align-items: center
+    margin-top: 10px
+    margin-bottom: 10px
     flex: 0 0 auto
     flex-wrap: wrap
     align-content: flex-start
@@ -43,7 +44,7 @@ recipeSection
 
 .button-primary:hover
     cursor: pointer
-    background: #FA6900
+    background: grey
     color: white
 
 .recipeMaker
@@ -67,16 +68,15 @@ textArea
     text-align: center
 
 .recipeTitle
-    align-self: center
-    flex-shrink: 0
     width: 50vw
     color: white
     padding-left: 15px
     padding-right: 15px
     font-size: 1.5em
-    margin-top: 1vh
-    border-radius: 10px
-    background: #A7DBD8 
+    border-radius: 10px 10px 0 0
+    margin-bottom: 15px
+    background: grey
+    
 
 .recipeTitle:hover
     background: blue
@@ -86,10 +86,11 @@ textArea
     display: flex
     flex-direction: column
     flex-shrink: 0
-    background: #69D2E7
+    background: #20232a
     border-radius: 10px
     padding-bottom: 1vh
-    margin-top: 0.5vh
+    margin-top: 15px
+    margin-bottom: 15px
 
 .ingredientName
     align-self: stretch
@@ -101,8 +102,11 @@ textArea
     padding: 5px
    
 
-.deleteButton:hover
+.deleteButton:hover, .backButton:hover
     background: red
+
+.saveButton:hover
+    background: #28A744
 
 textArea
     font-family: 'Indie Flower', cursive
@@ -113,6 +117,7 @@ textArea
 
 h1
     text-align: center
+    color: white
 
 .textAreaWrapper
     display: flex
@@ -129,13 +134,13 @@ h1
     color: red
 
 a
-    color: blue
+    color: lightblue
     text-decoration: none
 
 a:visited 
-	color: purple
+	color: lightblue
 
 
 a:visited:hover 
-	color: blue
+	color: white
 

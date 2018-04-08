@@ -59,13 +59,19 @@ class RecipeEditor extends Component {
         </div>
         <div className="buttonContainer">
           <div className="button-primary saveButton" onClick={this.saveRecipe}>
-            <i className="fa fa-floppy-o fa-2x" aria-hidden="true" />
+            <i
+              className="fa fa-floppy-o fa-2x line-height-50"
+              aria-hidden="true"
+            />
           </div>
           <div
             className="button-primary backButton"
             onClick={this.props.discardRecipe}
           >
-            <i className="fa fa-arrow-left fa-2x" aria-hidden="true" />
+            <i
+              className="fa fa-arrow-left fa-2x line-height-50"
+              aria-hidden="true"
+            />
           </div>
         </div>
       </div>

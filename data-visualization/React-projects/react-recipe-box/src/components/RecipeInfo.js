@@ -49,13 +49,16 @@ const RecipeButtons = props => (
       className="button-primary"
       onClick={() => props.editRecipe(props.index)}
     >
-      <i className="fa fa-pencil-square-o fa-2x" aria-hidden="true" />
+      <i
+        className="fa fa-pencil-square-o  fa-2x line-height-50"
+        aria-hidden="true"
+      />
     </div>
     <div
-      className="button-primary deleteButton"
+      className="button-primary deleteButton "
       onClick={() => props.delete(props.index)}
     >
-      <i className="fa fa-trash fa-2x" aria-hidden="true" />
+      <i className="fa fa-trash  fa-2x line-height-50" aria-hidden="true" />
     </div>
   </div>
 );
