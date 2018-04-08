@@ -2,6 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './index.css';
-import RecipeContainer from './containers/RecipeContainer';
+import App from './App';
 
-ReactDOM.render(<RecipeContainer />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));

@@ -33,13 +33,14 @@ const RecipeTitle = props => (
   </div>
 );
 
-//FIXME: Returns error on splitting up divs with ingredients.
 const Ingredients = props => (
-  <React.Fragment>
-    {props.data
-      .split(',')
-      .map((ingred, i) => <div className="ingredientName">{ingred}</div>)}
-  </React.Fragment>
+  <div>
+    {props.data.split(',').map((ingred, i) => (
+      <div className="ingredientName" key={i}>
+        {ingred}
+      </div>
+    ))}
+  </div>
 );
 
 const RecipeButtons = props => (

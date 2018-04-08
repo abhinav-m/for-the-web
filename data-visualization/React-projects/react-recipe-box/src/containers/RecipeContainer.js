@@ -118,9 +118,12 @@ class RecipesContainer extends Component {
       (r, i) => (index === i ? changedRecipe : r)
     );
 
-    this.setState({
-      recipes: recipes
-    });
+    this.setState(
+      {
+        recipes: recipes
+      },
+      () => this.updateLocalStorage()
+    );
   }
 
   render() {

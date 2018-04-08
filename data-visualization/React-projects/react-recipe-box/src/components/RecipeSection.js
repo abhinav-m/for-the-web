@@ -3,6 +3,7 @@ import React from 'react';
 import RecipeInfo from './RecipeInfo';
 
 const RecipeSection = props => {
+  const { data, toggleExpansion, deleteRecipe, editRecipe } = props;
   return (
     <div className="recipesSection">
       <div className="buttonContainer" onClick={props.makeRecipe}>
@@ -11,19 +12,30 @@ const RecipeSection = props => {
           aria-hidden="true"
         />
       </div>
-      {props.data.map((recipe, i) => (
-        <RecipeInfo
-          key={i}
-          isExpanded={recipe.isExpanded}
-          toggleExpansion={props.toggleExpansion}
-          recipe={recipe}
-          delete={props.deleteRecipe}
-          index={i}
-          editRecipe={props.editRecipe}
-        />
-      ))}
+      <RecipeData
+        data={data}
+        toggleExpansion={toggleExpansion}
+        deleteRecipe={deleteRecipe}
+        editRecipe={editRecipe}
+      />
     </div>
   );
 };
+
+const RecipeData = props => (
+  <div>
+    {props.data.map((recipe, i) => (
+      <RecipeInfo
+        key={i}
+        isExpanded={recipe.isExpanded}
+        toggleExpansion={props.toggleExpansion}
+        recipe={recipe}
+        delete={props.deleteRecipe}
+        index={i}
+        editRecipe={props.editRecipe}
+      />
+    ))}
+  </div>
+);
 
 export default RecipeSection;
