@@ -26,7 +26,8 @@ recipeSection {
   color: black;
   text-align: center;
   line-height: 50px;
-  border-radius: 50%; }
+  border-radius: 50%;
+  transition: all 0.25s ease-in-out; }
 
 .buttonContainer {
   display: flex;
@@ -40,7 +41,7 @@ recipeSection {
 
 .button-primary:hover {
   cursor: pointer;
-  background: grey;
+  background: purple;
   color: white; }
 
 .recipeMaker {
@@ -71,6 +72,18 @@ textArea {
   border-radius: 10px 10px 0 0;
   margin-bottom: 15px;
   background: grey; }
+
+.grow {
+  transition: all 0.25s ease-in-out; }
+
+.grow:hover {
+  transform: scale(1.02); }
+
+.shrink {
+  transition: all 0.25s ease-in-out; }
+
+.shrink:hover {
+  color: white; }
 
 .recipeTitle:hover {
   background: blue;
@@ -127,11 +140,11 @@ h1 {
   color: red; }
 
 a {
-  color: lightblue;
+  color: black;
   text-decoration: none; }
 
 a:visited {
-  color: lightblue; }
+  color: purple; }
 
 a:visited:hover {
-  color: white; }
+  color: blue; }

@@ -30,6 +30,8 @@ recipeSection
     text-align: center
     line-height: 50px
     border-radius: 50%
+    transition: all 0.15s ease-in-out
+    
 
 .buttonContainer
     display: flex
@@ -44,7 +46,7 @@ recipeSection
 
 .button-primary:hover
     cursor: pointer
-    background: grey
+    background: purple
     color: white
 
 .recipeMaker
@@ -77,7 +79,19 @@ textArea
     margin-bottom: 15px
     background: grey
     
+.grow
+    transition: all 0.25s ease-in-out
 
+.grow:hover
+    transform: scale(1.02)
+
+.shrink
+    transition: all 0.25s ease-in-out
+
+.shrink:hover
+    color: white
+    
+    
 .recipeTitle:hover
     background: blue
     cursor: pointer
@@ -101,6 +115,8 @@ textArea
     background: white
     padding: 5px
    
+
+    
 
 .deleteButton:hover, .backButton:hover
     background: red
@@ -134,13 +150,13 @@ h1
     color: red
 
 a
-    color: lightblue
+    color: black
     text-decoration: none
 
 a:visited 
-	color: lightblue
+	color: purple
 
 
 a:visited:hover 
-	color: white
+	color: blue
 

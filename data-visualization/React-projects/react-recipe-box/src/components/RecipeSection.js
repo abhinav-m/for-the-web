@@ -30,7 +30,7 @@ const RecipeData = props => (
         isExpanded={recipe.isExpanded}
         toggleExpansion={props.toggleExpansion}
         recipe={recipe}
-        delete={props.deleteRecipe}
+        deleteRecipe={props.deleteRecipe}
         index={i}
         editRecipe={props.editRecipe}
       />

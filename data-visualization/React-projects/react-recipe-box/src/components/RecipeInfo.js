@@ -7,6 +7,7 @@ const RecipeInfo = props => {
         toggleExpansion={props.toggleExpansion}
         index={props.index}
         title={props.recipe.title}
+        class={'recipeTitle grow'}
       />
     );
   } else {
@@ -16,9 +17,14 @@ const RecipeInfo = props => {
           toggleExpansion={props.toggleExpansion}
           index={props.index}
           title={props.recipe.title}
+          class={'recipeTitle shrink'}
         />
         <Ingredients data={props.recipe.ingredients} />
-        <RecipeButtons index={props.index} editRecipe={props.editRecipe} />
+        <RecipeButtons
+          index={props.index}
+          editRecipe={props.editRecipe}
+          deleteRecipe={props.deleteRecipe}
+        />
       </div>
     );
   }
@@ -26,7 +32,7 @@ const RecipeInfo = props => {
 
 const RecipeTitle = props => (
   <div
-    className="recipeTitle"
+    className={props.class}
     onClick={() => props.toggleExpansion(props.index)}
   >
     {props.title}
@@ -56,7 +62,7 @@ const RecipeButtons = props => (
     </div>
     <div
       className="button-primary deleteButton "
-      onClick={() => props.delete(props.index)}
+      onClick={() => props.deleteRecipe(props.index)}
     >
       <i className="fa fa-trash  fa-2x line-height-50" aria-hidden="true" />
     </div>

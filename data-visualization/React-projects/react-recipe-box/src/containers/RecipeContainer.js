@@ -28,10 +28,12 @@ class RecipesContainer extends Component {
     };
 
     this.saveRecipe = this.saveRecipe.bind(this);
-    this.deleteRecipe = this.deleteRecipe.bind(this);
-    this.discardRecipe = this.discardRecipe.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
+    this.deleteRecipe = this.deleteRecipe.bind(this);
+
+    this.discardRecipe = this.discardRecipe.bind(this);
     this.makeRecipe = this.makeRecipe.bind(this);
+
     this.updateLocalStorage = this.updateLocalStorage.bind(this);
     this.toggleExpansion = this.toggleExpansion.bind(this);
   }
@@ -135,7 +137,7 @@ class RecipesContainer extends Component {
           makeRecipe={this.makeRecipe}
           data={this.state.recipes}
           toggleExpansion={this.toggleExpansion}
-          delete={this.deleteRecipe}
+          deleteRecipe={this.deleteRecipe}
           editRecipe={this.editRecipe}
         />
       );
