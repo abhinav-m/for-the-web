@@ -11,36 +11,97 @@
         <p id="description">A simple survey form example</p>
         <form id="survey-form">
             <div class="form-field-wrapper">
-                <label id="name-label" for="name">Name:</label>
-                <input class="input-field" type="text" required id="name" name="name" maxlength="20" placeholder="Enter your name" />
+                <div class="left-label">
+                    <label id="name-label" for="name">
+                        Name:
+                    </label>
+                </div>
+                <div class="right-input">
+                    <input class="input-field" type="text" required id="name" name="name" maxlength="20" placeholder="Enter your name" />
+                </div>
             </div>
             <div class="form-field-wrapper">
-                <label id="email-label" for="email">Email:</label>
-                <input class="input-field" type="email" required id="email" placeholder="Enter your email address" name="email"
-                    pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" />
+                <div class="left-label">
+                    <label id="email-label" for="email">Email:</label>
+                </div>
+                <div class="right-input">
+                    <input class="input-field" type="email" required id="email" placeholder="Enter your email address"
+                        name="email" pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" />
+                </div>
+
             </div>
             <div class="form-field-wrapper">
-                <label id="number-label" for="number">Number:</label>
-                <input class="input-field" type="number" required id="number" placeholder="Enter your age" name="number"
-                    min="18" max="25" />
+                <div class="left-label">
+                    <label id="number-label" for="number">Number:</label>
+                </div>
+                <div class="right-input">
+                    <input class="input-field" type="number" required id="number" placeholder="Enter your age" name="number"
+                        min="18" max="25" />
+                </div>
             </div>
             <div class="form-field-wrapper">
-                <label for="dropdown">Profession:</label>
-                <select id="dropdown">
-                    <option value="student">Student</option>
-                    <option value="working">Working</option>
-                </select>
+                <div class="left-label">
+                    <label for="dropdown">Profession:</label>
+                </div>
+                <div class="right-input">
+                    <select id="dropdown" class="left-float">
+                        <option value="student">Student</option>
+                        <option value="working">Working</option>
+                    </select>
+                </div>
             </div>
             <div class="form-field-wrapper">
-                <label for="gender">Gender:</label>
-                <fieldset id="gender">
-                    <label for="male_radio">Male</label>
-                    <input type="radio" class="input-field" id="male_radio" value="Male" name="gender" />
-                    <label for="female_radio">Female</label>
-                    <input type="radio" class="input-field" id="female_radio" value="Female" name="gender" />
-                </fieldset>
+                <div class="left-label">Gender</div>
+                <div class="right-input">
+                    <ul style="list-style:none">
+                        <li class="radio">
+                            <label for="male_radio" class="inline-block">
+                                Male
+                                <input type="radio" class="radio-input" id="male_radio" value="Male" name="gender" />
+                            </label>
+                        </li>
+                        <li class="radio">
+                            <label for="female_radio" class="inline-block">
+                                Female
+                            </label>
+                            <input type="radio" class="radio-input" id="female_radio" value="Female" name="gender" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-field-wrapper">
+                <div class="left-label">Interests</div>
+                <div class="right-input">
+                    <ul style="list-style:none">
+                        <li class="checkbox">
+                            <label for="checkbox-front-end" class="inline-block">
+                                Front end
+                                <input type="checkbox" class="checkbox-input" id="checkbox-front-end" value="FrontEnd"
+                                    name="gender" />
+                            </label>
+                        </li>
+                        <li class="checkbox">
+                            <label for="checkbox-back-end" class="inline-block">
+                                Back end
+                                <input type="checkbox" class="checkbox-input" id="checkbox-back-end" value="BackEnd"
+                                    name="gender" />
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-field-wrapper">
+                <div class="left-label">
+                    <label id="name-label" for="name">
+                        Comments:
+                    </label>
+                </div>
+                <div class="right-input">
+                    <textarea placeholder="Enter any comments here"></textarea>
+                </div>
             </div>
         </form>
+        <button id="submit" type="submit">Submit</button>
     </div>
 
 

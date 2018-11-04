@@ -8,9 +8,41 @@
 .form-field-wrapper {
   margin-top: 20px;
   margin-bottom: 20px;
+  width: 600px;
+  text-align: center;
 }
 
 .input-field {
   width: 100%;
-  height: 40px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.radio-input {
+  float: left;
+}
+
+.left-label {
+  display: inline-block;
+  width: 40%;
+  text-align: right;
+}
+
+.right-input {
+  display: inline-block;
+  width: 200px;
+  width: 50%;
+}
+
+.left-float {
+  float: left;
+}
+
+.radio {
+  display: block;
+}
+
+.checkbox-input {
+  float: left;
 }
