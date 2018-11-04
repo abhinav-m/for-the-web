@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="container">
+        <h1 id="title">Survey Form</h1>
+        <p id="description">A simple survey form example</p>
+        <form id="survey-form">
+            <div class="form-field-wrapper">
+                <label id="name-label" for="name">Name:</label>
+                <input class="input-field" type="text" required id="name" name="name" maxlength="20" placeholder="Enter your name" />
+            </div>
+            <div class="form-field-wrapper">
+                <label id="email-label" for="email">Email:</label>
+                <input class="input-field" type="email" required id="email" placeholder="Enter your email address" name="email"
+                    pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" />
+            </div>
+            <div class="form-field-wrapper">
+                <label id="number-label" for="number">Number:</label>
+                <input class="input-field" type="number" required id="number" placeholder="Enter your age" name="number"
+                    min="18" max="25" />
+            </div>
+            <div class="form-field-wrapper">
+                <label for="dropdown">Profession:</label>
+                <select id="dropdown">
+                    <option value="student">Student</option>
+                    <option value="working">Working</option>
+                </select>
+            </div>
+            <div class="form-field-wrapper">
+                <label for="gender">Gender:</label>
+                <fieldset id="gender">
+                    <label for="male_radio">Male</label>
+                    <input type="radio" class="input-field" id="male_radio" value="Male" name="gender" />
+                    <label for="female_radio">Female</label>
+                    <input type="radio" class="input-field" id="female_radio" value="Female" name="gender" />
+                </fieldset>
+            </div>
+        </form>
+    </div>
+
+
+</body>
+
+</html>
