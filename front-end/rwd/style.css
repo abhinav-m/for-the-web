@@ -1,15 +1,26 @@
-#container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+body {
+  text-align: center;
 }
 
-.form-field-wrapper {
+#container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: blue;
+  padding: 20px 0 20px 0;
+}
+
+.row {
   margin-top: 20px;
   margin-bottom: 20px;
   width: 600px;
   text-align: center;
+}
+
+#submit {
+  background: greenyellow;
+  color: white;
+  height: 50px;
+  width: 200px;
 }
 
 .input-field {
@@ -26,6 +37,7 @@
 .left-label {
   display: inline-block;
   width: 40%;
+  vertical-align: middle;
   text-align: right;
 }
 
@@ -33,10 +45,6 @@
   display: inline-block;
   width: 200px;
   width: 50%;
-}
-
-.left-float {
-  float: left;
 }
 
 .radio {
