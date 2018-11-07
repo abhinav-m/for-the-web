@@ -1,0 +1,16 @@
+.nav-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  display: inline-block;
+  background: lightblue;
+  color: white;
+  margin: 0;
+  padding: 10px;
+  width: 100px;
+  vertical-align: center;
+  text-align: center;
+}
