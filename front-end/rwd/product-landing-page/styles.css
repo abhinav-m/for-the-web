@@ -1,16 +1,34 @@
-.nav-links {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+/*
+main header 
+with overflow auto 
+to avoid float 
+getting out of element.
+*/
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  vertical-align: center;
+  background: lightblue;
+  padding: 10px;
+  overflow: auto;
 }
 
-.nav-links li {
+.nav-links {
+  float: right;
+  list-style-type: none;
+  margin: 10px;
+}
+
+.nav-links,
+.product-title {
   display: inline-block;
-  background: lightblue;
+}
+
+.nav-links li,
+.nav-links a {
+  display: inline-block;
   color: white;
-  margin: 0;
-  padding: 10px;
-  width: 100px;
-  vertical-align: center;
-  text-align: center;
+  margin: 0 5px 0 5px;
 }

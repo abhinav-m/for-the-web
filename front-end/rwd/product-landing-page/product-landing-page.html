@@ -8,46 +8,48 @@
 </html>
 
 <body>
-    <header>
-        <div class="navbar">
-            <div class="">MISHRA</div>
-            <ul class="nav-links">
-                <li>Home</li>
-                <li>About</li>
-                <li>Contact</li>
-            </ul>
-        </div>
-    </header>
-    <div class="product-title">
+    <div id="container">
+        <header>
+            <nav class="header">
+                <div class="product-title">
+                    MISHRA
+                </div>
+                <ul class="nav-links">
+                    <li><a target="#product-description">Home</a></li>
+                    <li><a target="#contact-form">About</a></li>
+                    <li><a target="#contact-form">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
         <h1>MYPRODUCT</h1>
+        <main>
+            <section>
+                <h2>About</h2>
+                <div>
+                    Description
+                </div>
+                <div>
+                    Lines about the product
+                </div>
+                <div>
+                    Description
+                </div>
+                <div>
+                    Lines about the product
+                </div>
+            </section>
+            <section>
+                <h2>Contact</h2>
+                <div id="contact-form" class="form-wrapper">
+                    <form>
+                        <label for="email">Email:</label>
+                        <input id="email" type="email" />
+                        <label for="comments">Comments:</label>
+                        <textarea id="comments"></textarea>
+                        <button id="submit">Submit</button>
+                    </form>
+                </div>
+            </section>
+        </main>
     </div>
-    <main>
-        <section>
-            <h2>About</h2>
-            <div>
-                Description
-            </div>
-            <div>
-                Lines about the product
-            </div>
-            <div>
-                Description
-            </div>
-            <div>
-                Lines about the product
-            </div>
-        </section>
-        <section>
-            <h2>Contact</h2>
-            <div class="form-wrapper">
-                <form>
-                    <label for="email">Email:</label>
-                    <input id="email" type="email" />
-                    <label for="comments">Comments:</label>
-                    <textarea id="comments"></textarea>
-                    <button id="submit">Submit</button>
-                </form>
-            </div>
-        </section>
-    </main>
 </body>
