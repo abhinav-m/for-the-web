@@ -13,7 +13,7 @@
 4. [Global temperature variance by month](./data-visualization/D3-projects/Surface-temp-heatmap/)
    - [Online link](https://codepen.io/abhinavthinktank/full/JroaRb)
 5. [Doping in tour de france scatter plot](./data-visualization/D3-projects/Tour-de-France-Scatterplot/)
-   - (https://codepen.io/abhinavthinktank/full/XaGQBr)
+   - [Online link](https://codepen.io/abhinavthinktank/full/XaGQBr)
 
 ## React projects
 
@@ -24,16 +24,21 @@
    - [Online link](https://react-dungeon-master.herokuapp.com/)
    * A playable game consisting of enemies, powerups, randomly generated maze and incremental difficulty.
 3. [Markdown previewer](./React-projects/markdown-previewer/)
-   _ [Online link](https://codepen.io/abhinavthinktank/full/xLGjba)
-   _ Converts markdown to its formatted output, realtime.
+   - [Online link](https://codepen.io/abhinavthinktank/full/xLGjba)
+   - Converts markdown to its formatted output, realtime.
 4. [Recipe box](./React-projects/react-recipe-box/)
-   _ [Online link](https://codepen.io/abhinavthinktank/full/mMOjJb)
-   _ Uses localstorage and React to store recipe in react
+   - [Online link](https://codepen.io/abhinavthinktank/full/mMOjJb)
+   - Uses localstorage and React to store recipe in react
 5. [FCC leaderboard](./React-projects/fcc-leaderboard/)
    - [Online link](https://codepen.io/abhinavthinktank/full/eEJyre)
 
 ## Web projects
 
-1. [Unbeatable tic-tac-toe using MinMax](./front-end/TicTacToe/)
+1. [Unbeatable tic-tac-toe using MinMax Algorithm](./front-end/TicTacToe/)
+   - [Online link](https://codepen.io/abhinavthinktank/full/dRwwNb)
 2. [Simon Game](./front-end/Simon-Game/)
-3. [Random quote generator](./front-end/Random%20quote%20generator/)
+   - [Online link](https://codepen.io/abhinavthinktank/full/RgmBjZ)
+3. [Minesweeper](https://codepen.io/abhinavthinktank/full/yXLGRP)
+   - [Online link](https://codepen.io/abhinavthinktank/full/yXLGRP)
+4. [Random quote generator](./front-end/Random%20quote%20generator/)
+   - [Online link](https://codepen.io/abhinavthinktank/full/gWBJrW)
