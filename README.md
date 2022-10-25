@@ -2,6 +2,18 @@
 
 > This repository contains a collection of projects built doing [Freecodecamp's](https://www.freecodecamp.org/) web development certification, and hobby projects. Projects hosted are listed below.
 
+## Web projects
+
+1.  [Food recommendation engine (Typescript, Golang, React and Tailwind](https://masala-box.herokuapp.com/)
+2.  [Unbeatable tic-tac-toe using MinMax Algorithm](./front-end/TicTacToe/)
+   - [Online link](https://codepen.io/abhinavthinktank/full/dRwwNb)
+2. [Simon Game](./front-end/Simon-Game/)
+   - [Online link](https://codepen.io/abhinavthinktank/full/RgmBjZ)
+3. [Minesweeper](https://codepen.io/abhinavthinktank/full/yXLGRP)
+   - [Online link](https://codepen.io/abhinavthinktank/full/yXLGRP)
+4. [Random quote generator](./front-end/Random%20quote%20generator/)
+   - [Online link](https://codepen.io/abhinavthinktank/full/gWBJrW)
+
 ## Data visualization projects
 
 1. [GDP bar chart - CODE](./data-visualization/D3-projects/GDP-bar-chart/)
@@ -32,13 +44,4 @@
 5. [FCC leaderboard](./React-projects/fcc-leaderboard/)
    - [Online link](https://codepen.io/abhinavthinktank/full/eEJyre)
 
-## Web projects
 
-1. [Unbeatable tic-tac-toe using MinMax Algorithm](./front-end/TicTacToe/)
-   - [Online link](https://codepen.io/abhinavthinktank/full/dRwwNb)
-2. [Simon Game](./front-end/Simon-Game/)
-   - [Online link](https://codepen.io/abhinavthinktank/full/RgmBjZ)
-3. [Minesweeper](https://codepen.io/abhinavthinktank/full/yXLGRP)
-   - [Online link](https://codepen.io/abhinavthinktank/full/yXLGRP)
-4. [Random quote generator](./front-end/Random%20quote%20generator/)
-   - [Online link](https://codepen.io/abhinavthinktank/full/gWBJrW)
