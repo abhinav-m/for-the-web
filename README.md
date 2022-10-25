@@ -5,13 +5,16 @@
 ## Web projects
 
 1.  [Food recommendation engine (Typescript, Golang, React and Tailwind](https://masala-box.herokuapp.com/)
-2.  [Unbeatable tic-tac-toe using MinMax Algorithm](./front-end/TicTacToe/)
+2.  [Dungeon crawler game](./React-projects/react-dungeon-crawler/)
+   - [Online link](https://react-dungeon-master.herokuapp.com/)
+   * A playable game consisting of enemies, powerups, randomly generated maze and incremental difficulty.
+3.  [Unbeatable tic-tac-toe using MinMax Algorithm](./front-end/TicTacToe/)
    - [Online link](https://codepen.io/abhinavthinktank/full/dRwwNb)
-2. [Simon Game](./front-end/Simon-Game/)
+4. [Simon Game](./front-end/Simon-Game/)
    - [Online link](https://codepen.io/abhinavthinktank/full/RgmBjZ)
-3. [Minesweeper](https://codepen.io/abhinavthinktank/full/yXLGRP)
+5. [Minesweeper](https://codepen.io/abhinavthinktank/full/yXLGRP)
    - [Online link](https://codepen.io/abhinavthinktank/full/yXLGRP)
-4. [Random quote generator](./front-end/Random%20quote%20generator/)
+6. [Random quote generator](./front-end/Random%20quote%20generator/)
    - [Online link](https://codepen.io/abhinavthinktank/full/gWBJrW)
 
 ## Data visualization projects
@@ -32,16 +35,14 @@
 1. [Cellular Automaton (Conways Game of Life Simulation)](./React-projects/game-of-life/)
    - [Online link](https://codepen.io/abhinavthinktank/pen/wqEPPN)
    - [Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
-2. [Dungeon crawler game](./React-projects/react-dungeon-crawler/)
-   - [Online link](https://react-dungeon-master.herokuapp.com/)
-   * A playable game consisting of enemies, powerups, randomly generated maze and incremental difficulty.
-3. [Markdown previewer](./React-projects/markdown-previewer/)
+
+2. [Markdown previewer](./React-projects/markdown-previewer/)
    - [Online link](https://codepen.io/abhinavthinktank/full/xLGjba)
    - Converts markdown to its formatted output, realtime.
-4. [Recipe box](./React-projects/react-recipe-box/)
+3. [Recipe box](./React-projects/react-recipe-box/)
    - [Online link](https://codepen.io/abhinavthinktank/full/mMOjJb)
    - Uses localstorage and React to store recipe in react
-5. [FCC leaderboard](./React-projects/fcc-leaderboard/)
+4. [FCC leaderboard](./React-projects/fcc-leaderboard/)
    - [Online link](https://codepen.io/abhinavthinktank/full/eEJyre)
 
 
