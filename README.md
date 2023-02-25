@@ -4,7 +4,7 @@
 
 ## Web projects
 
-1.  [Food recommendation engine (Typescript, Golang, React and Tailwind](https://masala-box.herokuapp.com/)
+1.  [Food recommendation engine (Typescript, Golang, React and Tailwind)](https://masala-box.herokuapp.com/)
 2.  [Dungeon crawler game](./React-projects/react-dungeon-crawler/)
    - [Online link](https://react-dungeon-master.herokuapp.com/)
    * A playable game consisting of enemies, powerups, randomly generated maze and incremental difficulty.
